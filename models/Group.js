@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/connection");
+const sequelize = require("../config/connection.js");
 
 class Group extends Model {}
 
@@ -17,7 +17,7 @@ Group.init(
     },
     price_limit: {
       type: DataTypes.DECIMAL,
-      allowNull: false,
+      allowNull: true,
       // TODO: validate if integer
     },
     event_date: {
