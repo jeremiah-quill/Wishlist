@@ -16,7 +16,9 @@ An application where a user can
 ## APIs (Third-party)
 
 ## Wireframe or Design for the website
-![Alt text](./landing-page-design.png)
+![Alt text](./assets/landing-page-design.png)
+![Alt text](./assets/user-dashboard.png)
+![Alt text](./assets/group-dashboard.png)
 
 ## List of Tasks or Acceptance Criteria
 
@@ -38,10 +40,14 @@ Each group will have a group name, price limit, and event date.
 
 ## First Task for each member
 
-Jeremiah:
+Jeremiah: Add models and some pre-existing data, Work on development of routes
 
-Sam:
+Sam: Work on layout and design for landing page, user dashboard, and group dashboard
 
-Phalen:
+Phalen: Finish connection folder and server file, Work on development of routes
 
 ## What does the functioning prototype have in features for the first week?
+
+In the first week the prototype will:
+- allow a user to sign up or login to their account from the homepage
+- allow a user to navigate between group and personal dashboard
