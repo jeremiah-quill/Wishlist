@@ -8,6 +8,9 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // app.use(require('./controllers/'));
+const routes = require("./controllers");
+app.use(routes);
+
 const sequelize = require("./config/connection.js");
 
 // Set Handlebars as the default template engine.
