@@ -2,14 +2,13 @@ const groupRoutes = require("express").Router();
 const express = require("express");
 const { Group, User, UserGroup } = require("../../models");
 
-groupRoutes.use(express.json());
-
+// Use for testing what groups have been created
 groupRoutes.get("/", async (req, res) => {
   const groupData = await Group.findAll();
   res.json(groupData);
 });
 
-// Get group by and include all group members
+// Get group by id and include all group members
 groupRoutes.get("/:id", async (req, res) => {
   try {
     const groupData = await Group.findByPk(req.params.id, {
@@ -26,6 +25,7 @@ groupRoutes.get("/:id", async (req, res) => {
   }
 });
 
+// Create a new group.  Pass in the creating user as user_id, and they will be added as the first group member
 groupRoutes.post("/", (req, res) => {
   console.log(req.body);
   Group.create({
