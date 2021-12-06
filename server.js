@@ -1,15 +1,14 @@
 const path = require("path");
 const express = require("express");
-const session = require('express-session');
+const session = require("express-session");
 const exphbs = require("express-handlebars");
 const hbs = exphbs.create({});
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const sequelize = require("./config/connection.js");
-
 
 // Set up sessions with cookies
 const sess = {
-  secret: 'something to change',
+  secret: "something to change",
   cookie: {},
   resave: false,
   saveUninitialized: true,
@@ -18,8 +17,6 @@ const sess = {
   }),
 };
 
-app.use(session(sess));
-
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -27,6 +24,8 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+// JQ NOTE: needs to be below app initialization to connect the middleware to app
+app.use(session(sess));
 
 const routes = require("./controllers");
 app.use(routes);

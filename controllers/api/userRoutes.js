@@ -50,7 +50,6 @@ userRoutes.post("/login", async (req, res) => {
         message: "Welcome back, you are now logged in!",
       });
     });
-
   } catch {
     console.log(err);
     res.status(500).json(err);
@@ -61,10 +60,11 @@ userRoutes.post("/login", async (req, res) => {
 userRoutes.get("/:id", async (req, res) => {
   try {
     const userData = await User.findByPk(req.params.id, {
-      include: [{ model: Gift }, { model: UserGroup }],
+      // JQ NOTE: changed below to include model Group instead of model UserGroup.  Sequelize knows about the User/Group association from models/index.js where we are telling it to configure UserGroup as the association model.
+      include: [{ model: Gift }, { model: Group }],
     });
     if (!userData) {
-        res.json("User does not exist");
+      res.json("User does not exist");
       return;
     }
     // TODO: change below to res.render
