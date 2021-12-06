@@ -1,8 +1,24 @@
-// install dependencies
 const path = require("path");
 const express = require("express");
+const session = require('express-session');
 const exphbs = require("express-handlebars");
 const hbs = exphbs.create({});
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const sequelize = require("./config/connection.js");
+
+
+// Set up sessions with cookies
+const sess = {
+  secret: 'something to change',
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
+};
+
+app.use(session(sess));
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -14,8 +30,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const routes = require("./controllers");
 app.use(routes);
-
-const sequelize = require("./config/connection.js");
 
 // Set Handlebars as the default template engine.
 app.engine("handlebars", hbs.engine);

@@ -4,9 +4,11 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "connect-session-sequelize": "^7.1.2",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-handlebars": "^6.0.2",
+    "express-session": "^1.17.2",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15",
     "sequelize": "^6.12.0-alpha.1"
@@ -14,7 +16,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "seed": "node seeds/index.js"
   },
   "repository": {
     "type": "git",
