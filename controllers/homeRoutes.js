@@ -1,6 +1,5 @@
 const router = require("express").Router();
-const { route } = require(".");
-const { Group, User, UserGroup, Gift } = require("../../models");
+const { Group, User, UserGroup, Gift } = require("../models");
 
 // Gets user by id and includes associated gifts and groups
 router.get("/:id", async (req, res) => {

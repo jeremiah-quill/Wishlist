@@ -16,7 +16,7 @@ Overall the gift exchange manager will decrease any additional stress that peopl
 - Bootstrap
 
 ## New Technology
-- Email api/package that allows user to invite new/existing users to 
+- Email api/package that allows user to invite new/existing users to their group by providing an email. This will send the new/existing user an email where they can click the link and it will take them to the webpage and prompt them to sign up/sign in, and once that is done will add them to the group.
 
 ## Wireframe or Design for the website
 ![Alt text](./assets/landing-page-design.png)
