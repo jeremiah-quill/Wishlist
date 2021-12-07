@@ -1,7 +1,19 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection.js");
 
-class Group extends Model {}
+class Group extends Model {
+  checkPassword(userPw) {
+    // ADDED THIS TO TEST ROUTE
+    if (userPw === this.group_password) {
+      return true;
+    } else {
+      return false;
+    }
+    // COMMENTED THIS OUT TO TEST ROUTE
+    // return bcrypt.compareSync(userPw, this.group_password);
+    //
+  }
+}
 
 Group.init(
   {
@@ -26,6 +38,10 @@ Group.init(
     },
     creator_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    group_password: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },

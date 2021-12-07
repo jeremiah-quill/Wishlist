@@ -3,20 +3,21 @@ const { Group, User, UserGroup, Gift } = require("../../models");
 
 // url at this point is: /api/users
 
-//create a new user
+// create a new user
 userRoutes.post("/", async (req, res) => {
   try {
     const userData = await User.create({
-      username: req.body_username,
+      username: req.body.username,
       email: req.body.email,
       password: req.body.password,
     });
-
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.loggedIn = true;
-      res.status(200).json(userData);
-    });
+    // COMMENTED OUT BELOW TO TEST ROUTE
+    // req.session.save(() => {
+    //   req.session.user_id = userData.id;
+    //   req.session.loggedIn = true;
+    //   res.status(200).json(userData);
+    // });
+    // res.json(userData); // ADDED FOR TESTING ROUT
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -24,6 +25,7 @@ userRoutes.post("/", async (req, res) => {
 });
 
 // login for existing user
+// TODO: TEST
 userRoutes.post("/login", async (req, res) => {
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });

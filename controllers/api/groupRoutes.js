@@ -16,6 +16,7 @@ groupRoutes.post("/", (req, res) => {
     event_date: req.body.event_date,
     // TODO: change below to pass user_id from session variable
     creator_id: req.body.user_id,
+    group_password: req.body.group_password,
   }).then((group) => {
     UserGroup.create({
       group_id: group.id,
@@ -32,15 +33,50 @@ groupRoutes.post("/", (req, res) => {
   });
 });
 
-// add a user to a group
-// TODO: add auth middleware
-groupRoutes.put("/:id/add", (req, res) => {
-  UserGroup.create({
-    // TODO: change below to pass user_id from session variable
-    user_id: req.body.user_id,
-    group_id: req.params.id,
-  }).then((group) => {
-    res.json(group);
+// Add a user to a group given they are already logged in.  User must provide a group id and group password in some sort of "join group" form.
+// TODO: add auth middleware, send error messages to front end?, create a uuid to use instead of the group_id
+groupRoutes.put("/", async (req, res) => {
+  try {
+    const groupData = await Group.findOne({ where: { id: req.body.id } });
+
+    if (!groupData) {
+      res.status(400).json({ message: "Cannot find group with this ID" });
+      return;
+    }
+
+    const validPassword = groupData.checkPassword(req.body.group_password);
+
+    if (!validPassword) {
+      res.status(400).json({ message: "Incorrect group password" });
+      return;
+    }
+
+    // TODO: user_id should come from sessions user_id variable
+    UserGroup.create({
+      user_id: req.body.user_id,
+      group_id: groupData.id,
+    }).then(() => {
+      res.json("Added user to group");
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+// add a user to a group given they are not logged in, they just need a link with /api/groups/:id/join
+// TODO: add auth middleware, implement link sharer api instead of using /:id/join as url for route
+groupRoutes.put("/:id/join", (req, res) => {
+  User.create({
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password,
+  }).then((user) => {
+    UserGroup.create({
+      user_id: user.id,
+      group_id: req.params.id,
+    }).then(() => {
+      res.json("user created and added to group");
+    });
   });
 });
 
