@@ -24,6 +24,10 @@ Group.init(
       type: DataTypes.DATE,
       allowNull: false,
     },
+    creator_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     sequelize,
