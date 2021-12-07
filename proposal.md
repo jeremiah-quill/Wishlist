@@ -11,7 +11,12 @@ The application will also have pages for each individual groups. This page makes
 
 Overall the gift exchange manager will decrease any additional stress that people experience around the holidays, reduces the awkwardness of trying to find a good gift and allows people to purchase gifts that are more catered to another person's interests, and it keeps everything organized in a central location making it easier for larger groups to stay connected and informed.
 
-## APIs (Third-party)
+## CSS Framework
+- UIkit
+- Bootstrap
+
+## New Technology
+- Email api/package that allows user to invite new/existing users to 
 
 ## Wireframe or Design for the website
 ![Alt text](./assets/landing-page-design.png)

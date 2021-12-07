@@ -13,6 +13,7 @@ userRoutes.post("/", async (req, res) => {
     });
 
     req.session.save(() => {
+      req.session.user_id = userData.id;
       req.session.loggedIn = true;
       res.status(200).json(userData);
     });
@@ -44,31 +45,13 @@ userRoutes.post("/login", async (req, res) => {
 
     // Once user logs in, set up the sessions variable 'loggedIn'
     req.session.save(() => {
+      req.session.user_id = userData.id;
       req.session.loggedIn = true;
       res.status(200).json({
         user: userData,
         message: "Welcome back, you are now logged in!",
       });
     });
-  } catch {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
-// Gets user by id and includes associated gifts and groups
-userRoutes.get("/:id", async (req, res) => {
-  try {
-    const userData = await User.findByPk(req.params.id, {
-      // JQ NOTE: changed below to include model Group instead of model UserGroup.  Sequelize knows about the User/Group association from models/index.js where we are telling it to configure UserGroup as the association model.
-      include: [{ model: Gift }, { model: Group }],
-    });
-    if (!userData) {
-      res.json("User does not exist");
-      return;
-    }
-    // TODO: change below to res.render
-    res.status(200).json(userData);
   } catch {
     console.log(err);
     res.status(500).json(err);
