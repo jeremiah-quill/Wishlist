@@ -5,7 +5,8 @@ const { Group, User, UserGroup, Gift } = require("../models");
 router.get("/:id", async (req, res) => {
   try {
     const userData = await User.findByPk(req.params.id, {
-      include: [{ model: Gift }, { model: Group }],
+      attributes:{ exclude: ["password"] },
+      include: [{ model: Gift }, { model: Group, attributes: { exclude: ["group_password"] } }],
     });
     if (!userData) {
       res.json("User does not exist");
@@ -25,7 +26,8 @@ router.get("/group/:id", async (req, res) => {
   try {
     const groupData = await Group.findByPk(req.params.id, {
       // TODO: do not include password when including user info
-      include: [{ model: User }],
+      attributes: { exclude: ["group_password"] },
+      include: [{ model: User, attributes:{ exclude: ["password"] }}],
     });
     if (!groupData) {
       res.json("Group does not exist");
