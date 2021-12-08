@@ -5,7 +5,6 @@ const { Group, User, UserGroup, Gift } = require("../models");
 router.get("/:id", async (req, res) => {
   try {
     const userData = await User.findByPk(req.params.id, {
-      // JQ NOTE: changed below to include model Group instead of model UserGroup.  Sequelize knows about the User/Group association from models/index.js where we are telling it to configure UserGroup as the association model.
       include: [{ model: Gift }, { model: Group }],
     });
     if (!userData) {

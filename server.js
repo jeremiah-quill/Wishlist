@@ -34,8 +34,6 @@ app.use(routes);
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
-// Sets up the Express app to handle data parsing
-
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log("Now listening"));
 });
