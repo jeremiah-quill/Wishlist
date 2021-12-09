@@ -16,6 +16,26 @@ giftRoutes.get("/", (req, res) => {
   }
 });
 
-// some line of code
+giftRoutes.put("/:id", (req, res) => {});
 
-module.exports = userRoutes;
+giftRoutes.delete("/:id", async (req, res) => {
+  try {
+    const giftdata = await Gift.destroy({
+      where: {
+        id: req.params.id,
+        user_id: req.session.user_id,
+      },
+    });
+
+    if (!giftdata) {
+      res.status(404).json({ message: "No gift found with this id!" });
+      return;
+    }
+
+    res.status(200).json(giftdata);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+module.exports = giftRoutes;
