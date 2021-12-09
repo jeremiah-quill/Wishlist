@@ -35,7 +35,7 @@ giftRoutes.put("/:id", (req, res) => {
       res.status(500).json("Something went wrong");
     }
     // TODO: redirect to user dashboard which will now show an updated wishlist
-    res.json(updatedGifts);
+    res.status(200).json(updatedGifts);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -54,7 +54,7 @@ giftRoutes.post("/", (req, res) => {
       res.status(500).json("Something went wrong");
     }
     // TODO: redirect to user dashboard which will now show an updated wishlist
-    res.json(newGift);
+    res.status(200).json(newGift);
   } catch (err) {
     res.status(500).json(err);
   }
