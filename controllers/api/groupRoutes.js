@@ -35,7 +35,7 @@ groupRoutes.post("/", (req, res) => {
 
 // Add a user to a group given they are already logged in.  User must provide a group id and group password in some sort of "join group" form.
 // TODO: add auth middleware, send error messages to front end?, create a uuid to use instead of the group_id
-groupRoutes.put("/", async (req, res) => {
+groupRoutes.post("/", async (req, res) => {
   try {
     const groupData = await Group.findOne({ where: { id: req.body.id } });
 
@@ -65,7 +65,7 @@ groupRoutes.put("/", async (req, res) => {
 
 // add a user to a group given they are not logged in, they just need a link with /api/groups/:id/join
 // TODO: add auth middleware, implement link sharer api instead of using /:id/join as url for route
-groupRoutes.put("/:id/join", (req, res) => {
+groupRoutes.post("/:id/join", (req, res) => {
   User.create({
     email: req.body.email,
     username: req.body.username,
