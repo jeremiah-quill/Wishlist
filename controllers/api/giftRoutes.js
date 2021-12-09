@@ -16,4 +16,6 @@ giftRoutes.get("/", (req, res) => {
   }
 });
 
+giftRoutes.put("/:id", (req, res) => {});
+
 module.exports = userRoutes;
