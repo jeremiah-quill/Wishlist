@@ -93,7 +93,7 @@ userRoutes.put("/password", async (req, res) => {
         .json({ message: "Incorrect password, please try again" });
       return;
     }
-    const userData = await User.update(
+    const updatedUserData = await User.update(
       { password: req.body.password },
       {
         where: {
@@ -101,8 +101,8 @@ userRoutes.put("/password", async (req, res) => {
         },
       }
     );
-    console.log(userData);
-    res.status(200).json(userData);
+    console.log(updatedUserData);
+    res.status(200).json(updatedUserData);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
