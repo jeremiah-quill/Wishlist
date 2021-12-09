@@ -60,18 +60,17 @@ userRoutes.post("/login", async (req, res) => {
   }
 });
 
-// Update a user's information
-userRoutes.put("/:id", async (req, res) => {
+// Update a user's email or password
+userRoutes.put("/profile", async (req, res) => {
   try {
     const userData = await User.update(
       {
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password,
       },
       {
         where: {
-          id: req.params.id,
+          user_id: req.session.user_id,
         },
       }
     );
@@ -82,7 +81,32 @@ userRoutes.put("/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-// PH: Should there be a seperate update for password, where a user would have to enter old password
-// then be able to enter a new one which will be saved?
+
+// Update a user's password
+userRoutes.put("/password", async (req, res) => {
+  try {
+    const userData = await User.findByPk(req.session.user_id)
+    const validPassword = await userData.checkPassword(req.body.password);
+    if (!validPassword) {
+      res
+        .status(400)
+        .json({ message: "Incorrect password, please try again" });
+      return;
+    }
+    const userData = await User.update(
+      { password: req.body.password },
+      {
+        where: {
+          user_id: req.session.user_id,
+        },
+      }
+    );
+    console.log(userData);
+    res.status(200).json(userData);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
 module.exports = userRoutes;
