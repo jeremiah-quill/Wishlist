@@ -16,6 +16,7 @@ giftRoutes.get("/", (req, res) => {
   }
 });
 
+// update a gift by id
 giftRoutes.put("/:id", (req, res) => {
   try {
     const updatedGifts = Gift.update(

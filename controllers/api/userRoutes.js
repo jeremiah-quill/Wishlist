@@ -60,7 +60,7 @@ userRoutes.post("/login", async (req, res) => {
   }
 });
 
-// Update a user's email or password
+// Update a user's email or username
 userRoutes.put("/profile", async (req, res) => {
   try {
     const userData = await User.update(
