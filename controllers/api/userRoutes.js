@@ -2,13 +2,14 @@ const userRoutes = require("express").Router();
 const { Group, User, UserGroup, Gift } = require("../../models");
 
 // url at this point is: /api/users
+
+// Get all users (for testing)
 userRoutes.get("/", async (req, res) => {
   const usersData = await User.findAll();
   res.json(usersData);
 });
 
 // create a new user
-// READ TO TEST
 userRoutes.post("/", async (req, res) => {
   try {
     const userData = await User.create(req.body);
@@ -19,12 +20,11 @@ userRoutes.post("/", async (req, res) => {
       res.status(200).json(userData);
     });
   } catch (err) {
-    res.status(400).json(err);
+    res.status(400).json({ message: "Failed to create user" });
   }
 });
 
-// login for existing user
-// READ TO TEST
+// login existing user
 userRoutes.post("/login", async (req, res) => {
   try {
     const userData = await User.findOne({
@@ -46,14 +46,14 @@ userRoutes.post("/login", async (req, res) => {
     // Once user logs in, set up the sessions variable 'loggedIn'
     req.session.save(() => {
       req.session.user_id = userData.id;
-      req.session.logged_In = true;
+      req.session.logged_in = true;
       res.status(200).json({
         user: userData,
         message: "You are now logged in!",
       });
     });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: "Failed to login user" });
   }
 });
 

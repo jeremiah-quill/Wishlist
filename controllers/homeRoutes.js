@@ -2,7 +2,6 @@ const router = require("express").Router();
 const { Group, User, UserGroup, Gift } = require("../models");
 
 // Renders dashboard with logged in user info
-// READY TO TEST
 router.get("/dashboard", async (req, res) => {
   try {
     const userData = await User.findByPk(req.session.user_id, {
@@ -44,27 +43,20 @@ router.get("/group/:group_id", async (req, res) => {
       include: [{ model: User }],
     });
 
-    console.log(groupData);
-
     // Check if any data came back from DB
     if (!groupData) {
       res.status(500).json({ message: "Group does not exist" });
       return;
     }
-    console.log("line 49");
 
     const group = groupData.get({ plain: true });
-    console.log(group);
 
     // Check if logged in user is a member of group
     const userIds = group.users.map((user) => user.id);
-    console.log(userIds);
     if (userIds.indexOf(req.session.user_id) === -1) {
       res.status(500).json({ message: "You are not a member of this group" });
       return;
     }
-
-    console.log("line 59");
 
     res.render("groupDashboard", {
       ...group,

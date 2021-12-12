@@ -1,30 +1,28 @@
 const groupRoutes = require("express").Router();
 const { Group, User, UserGroup } = require("../../models");
 
-// Use for testing what groups have been created
+// Get all groups (for testing)
 groupRoutes.get("/", async (req, res) => {
   const groupData = await Group.findAll({ include: [{ model: User }] });
   res.json(groupData);
 });
 
 // Create a new group.  Pass in the creating user as user_id, and they will be added as the first group member
-// TODO: add auth middleware
+// TODO: TEST
 groupRoutes.post("/", (req, res) => {
   Group.create({
     event_name: req.body.event_name,
     price_limit: req.body.price_limit,
     event_date: req.body.event_date,
-    // TODO: change below to pass user_id from session variable
-    creator_id: req.body.user_id,
+    creator_id: req.session.user_id,
     group_password: req.body.group_password,
   }).then((group) => {
     UserGroup.create({
       group_id: group.id,
-      // TODO: change below to pass user_id from session variable
-      user_id: req.body.user_id,
+      user_id: req.session.user_id,
     })
       .then((usergroup) => {
-        // TODO: add a redirect, maybe to the new group page?
+        res.render("");
         res.status(200).json(usergroup);
       })
       .catch((err) => {
@@ -46,8 +44,7 @@ groupRoutes.post("/join", async (req, res) => {
       res.status(400).json({ message: "Cannot find group with this ID" });
       return;
     }
-    console.log(groupData.users);
-    // Check if logged in user is a member of group
+    // Check if logged in user is already a member of the group
     const userIds = groupData.users.map((user) => user.id);
     if (userIds.indexOf(req.session.user_id) !== -1) {
       res
@@ -56,17 +53,24 @@ groupRoutes.post("/join", async (req, res) => {
       return;
     }
 
+    // Check if user gave the correct group password
     const validPassword = groupData.checkPassword(req.body.group_password);
-
     if (!validPassword) {
       res.status(400).json({ message: "Incorrect group password" });
       return;
     }
 
+    const group = groupData.get({ plain: true });
+
     UserGroup.create({
       user_id: req.session.user_id,
       group_id: groupData.id,
     }).then(() => {
+      res.redirect(`/group/${req.body.group_id}`, {
+        ...group,
+        logged_in: true,
+      });
+
       res.status(200).json({
         group: groupData,
         message: "You have joined the group!",
