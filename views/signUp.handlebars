@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{! <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,29 +8,50 @@
     <link rel="stylesheet" href="./sign-up.css">
     <title>Sign Up</title>
 </head>
-<body>
-    <h1>Sign-Up To Make An Account!</h1>
-    <div class="white-box">
-        <section class="sign-up">
-        <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Enter Your Email!</label>
-             <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Email">
-        </div>
-        <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Chose A Username!</label>
-             <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Email">
-        </div>
-         <div class="mb-3">
-            <label for="formGroupExampleInput2" class="form-label">Choose a Password!</label>
-            <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Password">
-        </div>
-        </section>
-        <div class="sign-up-btn">
-            <button type="button" class="btn btn-success btn-lg">Sign-Up</button>
-         </div>
-         <div class="login-link">
-            <a href="/Users/samkennedy/Desktop/project-2-mockup/log-in/login.html">Login</a>
-        </div>
+<body> }}
+<h1>Sign-Up To Make An Account!</h1>
+<div class="white-box">
+  <form class="signup-form">
+    <section class="sign-up">
+      <div class="mb-3">
+        <label for="email-signjup" class="form-label">Enter Your Email!</label>
+        <input
+          type="text"
+          class="form-control"
+          id="email-signup"
+          placeholder="Email"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="username-signup" class="form-label">Chose A Username!</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username-signup"
+          placeholder="Username"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password-signup" class="form-label">Choose a Password!</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password-signup"
+          placeholder="Password"
+        />
+      </div>
+    </section>
+    <div class="sign-up-btn">
+      <button type="submit" class="btn btn-success btn-lg">Sign-Up</button>
     </div>
-</body>
-</html>
+  </form>
+  <div class="login-link">
+    <a
+      href="/Users/samkennedy/Desktop/project-2-mockup/log-in/login.html"
+    >Login</a>
+  </div>
+</div>
+{{! </body>
+</html> }}
+
+<script src="./js/signup.js"></script>

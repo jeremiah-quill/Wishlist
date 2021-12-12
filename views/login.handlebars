@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{! <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,25 +8,41 @@
     <link rel="stylesheet" href="./login.css">
     <title>Sign Up</title>
 </head>
-<body>
-    <h1>Login to View Your Dashboard!</h1>
-    <div class="white-box">
-        <section class="sign-up">
-        <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Enter Your Username!</label>
-             <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Email">
-        </div>
-         <div class="mb-3">
-            <label for="formGroupExampleInput2" class="form-label">Enter Your Password!</label>
-            <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Password">
-        </div>
-        </section>
-        <div class="sign-up-btn">
-            <button type="button" class="btn btn-success btn-lg">Login</button>
-         </div>
-        <div class="sign-up-link">
-            <a href="/Users/samkennedy/Desktop/project-2-mockup/sign-up/sign-up.html">Sign-In</a>
-        </div>
+<body> }}
+<h1>Login to View Your Dashboard!</h1>
+<div class="white-box">
+  <form class="login-form">
+    <section class="sign-up">
+      <div class="mb-3">
+        <label for="username-login" class="form-label">Enter Your Username!</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username-login"
+          placeholder="Username"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password-login" class="form-label">Enter Your Password!</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password-login"
+          placeholder="Password"
+        />
+      </div>
+    </section>
+    <div class="sign-up-btn">
+      <button type="submit" class="btn btn-success btn-lg">Login</button>
     </div>
-</body>
-</html>
+  </form>
+  <div class="sign-up-link">
+    <a
+      href="/Users/samkennedy/Desktop/project-2-mockup/sign-up/sign-up.html"
+    >Sign-In</a>
+  </div>
+</div>
+{{! </body>
+</html> }}
+
+<script src="./js/login.js"></script>

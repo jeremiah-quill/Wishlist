@@ -34,13 +34,25 @@ groupRoutes.post("/", (req, res) => {
 });
 
 // Add a user to a group given they are already logged in.  User must provide a group id and group password in some sort of "join group" form.
-// TODO: add auth middleware, send error messages to front end?, create a uuid to use instead of the group_id
-groupRoutes.post("/", async (req, res) => {
+// TODO: add auth middleware, create a uuid to use instead of the group_id
+// READY TO TEST
+groupRoutes.post("/join", async (req, res) => {
   try {
-    const groupData = await Group.findOne({ where: { id: req.body.id } });
-
+    const groupData = await Group.findOne({
+      where: { id: req.body.group_id },
+      include: [{ model: User }],
+    });
     if (!groupData) {
       res.status(400).json({ message: "Cannot find group with this ID" });
+      return;
+    }
+    console.log(groupData.users);
+    // Check if logged in user is a member of group
+    const userIds = groupData.users.map((user) => user.id);
+    if (userIds.indexOf(req.session.user_id) !== -1) {
+      res
+        .status(200)
+        .json({ message: "You are already a member of this group" });
       return;
     }
 
@@ -51,14 +63,17 @@ groupRoutes.post("/", async (req, res) => {
       return;
     }
 
-    // TODO: user_id should come from sessions user_id variable
     UserGroup.create({
-      user_id: req.body.user_id,
+      user_id: req.session.user_id,
       group_id: groupData.id,
     }).then(() => {
-      res.json("Added user to group");
+      res.status(200).json({
+        group: groupData,
+        message: "You have joined the group!",
+      });
     });
   } catch (err) {
+    console.log("err");
     res.status(400).json(err);
   }
 });
