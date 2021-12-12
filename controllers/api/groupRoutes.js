@@ -62,6 +62,11 @@ groupRoutes.post("/join", async (req, res) => {
 
     const group = groupData.get({ plain: true });
 
+    if (!req.session.logged_in) {
+      res.json({ message: "Please create an account to join a group" });
+      return;
+    }
+
     UserGroup.create({
       user_id: req.session.user_id,
       group_id: groupData.id,
