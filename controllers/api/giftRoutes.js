@@ -21,9 +21,9 @@ giftRoutes.put("/:id", (req, res) => {
   try {
     const updatedGifts = Gift.update(
       {
-        gift_name: req.body.event_name,
-        price: req.body.price_limit,
-        gift_link: req.body.event_date,
+        gift_name: req.body.gift_name,
+        price: req.body.price,
+        gift_link: req.body.gift_link,
       },
       {
         where: {
@@ -33,34 +33,35 @@ giftRoutes.put("/:id", (req, res) => {
       }
     );
     if (!updatedGifts) {
-      res.status(500).json("Something went wrong");
+      res.status(500).json("Failed to update gifts");
     }
     // TODO: redirect to user dashboard which will now show an updated wishlist
-    res.status(200).json(updatedGifts);
+    res.redirect("dashboard");
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
+// add a gift
 giftRoutes.post("/", (req, res) => {
   try {
     const newGift = Gift.create({
-      gift_name: req.body.event_name,
-      price: req.body.price_limit,
-      gift_link: req.body.event_date,
+      gift_name: req.body.gift_name,
+      price: req.body.price,
+      gift_link: req.body.gift_link,
       user_id: req.session.user_id,
     });
 
     if (!newGift) {
-      res.status(500).json("Something went wrong");
+      res.status(500).json("Failed to add gift");
     }
-    // TODO: redirect to user dashboard which will now show an updated wishlist
-    res.status(200).json(newGift);
+    res.redirect("dashboard");
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
+// delete a gift
 giftRoutes.delete("/:id", async (req, res) => {
   try {
     const giftdata = await Gift.destroy({
@@ -71,11 +72,11 @@ giftRoutes.delete("/:id", async (req, res) => {
     });
 
     if (!giftdata) {
-      res.status(404).json({ message: "No gift found with this id!" });
+      res.status(404).json({ message: "No gift found with this id" });
       return;
     }
 
-    res.status(200).json(giftdata);
+    res.redirect("dashboard");
   } catch (err) {
     res.status(500).json(err);
   }

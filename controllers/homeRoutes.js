@@ -27,20 +27,10 @@ router.get("/dashboard", async (req, res) => {
 // Render group dashboard with all group details
 // When accessing group page from user dashboard :group_id param will come from href on each group link
 // When accessing group page for the first time after joining group :group_id param will come from form data
-// TODO: add auth middleware
-// READY TO TEST
 router.get("/group/:group_id", async (req, res) => {
   try {
-    // const groupData = await Group.findOne(
-    //   { where: { id: req.params.group_id } },
-    //   {
-    //     // attributes: { exclude: ["group_password"] },
-    //     include: [{ model: User }],
-    //   }
-    // );
-
     const groupData = await Group.findByPk(req.params.group_id, {
-      include: [{ model: User }],
+      include: [{ model: User, attributes: { exclude: ["password"] } }],
     });
 
     // Check if any data came back from DB
@@ -68,7 +58,6 @@ router.get("/group/:group_id", async (req, res) => {
 });
 
 // render signup page
-// READY TO TEST
 router.get("/signup", (req, res) => {
   // If the user is already logged in, redirect the request to their dashboard
   if (req.session.logged_in) {
@@ -79,7 +68,6 @@ router.get("/signup", (req, res) => {
 });
 
 // render login page
-// READY TO TEST
 router.get("/login", (req, res) => {
   // If the user is already logged in, redirect the request to their dashboard
   if (req.session.logged_in) {
@@ -90,13 +78,11 @@ router.get("/login", (req, res) => {
 });
 
 // render join group page
-// READY TO TEST
 router.get("/join-group", (req, res) => {
   res.render("joinGroup");
 });
 
 // render homepage
-// READY TO TEST
 router.get("/", (req, res) => {
   // If the user is already logged in, redirect the request to their dashboard
   if (req.session.logged_in) {
