@@ -2,60 +2,57 @@ const userRoutes = require("express").Router();
 const { Group, User, UserGroup, Gift } = require("../../models");
 
 // url at this point is: /api/users
+userRoutes.get("/", async (req, res) => {
+  const usersData = await User.findAll();
+  res.json(usersData);
+});
 
 // create a new user
+// READ TO TEST
 userRoutes.post("/", async (req, res) => {
   try {
-    const userData = await User.create({
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
+    const userData = await User.create(req.body);
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.logged_in = true;
+
+      res.status(200).json(userData);
     });
-    // COMMENTED OUT BELOW TO TEST ROUTE
-    // req.session.save(() => {
-    //   req.session.user_id = userData.id;
-    //   req.session.loggedIn = true;
-    //   res.status(200).json(userData);
-    // });
-    // res.json(userData); // ADDED FOR TESTING ROUT
   } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    res.status(400).json(err);
   }
 });
 
 // login for existing user
-// TODO: TEST
+// READ TO TEST
 userRoutes.post("/login", async (req, res) => {
   try {
-    const userData = await User.findOne({ where: { email: req.body.email } });
+    const userData = await User.findOne({
+      where: { username: req.body.username },
+    });
+
     if (!userData) {
-      res
-        .status(400)
-        .json({ message: "Incorrect email or password, please try again" });
+      res.status(500).json({ message: "Could not find email" });
       return;
     }
 
     // uses instance method to check if password provided matches user password
     const validPassword = await userData.checkPassword(req.body.password);
     if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: "Incorrect email or password, please try again" });
+      res.status(500).json({ message: "Incorrect password" });
       return;
     }
 
     // Once user logs in, set up the sessions variable 'loggedIn'
     req.session.save(() => {
       req.session.user_id = userData.id;
-      req.session.loggedIn = true;
+      req.session.logged_In = true;
       res.status(200).json({
         user: userData,
-        message: "Welcome back, you are now logged in!",
+        message: "You are now logged in!",
       });
     });
-  } catch {
-    console.log(err);
+  } catch (err) {
     res.status(500).json(err);
   }
 });
@@ -85,12 +82,10 @@ userRoutes.put("/profile", async (req, res) => {
 // Update a user's password
 userRoutes.put("/password", async (req, res) => {
   try {
-    const userData = await User.findByPk(req.session.user_id)
+    const userData = await User.findByPk(req.session.user_id);
     const validPassword = await userData.checkPassword(req.body.password);
     if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: "Incorrect password, please try again" });
+      res.status(400).json({ message: "Incorrect password, please try again" });
       return;
     }
     const updatedUserData = await User.update(
@@ -106,6 +101,17 @@ userRoutes.put("/password", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
+  }
+});
+
+// logout user
+userRoutes.post("/logout", (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
   }
 });
 

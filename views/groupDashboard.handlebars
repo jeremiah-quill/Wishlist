@@ -1,0 +1,15 @@
+<button id="logout">logout</button>
+
+<div>test group dashboard</div>
+
+<div>Event Name: {{event_name}}</div>
+
+<div>Event Date: {{event_date}}</div>
+
+<div>Price Limit: {{price_limit}}</div>
+
+{{#each users as |user|}}
+
+  <div>Group Member: {{user.username}}</div>
+
+{{/each}}

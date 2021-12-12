@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const { Group, User, UserGroup, Gift } = require("../models");
 
-// Gets user by id and includes associated gifts and groups
-// Renders userDashboard
-router.get("/:id", async (req, res) => {
+// Renders dashboard with logged in user info
+// READY TO TEST
+router.get("/dashboard", async (req, res) => {
   try {
-    const userData = await User.findByPk(req.params.id, {
+    const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ["password"] },
       include: [
         { model: Gift },
@@ -13,44 +13,102 @@ router.get("/:id", async (req, res) => {
       ],
     });
     if (!userData) {
-      res.json("User does not exist");
+      res.status(500).json({ message: "Could not find user" });
       return;
     }
 
     const user = userData.get({ plain: true });
 
-    res.render("userDashboard", { ...user });
+    res.render("userDashboard", { ...user, logged_in: true });
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
 
-// Get group by id and include all group members
+// Render group dashboard with all group details
+// When accessing group page from user dashboard :group_id param will come from href on each group link
+// When accessing group page for the first time after joining group :group_id param will come from form data
 // TODO: add auth middleware
-router.get("/group/:id", async (req, res) => {
+// READY TO TEST
+router.get("/group/:group_id", async (req, res) => {
   try {
-    const groupData = await Group.findByPk(req.params.id, {
-      // TODO: do not include password when including user info
-      attributes: { exclude: ["group_password"] },
-      include: [{ model: User, attributes: { exclude: ["password"] } }],
+    // const groupData = await Group.findOne(
+    //   { where: { id: req.params.group_id } },
+    //   {
+    //     // attributes: { exclude: ["group_password"] },
+    //     include: [{ model: User }],
+    //   }
+    // );
+
+    const groupData = await Group.findByPk(req.params.group_id, {
+      include: [{ model: User }],
     });
+
+    console.log(groupData);
+
+    // Check if any data came back from DB
     if (!groupData) {
-      res.json("Group does not exist");
+      res.status(500).json({ message: "Group does not exist" });
       return;
     }
-    // TODO: change below to res.render so we can pass groupData to a handlebars view
-    res.status(200).json(groupData);
+    console.log("line 49");
+
+    const group = groupData.get({ plain: true });
+    console.log(group);
+
+    // Check if logged in user is a member of group
+    const userIds = group.users.map((user) => user.id);
+    console.log(userIds);
+    if (userIds.indexOf(req.session.user_id) === -1) {
+      res.status(500).json({ message: "You are not a member of this group" });
+      return;
+    }
+
+    console.log("line 59");
+
+    res.render("groupDashboard", {
+      ...group,
+      logged_in: true,
+    });
   } catch (err) {
-    res.status(500).json(`Could not find a group with that id`);
+    res.status(500).json(err);
   }
 });
 
+// render signup page
+// READY TO TEST
+router.get("/signup", (req, res) => {
+  // If the user is already logged in, redirect the request to their dashboard
+  if (req.session.logged_in) {
+    res.redirect("/dashboard");
+    return;
+  }
+  res.render("signup");
+});
+
+// render login page
+// READY TO TEST
+router.get("/login", (req, res) => {
+  // If the user is already logged in, redirect the request to their dashboard
+  if (req.session.logged_in) {
+    res.redirect("/dashboard");
+    return;
+  }
+  res.render("login");
+});
+
+// render join group page
+// READY TO TEST
+router.get("/join-group", (req, res) => {
+  res.render("joinGroup");
+});
+
 // render homepage
+// READY TO TEST
 router.get("/", (req, res) => {
   // If the user is already logged in, redirect the request to their dashboard
   if (req.session.logged_in) {
-    res.redirect("/userDashboard");
+    res.redirect("/dashboard");
     return;
   }
   res.render("homePage");

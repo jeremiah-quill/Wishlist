@@ -1,4 +1,6 @@
-<div>test user dashboard</div>
+<button id="logout">logout</button>
+
+<div>User Dashboard</div>
 
 <div>Username: {{username}}</div>
 
@@ -7,5 +9,11 @@
 {{#each gifts as |gift|}}
 
   <div>Gift: {{gift.gift_name}}</div>
+
+{{/each}}
+
+{{#each groups as |group|}}
+
+  <div>Group: {{group.event_name}}</div>
 
 {{/each}}

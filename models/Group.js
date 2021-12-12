@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection.js");
+const bcrypt = require("bcrypt");
 
 class Group extends Model {
   checkPassword(userPw) {
@@ -11,7 +12,6 @@ class Group extends Model {
     }
     // COMMENTED THIS OUT TO TEST ROUTE
     // return bcrypt.compareSync(userPw, this.group_password);
-    //
   }
 }
 
@@ -46,6 +46,15 @@ Group.init(
     },
   },
   {
+    hooks: {
+      beforeCreate: async (newGroupData) => {
+        newGroupData.group_password = await bcrypt.hash(
+          newGroupData.group_password,
+          15
+        );
+        return newGroupData;
+      },
+    },
     sequelize,
     timestamps: false,
     freezeTableName: true,
