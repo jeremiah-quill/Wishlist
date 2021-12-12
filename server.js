@@ -39,7 +39,7 @@ app.use(routes);
 
 app.get("*", function (req, res) {
   res.status(404).render("404", {
-    page_title: "Sorry.",
+    page_title: "Sorry!",
   });
 });
 
