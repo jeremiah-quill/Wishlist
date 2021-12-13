@@ -27,6 +27,11 @@ UserGroup.init(
         unique: false,
       },
     },
+    is_get_reminder: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
   },
   {
     sequelize,
