@@ -1,5 +1,6 @@
 const groupRoutes = require("express").Router();
 const { Group, User, UserGroup } = require("../../models");
+const sendReminderEmail = require("../../utils/sendReminderEmail.js");
 
 // Get all groups (for testing)
 groupRoutes.get("/", async (req, res) => {
@@ -70,6 +71,7 @@ groupRoutes.post("/join", async (req, res) => {
     UserGroup.create({
       user_id: req.session.user_id,
       group_id: groupData.id,
+      is_get_reminder: req.body.is_get_reminder,
     }).then(() => {
       res.redirect(`/group/${req.body.group_id}`, {
         ...group,
@@ -127,6 +129,43 @@ groupRoutes.put("/:id", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+});
+
+groupRoutes.get("/reminders", async (req, res) => {
+  const groupsData = await Group.findAll({
+    include: [{ model: User }],
+  });
+
+  res.json(groupsData);
+
+  // const groups = groupsData.map((group) => {
+  //   return group.get({ plain: true });
+  // });
+
+  // // get every group that needs a reminder
+  // const groupsNeedingReminder = groups.filter((group) => {
+  //   let currentDate = new Date();
+  //   let sevenDaysFromNow = new Date(
+  //     currentDate.getTime() + 12 * 24 * 60 * 60 * 1000
+  //   );
+  //   let eventDate = new Date(group.event_date);
+
+  //   if (sevenDaysFromNow.toDateString() === eventDate.toDateString()) {
+  //     return group;
+  //   }
+  // });
+
+  // // send an email to every user who chose to get a reminder
+  // groupsNeedingReminder.forEach((group) => {
+  //   group.users.forEach((user) => {
+  //     // TODO: change conditional to test if user.getReminders is true (will have to be a checkbox option when user's sign up)
+  //     if (user.id > 10) {
+  //       sendReminderEmail(user.email, group.event_name);
+  //     }
+  //   });
+  // });
+
+  // res.json(groupsNeedingReminder);
 });
 
 module.exports = groupRoutes;
