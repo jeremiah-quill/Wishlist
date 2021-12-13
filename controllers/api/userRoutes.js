@@ -9,33 +9,36 @@ userRoutes.get("/", async (req, res) => {
   res.json(usersData);
 });
 
-// create a new user
+// Create a new user
+// Posts form data from views/signUp.handlebars.  FE logic in public/js/signUp.js
+// req.body includes email, username, and password
 userRoutes.post("/", async (req, res) => {
   try {
+    // Check if email is already in use.  If it is, warn user and don't create anything in the DB
     const emailData = await User.findOne({
       where: { email: req.body.email },
     });
-
     if (emailData) {
       res.status(500).json({ message: "Email already in use" });
       return;
     }
 
+    // Check if username is already in use.  If it is, warn user and don't create anything in the DB
     const usernameData = await User.findOne({
       where: { username: req.body.username },
     });
-
     if (usernameData) {
       res.status(500).json({ message: "Username already in use" });
       return;
     }
 
+    // Create new user in DB
     const userData = await User.create(req.body);
 
+    // Configure session data
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-
       res.status(200).json(userData);
     });
   } catch (err) {
@@ -44,25 +47,27 @@ userRoutes.post("/", async (req, res) => {
 });
 
 // login existing user
+// Posts form data from views/login.handlebars.  FE logic in public/js/login.js
+// req.body includes username and password
 userRoutes.post("/login", async (req, res) => {
   try {
+    // Check if username is in DB.  If it isn't, warn user and keep them at login screen
     const userData = await User.findOne({
       where: { username: req.body.username },
     });
-
     if (!userData) {
       res.status(500).json({ message: "Could not find username" });
       return;
     }
 
-    // uses instance method to check if password provided matches user password
+    // Check if password matches password in DB.  If it doesn't, warn user and keep them at login screen
     const validPassword = await userData.checkPassword(req.body.password);
     if (!validPassword) {
       res.status(500).json({ message: "Incorrect password" });
       return;
     }
 
-    // Once user logs in, set up the sessions variable 'loggedIn'
+    // Configure session data
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
@@ -77,6 +82,7 @@ userRoutes.post("/login", async (req, res) => {
 });
 
 // Update a user's email or username
+// TODO: test
 userRoutes.put("/profile", async (req, res) => {
   try {
     const userData = await User.update(
@@ -99,6 +105,7 @@ userRoutes.put("/profile", async (req, res) => {
 });
 
 // Update a user's password
+// TODO: test
 userRoutes.put("/password", async (req, res) => {
   try {
     const userData = await User.findByPk(req.session.user_id);
