@@ -16,11 +16,10 @@ const signupFormHandler = async (event) => {
       // fires get /dashboard route in homeRoutes
       document.location.replace("/dashboard");
     } else {
-      console.log(response);
       let res = await response.json();
       // TODO: configure errorMessage
       // errorMessage(res.message);
-      alert(`${res.message} on line 22`);
+      alert(`${res.message}`);
     }
   } else if (!email) {
     // TODO: configure errorMessage

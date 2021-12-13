@@ -64,7 +64,7 @@ router.get("/signup", (req, res) => {
     res.redirect("/dashboard");
     return;
   }
-  res.render("signup");
+  res.render("signUp");
 });
 
 // render login page
