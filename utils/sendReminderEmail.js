@@ -1,3 +1,4 @@
+require("dotenv").config();
 const nodemailer = require("nodemailer");
 
 // email message options
@@ -13,7 +14,7 @@ const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "santas.wishlist.helper@gmail.com",
-    pass: "hohoho123!",
+    pass: process.env.EMAIL_PW,
   },
 });
 
