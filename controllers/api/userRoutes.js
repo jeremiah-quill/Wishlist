@@ -12,7 +12,26 @@ userRoutes.get("/", async (req, res) => {
 // create a new user
 userRoutes.post("/", async (req, res) => {
   try {
+    const emailData = await User.findOne({
+      where: { email: req.body.email },
+    });
+
+    if (emailData) {
+      res.status(500).json({ message: "Email already in use" });
+      return;
+    }
+
+    const usernameData = await User.findOne({
+      where: { username: req.body.username },
+    });
+
+    if (usernameData) {
+      res.status(500).json({ message: "Username already in use" });
+      return;
+    }
+
     const userData = await User.create(req.body);
+
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
@@ -32,7 +51,7 @@ userRoutes.post("/login", async (req, res) => {
     });
 
     if (!userData) {
-      res.status(500).json({ message: "Could not find email" });
+      res.status(500).json({ message: "Could not find username" });
       return;
     }
 

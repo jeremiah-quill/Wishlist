@@ -60,11 +60,14 @@ canvas {
   display: block;
   margin: auto;
   width: 100%;
+  /* Added z-index so we can click on signup button */
+  z-index: -1;
 }
 
 .sign-up {
   text-align: center;
   padding-top: 19px;
+  z-index: 100;
 }
 
 #background-image {
