@@ -48,21 +48,28 @@ app.get("*", function (req, res) {
 
 // at noon every day check to see if any group event date is 7 days out.  If it is, send a reminder to anyone in those groups has reminders turned on
 cron.schedule("* 12 * * *", async () => {
+  // Get all group data and include associated users
   const groupsData = await Group.findAll({ include: [{ model: User }] });
 
+  // Turn group data into plain data to work with it
   const groups = groupsData.map((group) => {
     return group.get({ plain: true });
   });
 
   // get every group that needs a reminder
   const groupsNeedingReminder = groups.filter((group) => {
+    // Create a new current date object
     let currentDate = new Date();
+
+    // Add 7 days to current date object
     let sevenDaysFromNow = new Date(
       currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
     );
+
+    // Create a new date object with each group's event date
     let eventDate = new Date(group.event_date);
 
-    // compare date seven days from now to date of event.  If it's the same day it will be added to groupsNeedingReminder
+    // Compare date 7 days from now to group event date
     if (sevenDaysFromNow.toDateString() === eventDate.toDateString()) {
       return group;
     }
@@ -71,6 +78,7 @@ cron.schedule("* 12 * * *", async () => {
   // send an email to every user who chose to get a reminder
   groupsNeedingReminder.forEach((group) => {
     group.users.forEach((user) => {
+      // within each group, check to see which user's need a reminder
       if (user.usergroup.is_get_reminder) {
         sendReminderEmail(user.email, group.event_name);
       }
