@@ -47,7 +47,7 @@ app.get("*", function (req, res) {
 });
 
 // at noon every day check to see if any group event date is 7 days out.  If it is, send a reminder to anyone in those groups has reminders turned on
-cron.schedule("* 12 * * *", async () => {
+cron.schedule("0 12 * * *", async () => {
   // Get all group data and include associated users
   const groupsData = await Group.findAll({ include: [{ model: User }] });
 
