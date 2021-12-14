@@ -43,8 +43,7 @@ groupRoutes.post("/", (req, res) => {
 // req.body includes group_id, group_password, and is_get_reminder
 groupRoutes.post("/join", async (req, res) => {
   try {
-    const groupData = await Group.findOne({
-      where: { id: req.body.group_id },
+    const groupData = await Group.findByPk(req.body.group_id, {
       include: [{ model: User }],
     });
     if (!groupData) {
@@ -55,7 +54,7 @@ groupRoutes.post("/join", async (req, res) => {
     const userIds = groupData.users.map((user) => user.id);
     if (userIds.indexOf(req.session.user_id) !== -1) {
       res
-        .status(200)
+        .status(500)
         .json({ message: "You are already a member of this group" });
       return;
     }
@@ -63,12 +62,11 @@ groupRoutes.post("/join", async (req, res) => {
     // Check if user gave the correct group password
     const validPassword = groupData.checkPassword(req.body.group_password);
     if (!validPassword) {
-      res.status(400).json({ message: "Incorrect group password" });
+      res.status(500).json({ message: "Incorrect group password" });
       return;
     }
 
     const group = groupData.get({ plain: true });
-
     // Create association between user and group.  is_get_reminder is a boolean telling us if this user chose to receive a reminder email for this group
     UserGroup.create({
       user_id: req.session.user_id,
@@ -76,23 +74,15 @@ groupRoutes.post("/join", async (req, res) => {
       is_get_reminder: req.body.is_get_reminder,
     }).then(() => {
       // redirect to the newly joined group page.  Eventually rendered in groupDashboard.handlebars
-      res.redirect(`/group/${req.body.group_id}`, {
-        ...group,
-        logged_in: true,
-      });
-      res.status(200).json({
-        group: groupData,
-        message: "You have joined the group!",
-      });
+      res.status(200).redirect(`/group/${req.body.group_id}`);
     });
   } catch (err) {
-    console.log("err");
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 
-// add a user to a group given they are not logged in, they just need a link with /api/groups/:id/join
 // WARNING: this is not ready
+// add a user to a group given they are not logged in, they just need a link with /api/groups/:id/join
 // TODO: add auth middleware, implement link sharer api instead of using /:id/join as url for route
 // groupRoutes.post("/:id/join", (req, res) => {
 //   User.create({
