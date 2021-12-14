@@ -14,7 +14,6 @@ const joinGroupFormHandler = async (event) => {
       body: JSON.stringify({ group_id, group_password, is_get_reminder }),
       headers: { "Content-Type": "application/json" },
     });
-
     if (response.ok) {
       // fires get /group/:id route in homeRoutes
       document.location.replace(`/group/${group_id}`);
