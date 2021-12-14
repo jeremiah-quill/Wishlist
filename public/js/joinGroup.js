@@ -6,14 +6,14 @@ const joinGroupFormHandler = async (event) => {
   const group_password = document
     .querySelector("#group-password-login")
     .value.trim();
+  const is_get_reminder = document.querySelector("#group-get-reminder").checked;
   if (group_id && group_password) {
     // Send a POST request to the API endpoint
     const response = await fetch("/api/groups/join", {
       method: "POST",
-      body: JSON.stringify({ group_id, group_password }),
+      body: JSON.stringify({ group_id, group_password, is_get_reminder }),
       headers: { "Content-Type": "application/json" },
     });
-
     if (response.ok) {
       // fires get /group/:id route in homeRoutes
       document.location.replace(`/group/${group_id}`);

@@ -60,20 +60,20 @@ router.get("/group/:group_id", async (req, res) => {
 // render signup page
 router.get("/signup", (req, res) => {
   // If the user is already logged in, redirect the request to their dashboard
-  if (req.session.logged_in) {
-    res.redirect("/dashboard");
-    return;
-  }
-  res.render("signup");
+  // if (req.session.logged_in) {
+  //   res.redirect("/dashboard");
+  //   return;
+  // }
+  res.render("signUp");
 });
 
 // render login page
 router.get("/login", (req, res) => {
   // If the user is already logged in, redirect the request to their dashboard
-  if (req.session.logged_in) {
-    res.redirect("/dashboard");
-    return;
-  }
+  // if (req.session.logged_in) {
+  //   res.redirect("/dashboard");
+  //   return;
+  // }
   res.render("login");
 });
 
@@ -85,10 +85,10 @@ router.get("/join-group", (req, res) => {
 // render homepage
 router.get("/", (req, res) => {
   // If the user is already logged in, redirect the request to their dashboard
-  if (req.session.logged_in) {
-    res.redirect("/dashboard");
-    return;
-  }
+  // if (req.session.logged_in) {
+  //   res.redirect("/dashboard");
+  //   return;
+  // }
   res.render("homePage");
 });
 

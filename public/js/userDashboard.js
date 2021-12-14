@@ -1,7 +1,11 @@
 const addItemEventHandler = async (event) => {
   event.preventDefault();
   // TODO: add input id/class to querySelector
-  const item = document.querySelector("").value.trim();
+  const gift_name = document.querySelector("").value.trim();
+  const price = document.querySelector("").value.trim();
+  const gift_link = document.querySelector("").value.trim();
+  const user_id = document.querySelector("").value.trim();
+  
   // TODO: add element with data-id attribute's id/class to querySelector
   const profile = document.querySelector("");
   const userId = profile.getAttribute("data-id");
@@ -9,7 +13,7 @@ const addItemEventHandler = async (event) => {
   if (item) {
     const response = await fetch("/api/gifts", {
       method: "POST",
-      body: JSON.stringify({ item }),
+      body: JSON.stringify({ gift_name, price, gift_link, user_id }),
       headers: { "Content-type": "application/json" },
     });
 
@@ -30,7 +34,11 @@ document.querySelector("").addEventListener("submit", addItemEventHandler);
 const updateItemEventHandler = async (event) => {
   event.preventDefault();
   // TODO: add input id/class to querySelector
-  const item = document.querySelector("").value.trim();
+  const gift_name = document.querySelector("").value.trim();
+  const price = document.querySelector("").value.trim();
+  const gift_link = document.querySelector("").value.trim();
+  const user_id = document.querySelector("").value.trim();
+
   // TODO: add element with data-id attribute's id/class to querySelector
   const profile = document.querySelector("");
   const userId = profile.getAttribute("data-id");
@@ -40,7 +48,7 @@ const updateItemEventHandler = async (event) => {
   if (item) {
     const response = await fetch(`/api/gifts/${itemId}`, {
       method: "PUT",
-      body: JSON.stringify({ item }),
+      body: JSON.stringify({ gift_name, price, gift_link, user_id }),
       headers: { "Content-type": "application/json" },
     });
 
