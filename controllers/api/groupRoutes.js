@@ -26,10 +26,8 @@ groupRoutes.post("/", (req, res) => {
       user_id: req.session.user_id,
       is_get_reminder: req.body.is_get_reminder,
     })
-      // TODO: do we need below?
-      .then((usergroup) => {
-        res.render("");
-        res.status(200).json(usergroup);
+      .then(() => {
+        res.status(200).json({ group_id: group.id });
       })
       .catch((err) => {
         res.status(500).json(err);
@@ -74,7 +72,8 @@ groupRoutes.post("/join", async (req, res) => {
       is_get_reminder: req.body.is_get_reminder,
     }).then(() => {
       // redirect to the newly joined group page.  Eventually rendered in groupDashboard.handlebars
-      res.status(200).redirect(`/group/${req.body.group_id}`);
+      res.status(200).json("successfully joined group");
+      // redirect(`/group/${req.body.group_id}`);
     });
   } catch (err) {
     res.status(500).json(err);

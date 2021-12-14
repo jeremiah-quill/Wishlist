@@ -1,0 +1,76 @@
+<h1>Create a Group!</h1>
+<div class="white-box">
+
+  <form class="create-group-form">
+    <section class="sign-up">
+      <div class="mb-3">
+        <label for="formGroupExampleInput" class="form-label">Name of Group:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="event-name"
+          placeholder="Name"
+        />
+      </div>
+
+      <div class="calendar">
+        <label for="event-date">Party Date:</label>
+
+        <input
+          type="date"
+          id="event-date"
+          name="event-date"
+          value="2021-12-25"
+          min="2021-12-13"
+          max="2030-12-31"
+        />
+      </div>
+
+      {{! <div class="time">
+            <label for="appt">Choose A Time For Your Party:</label>
+
+            <input type="time" id="appt" name="appt"
+                    min="09:00" max="18:00" required>
+        </div> }}
+
+      {{! <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Location:</label>
+            <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Enter a Location">
+        </div> }}
+
+      {{! <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Type of Exchange:</label>
+            <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="secret santa, white elephant, etc.">
+        </div> }}
+
+      <div class="mb-3">
+        <label for="formGroupExampleInput2" class="form-label">Price Limit:</label>
+        <input
+          type="number"
+          class="form-control"
+          id="price-limit"
+          placeholder="Enter a price limit"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="group-password" class="form-label">Group Password:</label>
+        <input
+          type="password"
+          class="form-control"
+          id="group-password"
+          placeholder="Group password for other members to join"
+        />
+      </div>
+
+    </section>
+
+    <div class="sign-up-btn">
+      <button type="submit" class="btn btn-success btn-lg">Save</button>
+    </div>
+
+  </form>
+
+</div>
+
+<script src="./js/createGroup.js"></script>
