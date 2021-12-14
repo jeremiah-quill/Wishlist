@@ -27,3 +27,17 @@ Name (string)
 Link (string, validate if url)
 Price (decimal)
 user_id (foreign key to associate with user id)
+
+
+Useful info when changing or updating models and have to reset the database
+mysql/heroku setup
+
+mysql://xbtk63rcpfnw4hn1:orwxsft0xz4hdwnm@uzb4o9e2oe257glt.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/qnxd7slcsl9w57bp
+
+USER: xbtk63rcpfnw4hn1
+
+PASSWORD: orwxsft0xz4hdwnm
+
+HOST: uzb4o9e2oe257glt.cbetxkdyhwsb.us-east-1.rds.amazonaws.com 
+
+DATABASE: qnxd7slcsl9w57bp
