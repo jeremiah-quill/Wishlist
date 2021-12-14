@@ -43,8 +43,7 @@ groupRoutes.post("/", (req, res) => {
 // req.body includes group_id, group_password, and is_get_reminder
 groupRoutes.post("/join", async (req, res) => {
   try {
-    const groupData = await Group.findOne({
-      where: { id: req.body.group_id },
+    const groupData = await Group.findByPk(req.body.group_id, {
       include: [{ model: User }],
     });
     if (!groupData) {
