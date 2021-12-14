@@ -5,13 +5,13 @@ const bcrypt = require("bcrypt");
 class Group extends Model {
   checkPassword(userPw) {
     // ADDED THIS TO TEST ROUTE
-    if (userPw === this.group_password) {
-      return true;
-    } else {
-      return false;
-    }
+    // if (userPw === this.group_password) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
     // COMMENTED THIS OUT TO TEST ROUTE
-    // return bcrypt.compareSync(userPw, this.group_password);
+    return bcrypt.compareSync(userPw, this.group_password);
   }
 }
 
