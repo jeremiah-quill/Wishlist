@@ -85,10 +85,10 @@ router.get("/join-group", (req, res) => {
 // render homepage
 router.get("/", (req, res) => {
   // If the user is already logged in, redirect the request to their dashboard
-  if (req.session.logged_in) {
-    res.redirect("/dashboard");
-    return;
-  }
+  // if (req.session.logged_in) {
+  //   res.redirect("/dashboard");
+  //   return;
+  // }
   res.render("homePage");
 });
 
