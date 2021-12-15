@@ -89,6 +89,79 @@ groupRoutes.post("/join", async (req, res) => {
   }
 });
 
+groupRoutes.put("/:group_id/assign-santas", async (req, res) => {
+  const groupMembersData = await Group.findByPk(req.params.group_id, {
+    include: [{ model: User }],
+  });
+
+  const memberIds = groupMembersData.users.map((user) => user.id);
+
+  const shuffle = (array) => {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  };
+
+  /* console.log(shuffle(arr)) */
+
+  const assignSantas = (array) => {
+    let santas = [];
+
+    for (let i = 0; i < array.length; i++) {
+      let newSanta = {};
+
+      if (i !== array.length - 1) {
+        newSanta.user_id = array[i];
+        newSanta.assignment_id = array[i + 1];
+        /*   newSanta[array[i]] = array[i+1]
+         */ santas.push(newSanta);
+      } else {
+        newSanta.user_id = array[i];
+        newSanta.assignment_id = array[0];
+
+        /* newSanta[array[i]] = array[0] */
+        santas.push(newSanta);
+      }
+    }
+    return santas;
+  };
+
+  let santas = assignSantas(shuffle(memberIds));
+
+  santas.forEach((santa) => {
+    UserGroup.update(
+      {
+        assigned_user: santa.assignment_id,
+      },
+      {
+        where: {
+          user_id: santa.user_id,
+        },
+      }
+    );
+  });
+
+  // const updatedSantaData = UserGroup.update()
+
+  res.json(santas);
+
+  // res.json(members);
+});
+
 // WARNING: this is not ready
 // add a user to a group given they are not logged in, they just need a link with /api/groups/:id/join
 // TODO: add auth middleware, implement link sharer api instead of using /:id/join as url for route
