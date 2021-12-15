@@ -1,15 +1,124 @@
-<button id="logout">logout for testing</button>
+{{! <div class="canvas-holder">
+  <canvas id="canvas" class="canvas"></canvas>
+</div> }}
+<div class="container">
+  <button type="button" class="btn btn-success">User Dashboard</button>
+  <button
+    id="logout"
+    type="button"
+    class="btn btn-primary btn-md"
+  >Logout</button>
+  <h1>Group Dashboard</h1>
+</div>
+<div class="container-xl">
+  <div class="card">
+    <div class="card-body">
+      <h4>Group Name: {{event_name}}</h4>
+    </div>
+    {{#if isCreator}}
+      <button id="draw-names-button" class="btn">Draw Names</button>
+    {{/if}}
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Group Members</h5>
+          <ul class="member-list">
+            {{#each users as |member|}}
+              <li class="member-item">{{member.username}}</li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card wishlist-card">
+        <div class="card-body">
 
-<div>Group dashboard</div>
+          {{#if assigned_user}}
+            <h5 class="card-title">
+              {{assigned_user.username}}'s wishlist:</h5>
 
-<div>Event Name: {{event_name}}</div>
+          {{else}}
+            <h5 class="card-title">This group has not assigned secret santas yet
+            </h5>
 
-<div>Event Date: {{event_date}}</div>
+          {{/if}}
 
-<div>Price Limit: {{price_limit}}</div>
+          <ul>
+            {{#each assigned_user.gifts as |gift|}}
+              <div class="gift-item" data-gift-id="{{gift.id}}">
+                <li class="gift">{{gift.gift_name}}</li>
+              </div>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title">About The Party</h5>
+      <p class="card-text">
+        {{#if isCreator}}
+          <form id="update-group-form" data-group-id="{{id}}">
+            <section class="sign-up">
+              <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label">Name of
+                  Group:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="event-name"
+                  value="{{event_name}}"
+                />
+              </div>
 
-{{#each users as |user|}}
+              <div class="calendar">
+                <label for="event-date">Party Date:</label>
 
-  <div>Group Member: {{user.username}}</div>
+                <input
+                  type="date"
+                  id="event-date"
+                  name="event-date"
+                  value="{{format_date event_date}}"
+                  min="2021-12-13"
+                  max="2030-12-31"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="formGroupExampleInput2" class="form-label">Price
+                  Limit:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="price-limit"
+                  value="{{price_limit}}"
+                />
+              </div>
 
-{{/each}}
+            </section>
+
+            <div class="sign-up-btn">
+              <button
+                type="submit"
+                class="btn btn-success btn-lg"
+              >Update</button>
+            </div>
+
+          </form>
+
+        {{else}}
+
+          <div>Group Name: {{event_name}}</div>
+          <div>Price Limit: {{price_limit}}</div>
+          <div>Event Date: {{event_date}}</div>
+
+        {{/if}}
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="../js/groupDashboard.js"></script>

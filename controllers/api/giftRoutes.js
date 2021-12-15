@@ -16,6 +16,23 @@ giftRoutes.get("/", (req, res) => {
   }
 });
 
+// get single gift by id to add to modal
+giftRoutes.get("/:id", async (req, res) => {
+  try {
+    const giftData = await Gift.findByPk(req.params.id);
+
+    if (!giftData) {
+      res.status(500).json("Can't find gift with that id");
+      return;
+    }
+
+    const { gift_name, price, gift_link, id } = giftData;
+    res.status(200).json({ gift_name, price, gift_link, id });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // update a gift by id
 giftRoutes.put("/:id", (req, res) => {
   try {
@@ -36,7 +53,7 @@ giftRoutes.put("/:id", (req, res) => {
       res.status(500).json("Failed to update gifts");
     }
     // TODO: redirect to user dashboard which will now show an updated wishlist
-    res.redirect("dashboard");
+    res.status(200).json(updatedGifts);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -55,7 +72,7 @@ giftRoutes.post("/", (req, res) => {
     if (!newGift) {
       res.status(500).json("Failed to add gift");
     }
-    res.redirect("dashboard");
+    res.status(200).json(newGift);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -64,19 +81,19 @@ giftRoutes.post("/", (req, res) => {
 // delete a gift
 giftRoutes.delete("/:id", async (req, res) => {
   try {
-    const giftdata = await Gift.destroy({
+    const giftData = await Gift.destroy({
       where: {
         id: req.params.id,
         user_id: req.session.user_id,
       },
     });
 
-    if (!giftdata) {
+    if (!giftData) {
       res.status(404).json({ message: "No gift found with this id" });
       return;
     }
 
-    res.redirect("dashboard");
+    res.status(200).json(giftData);
   } catch (err) {
     res.status(500).json(err);
   }

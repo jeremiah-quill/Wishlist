@@ -1,0 +1,223 @@
+body {
+  background-color: #cc231e;
+  /* TODO: add background image to repo so we can insert below */
+  /* background-image: url(/Users/samkennedy/Desktop/project-2-mockup/user-dashboard/AdobeStock_180305094.jpeg); */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+  /* height: 100px;
+    background-color: #D71516;
+    background-image:
+    radial-gradient(
+      #e61818,
+      #770d0d
+    ); */
+
+  height: 100vh;
+  width: 100%;
+}
+
+@font-face {
+  font-family: christmas;
+  /* TODO: add font to repo so we can insert below, is it the same as the home screen font? */
+  /* src: url(/Users/samkennedy/Desktop/project-2-mockup/group-dashboard/santas_sleigh/SantasSleighFull-Bold.ttf); */
+  src: url(../assets/santafont.ttf);
+}
+
+canvas {
+  position: fixed;
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+  padding-top: 30px;
+  font-size: 60px !important;
+  color: rgb(255, 255, 255);
+  -webkit-text-stroke: 1px black;
+  font-family: christmas;
+  /* width: 750px; */
+  margin: auto;
+  /* height: 70px; */
+}
+
+.btn.btn-success {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.btn.btn-primary.btn-md {
+  float: right;
+  margin-top: 10px;
+  background-color: #198754;
+  border: #198754 !important;
+  margin-right: 20px;
+}
+
+.parent-container {
+  display: flex;
+  /* padding-left: 200px; */
+}
+
+.container {
+  /* display: flex; */
+  /* width: 300px !important;
+  margin-left: 60px !important;
+  margin-top: 40px;
+  margin-right: 20px !important; */
+}
+
+.container-2 {
+}
+
+.container-3 {
+  display: flex;
+  /* margin-left: 10px !important; */
+  /* margin-top: 40px; */
+}
+
+.card {
+  /* width: 300px; */
+  /* margin-right: 15px !important; */
+  /* height: 465px; */
+  opacity: 80%;
+}
+
+.form-control {
+  padding-left: 10px;
+  margin-left: 10px;
+}
+
+.blockquote.mb-0 {
+  text-align: center;
+  font-size: 15px;
+  padding-top: 5px;
+}
+
+/* .card-body {
+  height: 315px;
+} */
+
+/* h3 {
+  color: aliceblue;
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: 50px;
+  margin-left: 60px;
+  margin-top: 50px !important;
+  height: 80px;
+  font-size: 20px;
+} */
+
+.card.text-center {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  /* width: 500px; */
+  align-items: center;
+  /* DO WE NEED THIS HEIGHT */
+  /* height: 200px; */
+  opacity: 80%;
+}
+
+.card-header {
+  font-size: 20px;
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+  text-align: center;
+  text-decoration: underline #198754;
+}
+
+h5 {
+  padding-top: 10px;
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+  text-decoration: underline #198754;
+}
+
+/* DO WE NEED? */
+/* .card-text {
+  padding-bottom: 50px;
+} */
+
+.btn.btn-primary {
+  /* width: 200px; */
+  background-color: #198754;
+}
+
+.card.w-75 {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+  text-align: center;
+  opacity: 95%;
+  /* width: 500px !important;
+  height: 250px !important; */
+  margin-left: 15px;
+  margin-top: 15px;
+}
+
+.btn.btn-outline-secondary {
+  background-color: #198754;
+  color: whitesmoke;
+}
+
+/* .list-of-names {
+  height: 148px;
+} */
+
+/* ******** */
+
+.user-dashboard-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 2em;
+}
+
+.wishlist-container {
+  width: 100%;
+}
+
+.group-list-container {
+  width: 100%;
+}
+
+.card-body {
+  width: 100%;
+}
+
+.card {
+  height: 100%;
+}
+
+.group-buttons {
+  display: flex;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.group-list-container {
+  margin-top: 1em;
+}
+
+.group-item a {
+  text-decoration: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .wishlist-container,
+  .group-list-container {
+    width: 45%;
+  }
+  .group-list-container {
+    margin-top: 0px;
+  }
+}

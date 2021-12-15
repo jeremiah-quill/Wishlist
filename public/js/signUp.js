@@ -6,6 +6,7 @@ const signupFormHandler = async (event) => {
   const password = document.querySelector("#password-signup").value.trim();
 
   if (email && username && password) {
+    showLoader();
     const response = await fetch("/api/users", {
       method: "POST",
       body: JSON.stringify({ email, username, password }),
@@ -19,19 +20,27 @@ const signupFormHandler = async (event) => {
       let res = await response.json();
       // TODO: configure errorMessage
       // errorMessage(res.message);
+      hideLoader();
+
       alert(`${res.message}`);
     }
   } else if (!email) {
     // TODO: configure errorMessage
     // errorMessage("Please enter an email to sign up");
+    hideLoader();
+
     alert("please enter an email to sign up");
   } else if (!username) {
     // TODO: configure errorMessage
     // errorMessage("Please enter a username to sign up");
+    hideLoader();
+
     alert("please enter a username to sign up");
   } else {
     // TODO: configure errorMessage
     // errorMessage("Please enter a password to sign up");
+    hideLoader();
+
     alert("please enter a password to sign up");
   }
 };

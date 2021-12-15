@@ -32,6 +32,15 @@ UserGroup.init(
       allowNull: false,
       defaultValue: true,
     },
+    assigned_user: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: "user",
+        key: "id",
+        unique: false,
+      },
+    },
   },
   {
     sequelize,

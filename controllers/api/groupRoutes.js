@@ -8,6 +8,13 @@ groupRoutes.get("/", async (req, res) => {
   res.json(groupData);
 });
 
+groupRoutes.get("/:group_id", async (req, res) => {
+  const groupData = await Group.findByPk(req.params.group_id, {
+    include: [{ model: User, attributes: { exclude: ["password"] } }],
+  });
+  res.json(groupData);
+});
+
 // Create a new group.  Pass in the creating user as user_id, and they will be added as the first group member
 // TODO: TEST
 // Posts form data from ".....".  FE logic in "....."
@@ -70,6 +77,8 @@ groupRoutes.post("/join", async (req, res) => {
       user_id: req.session.user_id,
       group_id: groupData.id,
       is_get_reminder: req.body.is_get_reminder,
+      // TODO: remove this, and add it to logic for when we draw names
+      // assigned_user: 1,
     }).then(() => {
       // redirect to the newly joined group page.  Eventually rendered in groupDashboard.handlebars
       res.status(200).json("successfully joined group");
@@ -111,12 +120,12 @@ groupRoutes.put("/:id", (req, res) => {
       where: {
         id: req.params.id,
         // TODO: change below to come from session user_id variable rather than body
-        creator_id: req.body.creator_id,
+        creator_id: req.session.user_id,
       },
     }
   )
     .then(() => {
-      res.json("testing");
+      res.status(200).json("group updated");
     })
     .catch((err) => {
       console.log(err);

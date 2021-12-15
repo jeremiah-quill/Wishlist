@@ -21,7 +21,7 @@ router.get("/dashboard", async (req, res) => {
     res.render("userDashboard", {
       ...user,
       logged_in: true,
-      style: "userDashboard.css",
+      style: "user-dashboard.css",
     });
   } catch (err) {
     res.status(500).json(err);
@@ -56,7 +56,13 @@ router.get("/dashboard/profile", async (req, res) => {
 router.get("/group/:group_id", async (req, res) => {
   try {
     const groupData = await Group.findByPk(req.params.group_id, {
-      include: [{ model: User, attributes: { exclude: ["password"] } }],
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ["password"] },
+          include: [{ model: Gift }],
+        },
+      ],
     });
 
     // Check if any data came back from DB
@@ -74,11 +80,34 @@ router.get("/group/:group_id", async (req, res) => {
       return;
     }
 
+    // find the current user in the current group
+    const user = group.users.find((user) => user.id === req.session.user_id);
+
+    // find the assigned user data for current user in current group
+    const assignedUserData = await User.findByPk(user.usergroup.assigned_user, {
+      include: [{ model: Gift }],
+    });
+
+    let assignedUser;
+
+    if (assignedUserData) {
+      assignedUser = assignedUserData.get({ plain: true });
+    } else {
+      assignedUser = null;
+    }
+
+    // pass in a boolean telling our view whether or not the logged in user is the creator of the group
+    let isCreator = false;
+    if (group.creator_id === req.session.user_id) {
+      isCreator = true;
+    }
+
     res.render("groupDashboard", {
+      isCreator,
+      assigned_user: assignedUser,
       ...group,
       logged_in: true,
-      // CONFIRM FILE IS CALLED groupDashboard.css when
-      style: "groupDashboard.css",
+      style: "group-dashboard.css",
     });
   } catch (err) {
     res.status(500).json(err);
@@ -87,7 +116,7 @@ router.get("/group/:group_id", async (req, res) => {
 
 // render signup page
 router.get("/signup", (req, res) => {
-  // If the user is already logged in, redirect the request to their dashboard
+  // If the user is already logged in, redirect the request to their dashboard.  Turn this off for testing, on for final version
   // if (req.session.logged_in) {
   //   res.redirect("/dashboard");
   //   return;
@@ -97,7 +126,7 @@ router.get("/signup", (req, res) => {
 
 // render login page
 router.get("/login", (req, res) => {
-  // If the user is already logged in, redirect the request to their dashboard
+  // If the user is already logged in, redirect the request to their dashboard.  Turn this off for testing, on for final version
   // if (req.session.logged_in) {
   //   res.redirect("/dashboard");
   //   return;
@@ -112,7 +141,7 @@ router.get("/join-group", (req, res) => {
 
 // render homepage
 router.get("/", (req, res) => {
-  // If the user is already logged in, redirect the request to their dashboard
+  // If the user is already logged in, redirect the request to their dashboard. Turn this off for testing, on for final version
   // if (req.session.logged_in) {
   //   res.redirect("/dashboard");
   //   return;
@@ -122,11 +151,6 @@ router.get("/", (req, res) => {
 
 // render create group form
 router.get("/create-group", (req, res) => {
-  // If the user is already logged in, redirect the request to their dashboard
-  // if (req.session.logged_in) {
-  //   res.redirect("/dashboard");
-  //   return;
-  // }
   res.render("createGroup", { style: "create-group.css" });
 });
 
