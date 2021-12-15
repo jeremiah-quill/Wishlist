@@ -28,6 +28,28 @@ router.get("/dashboard", async (req, res) => {
   }
 });
 
+router.get("/dashboard/profile", async (req, res) => {
+  try {
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ["password"] },
+    });
+    if (!userData) {
+      res.status(500).json({ message: "Could not find user" });
+      return;
+    }
+
+    const user = userData.get({ plain: true });
+
+    res.render("userProfile", {
+      ...user,
+      logged_in: true,
+      style: "userDashboard.css",
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Render group dashboard with all group details
 // When accessing group page from user dashboard :group_id param will come from href on each group link
 // When accessing group page for the first time after joining group :group_id param will come from form data
