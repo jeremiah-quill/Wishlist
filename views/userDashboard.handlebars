@@ -1,61 +1,206 @@
- <div class="canvas-holder">
-    <canvas id="canvas" class="canvas"></canvas>
-</div>
-        <button type="button" class="btn btn-success">Group Dashboard</button>
-        <button type="button" class="btn btn-primary btn-md">Log Out</button>
-  <h1>Welcome!</h1>
+<button type="button" class="btn btn-success">Group Dashboard</button>
+<button id="logout" type="button" class="btn btn-primary btn-md">Log Out</button>
+<h1>Welcome!</h1>
 
 <div class="parent-container">
   <div class="container">
-    <div class="card">
+    <div class="wishlist-card card">
       <!-- <span class="border border-success"> -->
       <div class="card-header">
         Your Wishlist
       </div>
-      <blockquote class="blockquote mb-0">
-        <p>Add an item to your wishlist!</p>
+      {{! DO WE NEED THE BELOW? }}
+      {{! <blockquote class="blockquote mb-0">
+        <p>Add an item to your wishlist!</p> 
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Add an item" aria-label="Recipient's username" aria-describedby="button-addon2">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Add an item"
+            aria-label="Recipient's username"
+            aria-describedby="button-addon2"
+          />
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            id="button-addon2"
+          >Save</button>
         </div>
-      </blockquote>
+      </blockquote> }}
+      <!-- Button trigger modal -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#giftModal"
+      >
+        Add Gift
+      </button>
       <div class="card-body">
-        
+        <ul class="gifts">
+          {{#each gifts as |gift|}}
+            <div class="gift-item" data-gift-id="{{gift.id}}">
+              <li class="gift">{{gift.gift_name}}</li>
+              <div class="gift-button-container">
+                <button
+                  id="edit-button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editGiftModal"
+                  class="edit-button gift-button btn btn-success btn-lg"
+                >Edit</button>
+                <button
+                  class="gift-button delete-button btn btn-success btn-lg"
+                >Delete</button>
+              </div>
+            </div>
+          {{/each}}
+        </ul>
+
       </div>
     </div>
   </div>
-<!-- </span> -->
+  <!-- </span> -->
   <div class="container-2">
-  <h3 class="countdown"></h3>
+    <h3 class="countdown"></h3>
 
-  <div class="container-3">
+    <div class="container-3">
 
-    <div class="card text-center">
-      <h5>Your Groups</h5>
-      <div class="card-body">
-        <p class="card-text">(this is where the users groups will render)</p>
-        <a href="#" class="btn btn-primary">Create a Group</a>
-        <a href="#" class="btn btn-primary">Join a Group</a>
-      </div>
+      <div class="card text-center">
+        <h5>Your Groups</h5>
+        <div class="card-body">
 
-      <div class="card w-75">
-        <!-- <div class="card-body"> -->
+          <a href="/create-group" class="btn btn-primary">Create a Group</a>
+          <a href="/join-group" class="btn btn-primary">Join a Group</a>
+
+          <ul class="group-list">
+            {{#each groups as |group|}}
+              <li class="group-item"><a
+                  href="/group/{{group.id}}"
+                >{{group.event_name}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+
+        {{! TODO: add this later? }}
+        {{! <div class="card w-75">
           <h5 class="card-title">Shopping List</h5>
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Add an person you're shopping for" aria-label="Recipient's username" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Save</button>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Add an person you're shopping for"
+              aria-label="Recipient's username"
+              aria-describedby="button-addon2"
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              id="button-addon2"
+            >Save</button>
           </div>
           <div class="list-of-names">
 
           </div>
-        <!-- </div> -->
+        </div> }}
+
       </div>
-  </div>
+    </div>
   </div>
 </div>
+
+<!-- Add gift modal -->
+<div
+  class="modal fade"
+  id="giftModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add gift details</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form class="add-gift-form">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Gift Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="add-gift-name"
+              aria-describedby="emailHelp"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Gift Price</label>
+            <input type="number" class="form-control" id="add-gift-price" />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Gift Link</label>
+            <input type="text" class="form-control" id="add-gift-link" />
+          </div>
+          <button
+            id="add-gift-button"
+            type="submit"
+            class="btn btn-primary"
+          >Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
-    
 
+<!-- Edit gift modal -->
+<div
+  class="modal fade"
+  id="editGiftModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit gift details</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-gift-form" data-gift-id="">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Gift Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="edit-gift-name"
+              aria-describedby="emailHelp"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Gift Price</label>
+            <input type="number" class="form-control" id="edit-gift-price" />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Gift Link</label>
+            <input type="text" class="form-control" id="edit-gift-link" />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
 
-  <script src="/Users/samkennedy/Desktop/project-2-mockup/user-dashboard/user-dashboard.js"></script>
-  
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./js/userDashboard.js"></script>

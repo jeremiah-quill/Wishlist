@@ -89,3 +89,49 @@ body {
 .show-loader {
   display: flex;
 }
+
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+li {
+  margin: 0px;
+
+  list-style-type: none;
+}
+
+.gifts {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1em;
+}
+
+.gift-item,
+.group-item {
+  padding: 0px 5px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gift-button {
+  font-size: 0.75em;
+}
+
+.gift-button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wishlist-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gift-button-container .btn {
+  margin: 0px;
+}

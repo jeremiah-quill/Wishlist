@@ -21,7 +21,7 @@ router.get("/dashboard", async (req, res) => {
     res.render("userDashboard", {
       ...user,
       logged_in: true,
-      style: "userDashboard.css",
+      style: "user-dashboard.css",
     });
   } catch (err) {
     res.status(500).json(err);
@@ -56,7 +56,7 @@ router.get("/group/:group_id", async (req, res) => {
       ...group,
       logged_in: true,
       // CONFIRM FILE IS CALLED groupDashboard.css when
-      style: "groupDashboard.css",
+      style: "group-dashboard.css",
     });
   } catch (err) {
     res.status(500).json(err);
@@ -65,7 +65,7 @@ router.get("/group/:group_id", async (req, res) => {
 
 // render signup page
 router.get("/signup", (req, res) => {
-  // If the user is already logged in, redirect the request to their dashboard
+  // If the user is already logged in, redirect the request to their dashboard.  Turn this off for testing, on for final version
   // if (req.session.logged_in) {
   //   res.redirect("/dashboard");
   //   return;
@@ -75,7 +75,7 @@ router.get("/signup", (req, res) => {
 
 // render login page
 router.get("/login", (req, res) => {
-  // If the user is already logged in, redirect the request to their dashboard
+  // If the user is already logged in, redirect the request to their dashboard.  Turn this off for testing, on for final version
   // if (req.session.logged_in) {
   //   res.redirect("/dashboard");
   //   return;
@@ -90,7 +90,7 @@ router.get("/join-group", (req, res) => {
 
 // render homepage
 router.get("/", (req, res) => {
-  // If the user is already logged in, redirect the request to their dashboard
+  // If the user is already logged in, redirect the request to their dashboard. Turn this off for testing, on for final version
   // if (req.session.logged_in) {
   //   res.redirect("/dashboard");
   //   return;
@@ -100,11 +100,6 @@ router.get("/", (req, res) => {
 
 // render create group form
 router.get("/create-group", (req, res) => {
-  // If the user is already logged in, redirect the request to their dashboard
-  // if (req.session.logged_in) {
-  //   res.redirect("/dashboard");
-  //   return;
-  // }
   res.render("createGroup", { style: "create-group.css" });
 });
 
