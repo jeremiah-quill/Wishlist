@@ -20,19 +20,13 @@ const updateProfileEventHandler = async (event) => {
   }
 };
 // TODO: add form id/class to querySelector
-document
-  .querySelector("")
-  .addEventListener("submit", updateProfileEventHandler);
+document.querySelector("").addEventListener("submit", updateProfileEventHandler);
 
 const updatePasswordEventHandler = async (event) => {
   event.preventDefault();
 
-  const newPassword = document
-    .querySelector("#input-new-password-1")
-    .value.trim();
-  const confirmNewPassword = document
-    .querySelector("#input-new-password-2")
-    .value.trim();
+  const newPassword = document.querySelector("#input-new-password-1").value.trim();
+  const confirmNewPassword = document.querySelector("#input-new-password-2").value.trim();
 
   if (newPassword === confirmNewPassword) {
     const response = await fetch("api/users/password", {
@@ -52,3 +46,31 @@ const updatePasswordEventHandler = async (event) => {
 document
   .querySelector("")
   .addEventListener("submit", updatePasswordEventHandler);
+
+
+// const passwordInput = document.querySelector("#togglePassword");
+// const passwordInput1 = document.querySelector("#input-current-password");
+// const passwordInput2 = document.querySelector("#input-new-password-1");
+// const passwordInput3 = document.querySelector("#input-new-password-2");
+
+// passwordInput.addEventListener("click", function (event) {
+//   // if the type is set as password, changes to text, if it's text, changes to password
+//   const type = passwordInput1.getAttribute("type") === "password" ? "text" : "password";
+//   passwordInput1.setAttribute("type", type);
+//   // toggle the eye / eye slash icon
+//   this.classList.toggle("bi-eye");
+// });
+// passwordInput.addEventListener("click", function (event) {
+//   // if the type is set as password, changes to text, if it's text, changes to password
+//   const type = passwordInput2.getAttribute("type") === "password" ? "text" : "password";
+//   passwordInput2.setAttribute("type", type);
+//   // toggle the eye / eye slash icon
+//   this.classList.toggle("bi-eye");
+// });
+// passwordInput.addEventListener("click", function (event) {
+//   // if the type is set as password, changes to text, if it's text, changes to password
+//   const type = passwordInput3.getAttribute("type") === "password" ? "text" : "password";
+//   passwordInput3.setAttribute("type", type);
+//   // toggle the eye / eye slash icon
+//   this.classList.toggle("bi-eye");
+// });

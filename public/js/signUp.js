@@ -39,3 +39,14 @@ const signupFormHandler = async (event) => {
 document
   .querySelector(".signup-form")
   .addEventListener("submit", signupFormHandler);
+
+
+// const passwordInput = document.querySelector("#togglePassword");
+// const password = document.querySelector("#password-signup");
+// passwordInput.addEventListener("click", function (event) {
+//   // if the type is set as password, changes to text, if it's text, changes to password
+//   const type = password.getAttribute("type") === "password" ? "text" : "password";
+//   password.setAttribute("type", type);
+//   // toggle the eye / eye slash icon
+//   this.classList.toggle("bi-eye");
+// });
