@@ -34,7 +34,13 @@ router.get("/dashboard", async (req, res) => {
 router.get("/group/:group_id", async (req, res) => {
   try {
     const groupData = await Group.findByPk(req.params.group_id, {
-      include: [{ model: User, attributes: { exclude: ["password"] } }],
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ["password"] },
+          include: [{ model: Gift }],
+        },
+      ],
     });
 
     // Check if any data came back from DB
@@ -68,8 +74,14 @@ router.get("/group/:group_id", async (req, res) => {
       assignedUser = null;
     }
 
+    // pass in a boolean telling our view whether or not the logged in user is the creator of the group
+    let isCreator = false;
+    if (group.creator_id === req.session.user_id) {
+      isCreator = true;
+    }
+
     res.render("groupDashboard", {
-      // send assigned user data to group dashboard
+      isCreator,
       assigned_user: assignedUser,
       ...group,
       logged_in: true,

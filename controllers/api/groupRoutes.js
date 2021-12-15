@@ -120,12 +120,12 @@ groupRoutes.put("/:id", (req, res) => {
       where: {
         id: req.params.id,
         // TODO: change below to come from session user_id variable rather than body
-        creator_id: req.body.creator_id,
+        creator_id: req.session.user_id,
       },
     }
   )
     .then(() => {
-      res.json("testing");
+      res.status(200).json("group updated");
     })
     .catch((err) => {
       console.log(err);

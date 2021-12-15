@@ -15,24 +15,18 @@
     <div class="card-body">
       <h4>Group Name: {{event_name}}</h4>
     </div>
-    <button id="draw-names-button" class="btn">Draw Names</button>
+    {{#if isCreator}}
+      <button id="draw-names-button" class="btn">Draw Names</button>
+    {{/if}}
   </div>
   <div class="row">
     <div class="col-sm-6">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Group Members</h5>
-          {{! <p class="card-text">(where group members will render)</p> }}
           <ul class="member-list">
             {{#each users as |member|}}
-
-              <li
-                {{!-- data-bs-toggle="modal"
-                data-bs-target="#wishlistModal"
-                data-user-id="{{member.id}}" --}}
-                class="member-item"
-              >{{member.username}}</li>
-
+              <li class="member-item">{{member.username}}</li>
             {{/each}}
           </ul>
         </div>
@@ -43,8 +37,8 @@
         <div class="card-body">
 
           {{#if assigned_user}}
-            <h5 class="card-title">You are assigned to:
-              {{assigned_user.username}}</h5>
+            <h5 class="card-title">
+              {{assigned_user.username}}'s wishlist:</h5>
 
           {{else}}
             <h5 class="card-title">This group has not assigned secret santas yet
@@ -67,39 +61,64 @@
     <div class="card-body">
       <h5 class="card-title">About The Party</h5>
       <p class="card-text">
-        <div>Group Name: {{event_name}}</div>
-        <div>Price Limit: {{price_limit}}</div>
-        <div>Event Date: {{event_date}}</div>
+        {{#if isCreator}}
+          <form id="update-group-form" data-group-id="{{id}}">
+            <section class="sign-up">
+              <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label">Name of
+                  Group:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="event-name"
+                  value="{{event_name}}"
+                />
+              </div>
+
+              <div class="calendar">
+                <label for="event-date">Party Date:</label>
+
+                <input
+                  type="date"
+                  id="event-date"
+                  name="event-date"
+                  value="{{format_date event_date}}"
+                  min="2021-12-13"
+                  max="2030-12-31"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="formGroupExampleInput2" class="form-label">Price
+                  Limit:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="price-limit"
+                  value="{{price_limit}}"
+                />
+              </div>
+
+            </section>
+
+            <div class="sign-up-btn">
+              <button
+                type="submit"
+                class="btn btn-success btn-lg"
+              >Update</button>
+            </div>
+
+          </form>
+
+        {{else}}
+
+          <div>Group Name: {{event_name}}</div>
+          <div>Price Limit: {{price_limit}}</div>
+          <div>Event Date: {{event_date}}</div>
+
+        {{/if}}
       </p>
     </div>
   </div>
 </div>
-
-<!-- View wishlist modal -->
-{{! TODO: use this if we need it }}
-{{! <div
-  class="modal fade"
-  id="wishlistModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Wishlist</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        render gifts here
-      </div>
-    </div>
-  </div>
-</div> }}
 
 <script src="../js/groupDashboard.js"></script>
