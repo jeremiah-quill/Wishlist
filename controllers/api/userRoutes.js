@@ -111,18 +111,17 @@ userRoutes.put("/password", async (req, res) => {
     const userData = await User.findByPk(req.session.user_id);
     const validPassword = await userData.checkPassword(req.body.password);
     if (!validPassword) {
-      res.status(400).json({ message: "Incorrect password, please try again" });
+      res.status(400).json({ message: "Wrong current password, please try again" });
       return;
     }
     const updatedUserData = await User.update(
-      { password: req.body.password },
+      { password: req.body.new_password },
       {
         where: {
-          user_id: req.session.user_id,
+          id: req.session.user_id,
         },
       }
     );
-    console.log(updatedUserData);
     res.status(200).json(updatedUserData);
   } catch (err) {
     console.log(err);

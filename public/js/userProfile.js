@@ -2,11 +2,8 @@ const updateProfileEventHandler = async (event) => {
   event.preventDefault();
 
   // TODO: add input id/class to querySelector
-  const username = document.querySelector("").value.trim();
-  const email = document.querySelector("").value.trim();
-  // TODO: add element with data-id attribute's id/class to querySelector
-  const profile = document.querySelector("");
-  const userId = profile.getAttribute("data-id");
+  const username = document.querySelector("#input-username").value.trim();
+  const email = document.querySelector("#input-email").value.trim();
 
   if (username && email) {
     const response = await fetch("api/users/profile", {
@@ -16,7 +13,7 @@ const updateProfileEventHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.reload(`/${userId}`);
+      document.location.reload(`/dashboard`);
     } else {
       alert("Failed to update profile.");
     }
@@ -27,24 +24,25 @@ document
   .querySelector("")
   .addEventListener("submit", updateProfileEventHandler);
 
-  
 const updatePasswordEventHandler = async (event) => {
   event.preventDefault();
-  // TODO: add element with data-id attribute's id/class to querySelector
-  const profile = document.querySelector("");
-  const userId = profile.getAttribute("data-id");
 
-  const password = document.querySelector("").value.trim();
+  const newPassword = document
+    .querySelector("#input-new-password-1")
+    .value.trim();
+  const confirmNewPassword = document
+    .querySelector("#input-new-password-2")
+    .value.trim();
 
-  if (username && email) {
+  if (newPassword === confirmNewPassword) {
     const response = await fetch("api/users/password", {
       method: "PUT",
-      body: JSON.stringify({ password }),
+      body: JSON.stringify({ new_password: confirmNewPassword }),
       headers: { "Content-type": "application/json" },
     });
 
     if (response.ok) {
-      document.location.reload(`/${userId}`);
+      document.location.reload(`/dashboard`);
     } else {
       alert("Failed to update password.");
     }
