@@ -1,33 +1,64 @@
-<div class="canvas-holder">
+{{! <div class="canvas-holder">
   <canvas id="canvas" class="canvas"></canvas>
-</div>
+</div> }}
 <div class="container">
   <button type="button" class="btn btn-success">User Dashboard</button>
-  <button type="button" class="btn btn-primary btn-md">Log Out</button>
+  <button
+    id="logout"
+    type="button"
+    class="btn btn-primary btn-md"
+  >Logout</button>
   <h1>Group Dashboard</h1>
 </div>
 <div class="container-xl">
   <div class="card">
     <div class="card-body">
-      <h4>Group Name: </h4>
+      <h4>Group Name: {{event_name}}</h4>
     </div>
+    <button id="draw-names-button" class="btn">Draw Names</button>
   </div>
   <div class="row">
     <div class="col-sm-6">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Group Members</h5>
-          <p class="card-text">(where group members will render)</p>
-          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+          {{! <p class="card-text">(where group members will render)</p> }}
+          <ul class="member-list">
+            {{#each users as |member|}}
+
+              <li
+                {{!-- data-bs-toggle="modal"
+                data-bs-target="#wishlistModal"
+                data-user-id="{{member.id}}" --}}
+                class="member-item"
+              >{{member.username}}</li>
+
+            {{/each}}
+          </ul>
         </div>
       </div>
     </div>
     <div class="col-sm-6">
-      <div class="card">
+      <div class="card wishlist-card">
         <div class="card-body">
-          <h5 class="card-title">Time/Place</h5>
-          <h6 class="card-text">(where time and date and location will render)</h6>
-          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+
+          {{#if assigned_user}}
+            <h5 class="card-title">You are assigned to:
+              {{assigned_user.username}}</h5>
+
+          {{else}}
+            <h5 class="card-title">This group has not assigned secret santas yet
+            </h5>
+
+          {{/if}}
+
+          <ul>
+            {{#each assigned_user.gifts as |gift|}}
+              <div class="gift-item" data-gift-id="{{gift.id}}">
+                <li class="gift">{{gift.gift_name}}</li>
+              </div>
+            {{/each}}
+          </ul>
         </div>
       </div>
     </div>
@@ -35,11 +66,40 @@
   <div class="card text-center">
     <div class="card-body">
       <h5 class="card-title">About The Party</h5>
-      <p class="card-text">(render the type of party, like gift exchange or
-        white elephant, and maybe explain the rules. Add the price limit.)</p>
-      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      <p class="card-text">
+        <div>Group Name: {{event_name}}</div>
+        <div>Price Limit: {{price_limit}}</div>
+        <div>Event Date: {{event_date}}</div>
+      </p>
     </div>
   </div>
 </div>
 
-<script {{! src="./group-dashboard.js" }}></script>
+<!-- View wishlist modal -->
+{{! TODO: use this if we need it }}
+{{! <div
+  class="modal fade"
+  id="wishlistModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Wishlist</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        render gifts here
+      </div>
+    </div>
+  </div>
+</div> }}
+
+<script src="../js/groupDashboard.js"></script>

@@ -52,10 +52,27 @@ router.get("/group/:group_id", async (req, res) => {
       return;
     }
 
+    // find the current user in the current group
+    const user = group.users.find((user) => user.id === req.session.user_id);
+
+    // find the assigned user data for current user in current group
+    const assignedUserData = await User.findByPk(user.usergroup.assigned_user, {
+      include: [{ model: Gift }],
+    });
+
+    let assignedUser;
+
+    if (assignedUserData) {
+      assignedUser = assignedUserData.get({ plain: true });
+    } else {
+      assignedUser = null;
+    }
+
     res.render("groupDashboard", {
+      // send assigned user data to group dashboard
+      assigned_user: assignedUser,
       ...group,
       logged_in: true,
-      // CONFIRM FILE IS CALLED groupDashboard.css when
       style: "group-dashboard.css",
     });
   } catch (err) {

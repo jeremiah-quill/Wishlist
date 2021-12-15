@@ -101,7 +101,8 @@ li {
   list-style-type: none;
 }
 
-.gifts {
+.gifts,
+.group-list {
   display: flex;
   flex-direction: column;
   width: 100%;

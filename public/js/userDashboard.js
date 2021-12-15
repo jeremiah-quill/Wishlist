@@ -62,48 +62,46 @@ const getEditItemDetails = async (event) => {
     document.querySelector("#edit-gift-name").value = res.gift_name;
     document.querySelector("#edit-gift-price").value = res.price;
     document.querySelector("#edit-gift-link").value = res.gift_link;
+    // document
+    //   .querySelector("#edit-gift-form")
+    //   .setAttribute("data-gift-id", res.id);
+
+    const updateItemEventHandler = async (event) => {
+      event.preventDefault();
+      // TODO: add input id/class to querySelector
+      const gift_name = document.querySelector("#edit-gift-name").value.trim();
+      const price = document.querySelector("#edit-gift-price").value.trim();
+      const gift_link = document.querySelector("#edit-gift-link").value.trim();
+
+      // const item = document.querySelector("#edit-gift-form");
+
+      const response = await fetch(`/api/gifts/${itemId}`, {
+        method: "PUT",
+        body: JSON.stringify({ gift_name, price, gift_link }),
+        headers: { "Content-type": "application/json" },
+      });
+
+      if (response.ok) {
+        document.location.reload(`/dashboard`);
+      } else {
+        alert("Failed to update item.");
+      }
+    };
+
     document
       .querySelector("#edit-gift-form")
-      .setAttribute("data-gift-id", res.id);
+      .addEventListener("submit", updateItemEventHandler);
   } else {
     alert("Failed to delete item.");
   }
 };
 
 // uses data gift id property in edit gift form in model to edit the corresponding gift on submit
-const updateItemEventHandler = async (event) => {
-  event.preventDefault();
-  // TODO: add input id/class to querySelector
-  const gift_name = document.querySelector("#edit-gift-name").value.trim();
-  const price = document.querySelector("#edit-gift-price").value.trim();
-  const gift_link = document.querySelector("#edit-gift-link").value.trim();
-
-  const item = document.querySelector("#edit-gift-form");
-  const itemId = item.getAttribute("data-gift-id");
-
-  if (item) {
-    const response = await fetch(`/api/gifts/${itemId}`, {
-      method: "PUT",
-      body: JSON.stringify({ gift_name, price, gift_link }),
-      headers: { "Content-type": "application/json" },
-    });
-
-    if (response.ok) {
-      document.location.reload(`/dashboard`);
-    } else {
-      alert("Failed to update item.");
-    }
-  }
-};
 
 // Event listeners
 document
   .querySelector(".add-gift-form")
   .addEventListener("submit", addItemEventHandler);
-
-document
-  .querySelector("#edit-gift-form")
-  .addEventListener("submit", updateItemEventHandler);
 
 document.querySelector("body").addEventListener("click", (e) => {
   if (e.target.classList.contains("delete-button")) {

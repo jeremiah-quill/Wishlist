@@ -2,15 +2,16 @@
 <button id="logout" type="button" class="btn btn-primary btn-md">Log Out</button>
 <h1>Welcome!</h1>
 
-<div class="parent-container">
-  <div class="container">
+<div class="user-dashboard-container">
+  <div class="wishlist-container">
     <div class="wishlist-card card">
       <!-- <span class="border border-success"> -->
       <div class="card-header">
         Your Wishlist
       </div>
-      {{! DO WE NEED THE BELOW? }}
-      {{! <blockquote class="blockquote mb-0">
+      <div class="card-body">
+        {{! DO WE NEED THE BELOW? }}
+        {{! <blockquote class="blockquote mb-0">
         <p>Add an item to your wishlist!</p> 
         <div class="input-group mb-3">
           <input
@@ -27,51 +28,53 @@
           >Save</button>
         </div>
       </blockquote> }}
-      <!-- Button trigger modal -->
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#giftModal"
-      >
-        Add Gift
-      </button>
-      <div class="card-body">
-        <ul class="gifts">
-          {{#each gifts as |gift|}}
-            <div class="gift-item" data-gift-id="{{gift.id}}">
-              <li class="gift">{{gift.gift_name}}</li>
-              <div class="gift-button-container">
-                <button
-                  id="edit-button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#editGiftModal"
-                  class="edit-button gift-button btn btn-success btn-lg"
-                >Edit</button>
-                <button
-                  class="gift-button delete-button btn btn-success btn-lg"
-                >Delete</button>
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#giftModal"
+        >
+          Add Gift
+        </button>
+        <div class="card-body">
+          <ul class="gifts">
+            {{#each gifts as |gift|}}
+              <div class="gift-item" data-gift-id="{{gift.id}}">
+                <li class="gift">{{gift.gift_name}}</li>
+                <div class="gift-button-container">
+                  <button
+                    id="edit-button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editGiftModal"
+                    class="edit-button gift-button btn btn-success btn-lg"
+                  >Edit</button>
+                  <button
+                    class="gift-button delete-button btn btn-success btn-lg"
+                  >Delete</button>
+                </div>
               </div>
-            </div>
-          {{/each}}
-        </ul>
+            {{/each}}
+          </ul>
 
+        </div>
       </div>
     </div>
   </div>
-  <!-- </span> -->
-  <div class="container-2">
-    <h3 class="countdown"></h3>
 
-    <div class="container-3">
+  <div class="group-list-container col-6 col-sm-12">
+    <div class="card text-center">
+      <div class="card-header">
+        Your Groups
+      </div>
+      <div class="card-body">
 
-      <div class="card text-center">
-        <h5>Your Groups</h5>
-        <div class="card-body">
-
+        <div class="group-buttons">
           <a href="/create-group" class="btn btn-primary">Create a Group</a>
           <a href="/join-group" class="btn btn-primary">Join a Group</a>
+        </div>
 
+        <div class="card-body">
           <ul class="group-list">
             {{#each groups as |group|}}
               <li class="group-item"><a
@@ -81,8 +84,10 @@
           </ul>
         </div>
 
-        {{! TODO: add this later? }}
-        {{! <div class="card w-75">
+      </div>
+
+      {{! TODO: add this later? }}
+      {{! <div class="card w-75">
           <h5 class="card-title">Shopping List</h5>
           <div class="input-group mb-3">
             <input
@@ -103,11 +108,13 @@
           </div>
         </div> }}
 
-      </div>
     </div>
+
   </div>
+
 </div>
 
+{{! ************************************************* }}
 <!-- Add gift modal -->
 <div
   class="modal fade"
