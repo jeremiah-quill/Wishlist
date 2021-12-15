@@ -20,6 +20,29 @@ const updateGroupEventHandler = async (event) => {
   }
 };
 
+const drawNamesEventHandler = async (event) => {
+  event.preventDefault();
+
+  const group_id = document
+    .querySelector("#draw-names-button")
+    .getAttribute("data-group-id");
+
+  const response = await fetch(`/api/groups/${group_id}/assign-santas`, {
+    method: "PUT",
+    headers: { "Content-type": "application/json" },
+  });
+
+  if (response.ok) {
+    document.location.reload(`/group/${group_id}`);
+  } else {
+    alert("Failed to update group.");
+  }
+};
+
 document
   .querySelector("#update-group-form")
   .addEventListener("submit", updateGroupEventHandler);
+
+document
+  .querySelector("#draw-names-button")
+  .addEventListener("click", drawNamesEventHandler);
