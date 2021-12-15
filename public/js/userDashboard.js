@@ -4,11 +4,7 @@ const addItemEventHandler = async (event) => {
   const gift_name = document.querySelector("").value.trim();
   const price = document.querySelector("").value.trim();
   const gift_link = document.querySelector("").value.trim();
-  const user_id = document.querySelector("").value.trim();
 
-  // TODO: add element with data-id attribute's id/class to querySelector
-  const profile = document.querySelector("");
-  const userId = profile.getAttribute("data-id");
 
   if (item) {
     const response = await fetch("/api/gifts", {
@@ -18,7 +14,7 @@ const addItemEventHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.reload(`/${userId}`);
+      document.location.reload(`/dashboard`);
     } else {
       alert("Failed to add new item.");
     }
@@ -38,9 +34,6 @@ const updateItemEventHandler = async (event) => {
   const gift_link = document.querySelector("").value.trim();
   const user_id = document.querySelector("").value.trim();
 
-  // TODO: add element with data-id attribute's id/class to querySelector
-  const profile = document.querySelector("");
-  const userId = profile.getAttribute("data-id");
   const item = document.querySelector("");
   const itemId = item.getAttribute("data-id");
 
@@ -52,7 +45,7 @@ const updateItemEventHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.reload(`/${userId}`);
+      document.location.reload(`/dashboard`);
     } else {
       alert("Failed to update item.");
     }
@@ -61,11 +54,11 @@ const updateItemEventHandler = async (event) => {
 // TODO: add form id/class to querySelector
 document.querySelector("").addEventListener("submit", updateItemEventHandler);
 
-const addItemEventHandler = async (event) => {
+
+const deleteItemEventHandler = async (event) => {
+
   event.preventDefault();
-  // TODO: add element with data-id attribute's id/class to querySelector
-  const profile = document.querySelector("");
-  const userId = profile.getAttribute("data-id");
+
   const item = document.querySelector("");
   const itemId = item.getAttribute("data-id");
 
@@ -75,11 +68,11 @@ const addItemEventHandler = async (event) => {
   });
 
   if (response.ok) {
-    document.location.reload(`/${userId}`);
+    document.location.reload(`/dashboard`);
   } else {
     alert("Failed to delete item.");
   }
 };
 
 // TODO: add form id/class to querySelector
-document.querySelector("").addEventListener("submit", addItemEventHandler);
+document.querySelector("").addEventListener("submit", deleteItemEventHandler);
