@@ -1,11 +1,7 @@
 body {
   height: 100px;
-  background-color: #d71516;
-  /* background-image:
-      radial-gradient(
-        #D71516,
-        #8F090A
-      ); */
+  background-color: #cc231e;
+  background-image: radial-gradient(#d71516, #8f090a);
   height: 100vh;
   width: 100%;
 }

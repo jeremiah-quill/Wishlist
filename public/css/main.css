@@ -1,0 +1,35 @@
+.spinner {
+  position: fixed;
+  top: 40%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: none;
+  width: 80px;
+}
+
+.show-spinner {
+  display: block;
+}
+
+.rotate {
+  animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+canvas {
+  position: fixed;
+  display: block;
+  margin: auto;
+  width: 100%;
+  /* Added z-index so we can click on signup button */
+  z-index: -1;
+}
