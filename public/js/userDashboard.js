@@ -5,6 +5,7 @@ const addItemEventHandler = async (event) => {
   const price = document.querySelector("").value.trim();
   const gift_link = document.querySelector("").value.trim();
 
+
   if (item) {
     const response = await fetch("/api/gifts", {
       method: "POST",
@@ -53,7 +54,9 @@ const updateItemEventHandler = async (event) => {
 // TODO: add form id/class to querySelector
 document.querySelector("").addEventListener("submit", updateItemEventHandler);
 
+
 const deleteItemEventHandler = async (event) => {
+
   event.preventDefault();
 
   const item = document.querySelector("");
