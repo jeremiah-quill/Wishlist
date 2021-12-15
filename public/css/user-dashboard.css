@@ -1,7 +1,7 @@
 body {
   background-color: #cc231e;
   /* TODO: add background image to repo so we can insert below */
-  /* background-image: url(/Users/samkennedy/Desktop/project-2-mockup/user-dashboard/AdobeStock_180305094.jpeg); */
+  background-image: url(../assets/AdobeStock_180305094.jpeg);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

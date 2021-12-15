@@ -1,78 +1,113 @@
 body {
-  background-color: #cc231e;
-  background-image: url(../assets/AdobeStock_293865165.jpeg);
+  background-color: #CC231E;
+  background-image: url(../assets/AdobeStock_180305094.jpeg);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  height: 100vh;
+  /* background-color: #CC231E;
+  background-image: url(AdobeStock_293865165.jpeg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; */
 }
+
 
 @font-face {
   font-family: christmas;
   src: url(../assets/santafont.ttf);
 }
 
+
 .container-1 {
   text-align: center;
   margin: auto;
+
 }
 
 a {
   padding: 16px;
+  
 }
 
 #title {
-  font-size: 70px;
+  font-size: 110px;
   font-family: christmas;
-  -webkit-text-stroke: 0.4px whitesmoke;
+  color: rgb(219, 217, 217);
+  -webkit-text-stroke: 4px black;
+ float: left;
+ margin-left: 75px;
+ text-decoration: underline 3px rgb(219, 217, 217);
 }
 
-#nav-bar-item-login,
-#nav-bar-item-group,
-#nav-bar-item-list,
-#nav-bar-item-contact {
+#nav-bar-item-login, #nav-bar-item-group, 
+#nav-bar-item-list, #nav-bar-item-contact {
   font-size: 25px;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  -webkit-text-stroke: 0.2px whitesmoke;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  -webkit-text-stroke: .2px whitesmoke;
   opacity: 80%;
   font-weight: bold;
 }
 
 #nav-bar-overlay {
   display: inline;
+  
 }
 
 .display-4 {
   margin: auto;
   text-align: center;
-  padding-top: 16%;
+  margin-right: 130px;
+  padding-top: 20%;
   font-size: 35px;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
   color: whitesmoke;
-  -webkit-text-stroke: 0.5px black;
+  -webkit-text-stroke: .6px black;
 }
 
-/* .canvas-holder {
-} */
+ul {
+  text-align: center;
+  color: whitesmoke;
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  margin-right: 215px;
+  margin-top: 20px;
+  font-size: 20px;
+  list-style-type: none;
+}
+
+ul li:before {
+  content: '✓';
+}
+
+.canvas-holder {
+
+}
 
 canvas {
   position: fixed;
-  display: block;
+display: block;
   margin: auto;
   width: 100%;
-  /* Added z-index so we can click on signup button */
-  z-index: -1;
 }
 
 .sign-up {
   text-align: center;
+  margin-right: 25px;
   padding-top: 19px;
-  z-index: 100;
 }
 
-#background-image {
+/* #background-image {
   background-image: url(AdobeStock_293865165.jpeg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+} */
+
+.container {
+  display: flex;
+  margin-left: 500px
 }
