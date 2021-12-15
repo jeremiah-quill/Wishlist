@@ -8,6 +8,7 @@ const joinGroupFormHandler = async (event) => {
     .value.trim();
   const is_get_reminder = document.querySelector("#group-get-reminder").checked;
   if (group_id && group_password) {
+    showLoader();
     // Send a POST request to the API endpoint
     const response = await fetch("/api/groups/join", {
       method: "POST",
@@ -21,6 +22,7 @@ const joinGroupFormHandler = async (event) => {
       let res = await response.json();
       // TODO: Configure error message
       // errorMessage(res.message);
+      hideLoader();
       alert(res.message);
     }
   }
@@ -28,10 +30,12 @@ const joinGroupFormHandler = async (event) => {
   if (!group_id) {
     // TODO: Configure error message
     // errorMessage("Please enter a group id to join a group");
+    hideLoader();
     alert("Please enter a group id to join a group");
   } else if (!group_password) {
     // TODO: Configure error message
     // errorMessage("Please enter group password to join a group");
+    hideLoader();
     alert("Please enter a group password to join a group");
   }
 };

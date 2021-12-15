@@ -5,7 +5,7 @@ const addItemEventHandler = async (event) => {
   const price = document.querySelector("").value.trim();
   const gift_link = document.querySelector("").value.trim();
   const user_id = document.querySelector("").value.trim();
-  
+
   // TODO: add element with data-id attribute's id/class to querySelector
   const profile = document.querySelector("");
   const userId = profile.getAttribute("data-id");
@@ -29,7 +29,6 @@ const addItemEventHandler = async (event) => {
 };
 // TODO: add form id/class to querySelector
 document.querySelector("").addEventListener("submit", addItemEventHandler);
-
 
 const updateItemEventHandler = async (event) => {
   event.preventDefault();
@@ -61,7 +60,6 @@ const updateItemEventHandler = async (event) => {
 };
 // TODO: add form id/class to querySelector
 document.querySelector("").addEventListener("submit", updateItemEventHandler);
-
 
 const addItemEventHandler = async (event) => {
   event.preventDefault();
