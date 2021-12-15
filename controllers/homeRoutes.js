@@ -18,7 +18,11 @@ router.get("/dashboard", async (req, res) => {
 
     const user = userData.get({ plain: true });
 
-    res.render("userDashboard", { ...user, logged_in: true });
+    res.render("userDashboard", {
+      ...user,
+      logged_in: true,
+      style: "userDashboard.css",
+    });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -51,6 +55,8 @@ router.get("/group/:group_id", async (req, res) => {
     res.render("groupDashboard", {
       ...group,
       logged_in: true,
+      // CONFIRM FILE IS CALLED groupDashboard.css when
+      style: "groupDashboard.css",
     });
   } catch (err) {
     res.status(500).json(err);
@@ -60,26 +66,26 @@ router.get("/group/:group_id", async (req, res) => {
 // render signup page
 router.get("/signup", (req, res) => {
   // If the user is already logged in, redirect the request to their dashboard
-  if (req.session.logged_in) {
-    res.redirect("/dashboard");
-    return;
-  }
-  res.render("signUp");
+  // if (req.session.logged_in) {
+  //   res.redirect("/dashboard");
+  //   return;
+  // }
+  res.render("signUp", { style: "sign-up.css" });
 });
 
 // render login page
 router.get("/login", (req, res) => {
   // If the user is already logged in, redirect the request to their dashboard
-  if (req.session.logged_in) {
-    res.redirect("/dashboard");
-    return;
-  }
-  res.render("login");
+  // if (req.session.logged_in) {
+  //   res.redirect("/dashboard");
+  //   return;
+  // }
+  res.render("login", { style: "login.css" });
 });
 
 // render join group page
 router.get("/join-group", (req, res) => {
-  res.render("joinGroup");
+  res.render("joinGroup", { style: "group-join.css" });
 });
 
 // render homepage
@@ -89,7 +95,7 @@ router.get("/", (req, res) => {
   //   res.redirect("/dashboard");
   //   return;
   // }
-  res.render("homePage");
+  res.render("homePage", { style: "landing-page.css" });
 });
 
 // render create group form
@@ -99,7 +105,7 @@ router.get("/create-group", (req, res) => {
   //   res.redirect("/dashboard");
   //   return;
   // }
-  res.render("createGroup");
+  res.render("createGroup", { style: "create-group.css" });
 });
 
 module.exports = router;

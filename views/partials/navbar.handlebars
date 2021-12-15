@@ -1,0 +1,31 @@
+<section id="nav-bar-overlay">
+
+  <h1 id="title">WISH LIST</h1>
+  {{#if logged_in}}
+
+    <a
+      id="create-group"
+      class="big-btn btn btn-success btn-lg"
+      href="/create-group"
+    >Create Group</a>
+
+    <a
+      id="join-group"
+      class="big-btn btn btn-success btn-lg"
+      href="/join-group"
+    >Join Group</a>
+
+    <a
+      id="logout"
+      class="big-btn nav-bar-item btn btn-success btn-lg"
+      href="/logout"
+    >Logout</a>
+  {{else}}
+    <a
+      class="big-btn nav-bar-item btn btn-success btn-lg"
+      href="/login"
+    >Login</a>
+
+  {{/if}}
+
+</section>
