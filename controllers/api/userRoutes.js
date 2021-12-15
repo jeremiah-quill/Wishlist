@@ -122,6 +122,8 @@ userRoutes.put("/password", async (req, res) => {
         where: {
           id: req.session.user_id,
         },
+        individualHooks: true
+        // bulk create runs all the hooks, with puts it will look at this specific user before the update
       }
     );
     res.status(200).json(updatedUserData);
