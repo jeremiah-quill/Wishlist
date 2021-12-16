@@ -48,12 +48,12 @@ document
   .addEventListener("submit", loginFormHandler);
 
   
-// const passwordInput = document.querySelector("#togglePassword");
-// const password = document.querySelector("#password-login");
-// passwordInput.addEventListener("click", function (event) {
-//   // if the type is set as password, changes to text, if it's text, changes to password
-//   const type = password.getAttribute("type") === "password" ? "text" : "password";
-//   password.setAttribute("type", type);
-//   // changes the eye open/slashes icon
-//   this.classList.toggle("bi-eye");
-// });
+const passwordInput = document.querySelector("#togglePassword");
+const password = document.querySelector("#password-login");
+passwordInput.addEventListener("click", function (event) {
+  // if the type is set as password, changes to text, if it's text, changes to password
+  const type = password.getAttribute("type") === "password" ? "text" : "password";
+  password.setAttribute("type", type);
+  // changes the eye open/slashes icon
+  this.classList.toggle("bi-eye");
+});
