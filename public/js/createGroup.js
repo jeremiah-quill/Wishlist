@@ -30,36 +30,42 @@ const createGroupFormHandler = async (event) => {
       const res = await response.json();
       document.location.replace(`/group/${res.group_id}`);
     } else {
-      let res = await response.json();
       // TODO: configure errorMessage
       // errorMessage(res.message);
       hideLoader();
-      alert(`${res.message}`);
     }
   } else if (!event_name) {
     // TODO: configure errorMessage
     // errorMessage("Please enter an email to sign up");
     hideLoader();
-
-    alert("please enter an event anme to create a group");
+    showMessage(
+      "error_messages",
+      "Please enter an event name to create a group"
+    );
   } else if (!price_limit) {
     // TODO: configure errorMessage
     // errorMessage("Please enter a username to sign up");
     hideLoader();
-
-    alert("please enter a price limit to create a group");
+    showMessage(
+      "error_messages",
+      "Please enter a price limit to create a group"
+    );
   } else if (!event_date) {
     // TODO: configure errorMessage
     // errorMessage("Please enter a username to sign up");
     hideLoader();
-
-    alert("please enter an event date to create a group");
+    showMessage(
+      "error_messages",
+      "Please enter an event date to create a group"
+    );
   } else if (!group_password) {
     // TODO: configure errorMessage
     // errorMessage("Please enter a username to sign up");
     hideLoader();
-
-    alert("please enter a group password to create a group");
+    showMessage(
+      "error_messages",
+      "Please enter a group password to create a group"
+    );
   }
 };
 

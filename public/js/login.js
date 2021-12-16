@@ -19,12 +19,11 @@ const loginFormHandler = async (event) => {
 
       document.location.replace("/dashboard");
     } else {
-      let res = await response.json();
+      // let res = await response.json();
       // TODO: Configure error message
       // errorMessage(res.message);
       hideLoader();
-
-      alert(res.message);
+      document.location.replace("/login");
     }
   }
 
@@ -32,14 +31,15 @@ const loginFormHandler = async (event) => {
     // TODO: Configure error message
     // errorMessage("Please enter a username to login");
     hideLoader();
+    showMessage("error_messages", "Please enter a username to login");
 
-    alert("Please enter a username to login");
+    // alert("Please enter a username to login");
   } else if (!password) {
     // TODO: Configure error message
     // errorMessage("Please enter a password to login");
     hideLoader();
 
-    alert("Please enter a password to login");
+    showMessage("error_messages", "Please enter a password to login");
   }
 };
 
@@ -47,12 +47,12 @@ document
   .querySelector(".login-form")
   .addEventListener("submit", loginFormHandler);
 
-  
 const passwordInput = document.querySelector("#togglePassword");
 const password = document.querySelector("#password-login");
 passwordInput.addEventListener("click", function (event) {
   // if the type is set as password, changes to text, if it's text, changes to password
-  const type = password.getAttribute("type") === "password" ? "text" : "password";
+  const type =
+    password.getAttribute("type") === "password" ? "text" : "password";
   password.setAttribute("type", type);
   // changes the eye open/slashes icon
   this.classList.toggle("bi-eye");

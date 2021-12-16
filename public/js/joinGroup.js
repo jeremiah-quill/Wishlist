@@ -19,11 +19,9 @@ const joinGroupFormHandler = async (event) => {
       // fires get /group/:id route in homeRoutes
       document.location.replace(`/group/${group_id}`);
     } else {
-      let res = await response.json();
       // TODO: Configure error message
       // errorMessage(res.message);
       hideLoader();
-      alert(res.message);
     }
   }
 
@@ -31,12 +29,15 @@ const joinGroupFormHandler = async (event) => {
     // TODO: Configure error message
     // errorMessage("Please enter a group id to join a group");
     hideLoader();
-    alert("Please enter a group id to join a group");
+    showMessage("error_messages", "Please enter a group id to join a group");
   } else if (!group_password) {
     // TODO: Configure error message
     // errorMessage("Please enter group password to join a group");
     hideLoader();
-    alert("Please enter a group password to join a group");
+    showMessage(
+      "error_messages",
+      "Please enter a group password to join a group"
+    );
   }
 };
 

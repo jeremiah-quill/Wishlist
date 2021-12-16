@@ -10,24 +10,6 @@
         Your Wishlist
       </div>
       <div class="card-body">
-        {{! DO WE NEED THE BELOW? }}
-        {{! <blockquote class="blockquote mb-0">
-        <p>Add an item to your wishlist!</p> 
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Add an item"
-            aria-label="Recipient's username"
-            aria-describedby="button-addon2"
-          />
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            id="button-addon2"
-          >Save</button>
-        </div>
-      </blockquote> }}
         <!-- Button trigger modal -->
         <button
           type="button"
@@ -85,33 +67,8 @@
         </div>
 
       </div>
-
-      {{! TODO: add this later? }}
-      {{! <div class="card w-75">
-          <h5 class="card-title">Shopping List</h5>
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Add an person you're shopping for"
-              aria-label="Recipient's username"
-              aria-describedby="button-addon2"
-            />
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              id="button-addon2"
-            >Save</button>
-          </div>
-          <div class="list-of-names">
-
-          </div>
-        </div> }}
-
     </div>
-
   </div>
-
 </div>
 
 {{! ************************************************* }}
@@ -143,15 +100,26 @@
               class="form-control"
               id="add-gift-name"
               aria-describedby="emailHelp"
+              placeholder="Required"
             />
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Gift Price</label>
-            <input type="number" class="form-control" id="add-gift-price" />
+            <input
+              type="number"
+              class="form-control"
+              id="add-gift-price"
+              placeholder="Optional"
+            />
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Gift Link</label>
-            <input type="text" class="form-control" id="add-gift-link" />
+            <input
+              type="text"
+              class="form-control"
+              id="add-gift-link"
+              placeholder="Optional"
+            />
           </div>
           <button
             id="add-gift-button"
@@ -192,15 +160,26 @@
               class="form-control"
               id="edit-gift-name"
               aria-describedby="emailHelp"
+              placeholder="Required"
             />
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Gift Price</label>
-            <input type="number" class="form-control" id="edit-gift-price" />
+            <input
+              type="number"
+              class="form-control"
+              id="edit-gift-price"
+              placeholder="Optional"
+            />
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Gift Link</label>
-            <input type="text" class="form-control" id="edit-gift-link" />
+            <input
+              type="text"
+              class="form-control"
+              id="edit-gift-link"
+              placeholder="Optional"
+            />
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>

@@ -22,26 +22,29 @@ const signupFormHandler = async (event) => {
       // errorMessage(res.message);
       hideLoader();
 
-      alert(`${res.message}`);
+      // alert(`${res.message}`);
     }
   } else if (!email) {
     // TODO: configure errorMessage
     // errorMessage("Please enter an email to sign up");
     hideLoader();
-
-    alert("please enter an email to sign up");
+    showMessage("error_messages", "Please enter an email to complete sign up");
   } else if (!username) {
     // TODO: configure errorMessage
     // errorMessage("Please enter a username to sign up");
     hideLoader();
-
-    alert("please enter a username to sign up");
+    showMessage(
+      "error_messages",
+      "Please enter a username to complete sign up"
+    );
   } else {
     // TODO: configure errorMessage
     // errorMessage("Please enter a password to sign up");
     hideLoader();
-
-    alert("please enter a password to sign up");
+    showMessage(
+      "error_messages",
+      "Please enter a password to complete sign up"
+    );
   }
 };
 
@@ -49,12 +52,12 @@ document
   .querySelector(".signup-form")
   .addEventListener("submit", signupFormHandler);
 
-
 const passwordInput = document.querySelector("#togglePassword");
 const password = document.querySelector("#password-signup");
 passwordInput.addEventListener("click", function (event) {
   // if the type is set as password, changes to text, if it's text, changes to password
-  const type = password.getAttribute("type") === "password" ? "text" : "password";
+  const type =
+    password.getAttribute("type") === "password" ? "text" : "password";
   password.setAttribute("type", type);
   // toggle the eye / eye slash icon
   this.classList.toggle("bi-eye");

@@ -19,6 +19,8 @@ userRoutes.post("/", async (req, res) => {
       where: { email: req.body.email },
     });
     if (emailData) {
+      req.flash("error_messages", "Email already in use");
+
       res.status(500).json({ message: "Email already in use" });
       return;
     }
@@ -28,12 +30,16 @@ userRoutes.post("/", async (req, res) => {
       where: { username: req.body.username },
     });
     if (usernameData) {
+      req.flash("error_messages", "Username already in use");
+
       res.status(500).json({ message: "Username already in use" });
       return;
     }
 
     // Create new user in DB
     const userData = await User.create(req.body);
+
+    req.flash("success_messages", "Account created");
 
     // Configure session data
     req.session.save(() => {
@@ -42,6 +48,8 @@ userRoutes.post("/", async (req, res) => {
       res.status(200).json(userData);
     });
   } catch (err) {
+    req.flash("error_messages", "Failed to create account");
+
     res.status(400).json({ message: "Failed to create user" });
   }
 });
@@ -56,28 +64,32 @@ userRoutes.post("/login", async (req, res) => {
       where: { username: req.body.username },
     });
     if (!userData) {
-      res.status(500).json({ message: "Could not find username" });
+      req.flash("error_messages", "Could not find username");
+      res.status(500).json();
       return;
     }
 
     // Check if password matches password in DB.  If it doesn't, warn user and keep them at login screen
     const validPassword = await userData.checkPassword(req.body.password);
     if (!validPassword) {
-      res.status(500).json({ message: "Incorrect password" });
+      req.flash("error_messages", "Incorrect password");
+
+      res.status(500).json();
       return;
     }
+    req.flash("success_messages", "Logged in");
 
     // Configure session data
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-      res.status(200).json({
-        user: userData,
-        message: "You are now logged in!",
-      });
+
+      res.status(200).json();
     });
   } catch (err) {
-    res.status(500).json({ message: "Failed to login user" });
+    req.flash("error_messages", "Failed to login");
+
+    res.status(500).json();
   }
 });
 
@@ -122,7 +134,7 @@ userRoutes.put("/password", async (req, res) => {
         where: {
           id: req.session.user_id,
         },
-        individualHooks: true
+        individualHooks: true,
         // bulk create runs all the hooks, with puts it will look at this specific user before the update
       }
     );

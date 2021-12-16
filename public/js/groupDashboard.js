@@ -16,7 +16,7 @@ const updateGroupEventHandler = async (event) => {
   if (response.ok) {
     document.location.reload(`/group/${group_id}`);
   } else {
-    alert("Failed to update group.");
+    // alert("Failed to update group.");
   }
 };
 
@@ -35,7 +35,7 @@ const drawNamesEventHandler = async (event) => {
   if (response.ok) {
     document.location.reload(`/group/${group_id}`);
   } else {
-    alert("Failed to update group.");
+    // alert("Failed to update group.");
   }
 };
 
