@@ -92,10 +92,12 @@ groupRoutes.post("/join", async (req, res) => {
 groupRoutes.put("/:group_id/assign-santas", async (req, res) => {
   const groupMembersData = await Group.findByPk(req.params.group_id, {
     include: [{ model: User }],
+    // exclude passwords
   });
 
   const memberIds = groupMembersData.users.map((user) => user.id);
 
+  // Fisher-Yates shuffle algorithm
   const shuffle = (array) => {
     let currentIndex = array.length,
       randomIndex;
