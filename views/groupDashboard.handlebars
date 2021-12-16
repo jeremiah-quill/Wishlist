@@ -50,7 +50,9 @@
             {{#each assigned_user.gifts as |gift|}}
               <div class="gift-item" data-gift-id="{{gift.id}}">
                 {{#if gift.gift_link}}
-                  <a href="{{gift.gift_link}}">{{gift.gift_name}}</a>
+
+                <a href="{{gift.gift_link}}" target="_blank">{{gift.gift_name}}</a>
+
                 {{else}}
                   <li class="gift">{{gift.gift_name}}</li>
                 {{/if}}

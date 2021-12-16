@@ -43,7 +43,7 @@ router.get("/dashboard/profile", async (req, res) => {
     res.render("userProfile", {
       ...user,
       logged_in: true,
-      style: "userDashboard.css",
+      style: "user-dashboard.css",
     });
   } catch (err) {
     res.status(500).json(err);

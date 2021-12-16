@@ -3,7 +3,7 @@
 <section>
   <h2>Profile</h2>
   <div>
-    <form class="login-form">
+    <form class="login-form" id="email-username-form">
       <div class="input-spacing">
         <label for="input-username">Username</label>
         <input type="text" id="input-username" value="{{username}}" />
@@ -24,21 +24,21 @@
 <section>
   <h2>Password</h2>
   <div>
-    <form class="login-form">
+    <form class="login-form" id="password-form">
       <div>
         <label for="input-current-password">Current Password</label>
         <input type="password" id="input-current-password" />
-        {{!-- <i class="bi bi-eye-slash" id="togglePassword"></i> --}}
+        <i class="bi bi-eye-slash" id="togglePassword"></i>
       </div>
       <div>
         <label for="input-new-password-1">New Password</label>
         <input type="password" id="input-new-password-1" />
-        {{!-- <i class="bi bi-eye-slash" id="togglePassword"></i> --}}
+        <i class="bi bi-eye-slash" id="togglePassword"></i>
       </div>
       <div>
         <label for="input-new-password-2">Confirm New Password</label>
         <input type="password" id="input-new-password-2" />
-        {{!-- <i class="bi bi-eye-slash" id="togglePassword"></i> --}}
+        <i class="bi bi-eye-slash" id="togglePassword"></i>
       </div>
       <div>
         <button type="submit" class="btn btn-success btn-lg">
@@ -47,4 +47,10 @@
       </div>
     </form>
   </div>
+
+  <button type="click" class="btn btn-success btn-lg" id="logout">
+          Logout
+        </button>
 </section>
+
+<script src="/js/userProfile.js"></script>
