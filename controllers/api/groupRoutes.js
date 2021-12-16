@@ -132,8 +132,6 @@ groupRoutes.put("/:group_id/assign-santas", async (req, res) => {
     return array;
   };
 
-  /* console.log(shuffle(arr)) */
-
   const assignSantas = (array) => {
     let santas = [];
 
@@ -221,8 +219,7 @@ groupRoutes.put("/:id", (req, res) => {
     })
     .catch((err) => {
       req.flash("error_messages", "Failed to update group");
-
-      console.log(err);
+      res.status(500).json("Failed to update group");
     });
 });
 

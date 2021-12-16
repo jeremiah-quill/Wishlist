@@ -20,7 +20,6 @@ userRoutes.post("/", async (req, res) => {
     });
     if (emailData) {
       req.flash("error_messages", "Email already in use");
-
       res.status(500).json({ message: "Email already in use" });
       return;
     }
@@ -50,7 +49,8 @@ userRoutes.post("/", async (req, res) => {
   } catch (err) {
     req.flash("error_messages", "Failed to create account");
 
-    res.status(400).json({ message: "Failed to create user" });
+    res.status(500).json({ message: "Failed to create user" });
+    return;
   }
 });
 

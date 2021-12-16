@@ -17,29 +17,19 @@ const signupFormHandler = async (event) => {
       // fires get /dashboard route in homeRoutes
       document.location.replace("/dashboard");
     } else {
-      let res = await response.json();
-      // TODO: configure errorMessage
-      // errorMessage(res.message);
       hideLoader();
-
-      // alert(`${res.message}`);
+      document.location.replace("/signup");
     }
   } else if (!email) {
-    // TODO: configure errorMessage
-    // errorMessage("Please enter an email to sign up");
     hideLoader();
     showMessage("error_messages", "Please enter an email to complete sign up");
   } else if (!username) {
-    // TODO: configure errorMessage
-    // errorMessage("Please enter a username to sign up");
     hideLoader();
     showMessage(
       "error_messages",
       "Please enter a username to complete sign up"
     );
-  } else {
-    // TODO: configure errorMessage
-    // errorMessage("Please enter a password to sign up");
+  } else if (!password) {
     hideLoader();
     showMessage(
       "error_messages",

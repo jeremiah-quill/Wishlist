@@ -19,26 +19,16 @@ const loginFormHandler = async (event) => {
 
       document.location.replace("/dashboard");
     } else {
-      // let res = await response.json();
-      // TODO: Configure error message
-      // errorMessage(res.message);
       hideLoader();
       document.location.replace("/login");
     }
   }
 
   if (!username) {
-    // TODO: Configure error message
-    // errorMessage("Please enter a username to login");
     hideLoader();
     showMessage("error_messages", "Please enter a username to login");
-
-    // alert("Please enter a username to login");
   } else if (!password) {
-    // TODO: Configure error message
-    // errorMessage("Please enter a password to login");
     hideLoader();
-
     showMessage("error_messages", "Please enter a password to login");
   }
 };
