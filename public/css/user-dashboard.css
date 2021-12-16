@@ -221,3 +221,32 @@ h5 {
     margin-top: 0px;
   }
 }
+
+.gift {
+  font-family: "Satisfy", cursive;
+}
+
+.wishlist-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.wishlist-header h2 {
+  margin: 0px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.wishlist-header img {
+  margin-left: 10px;
+}
+
+.gift-item-icon {
+  margin: 0px 3px;
+}
+
+.wishlist-card {
+  color: green;
+}

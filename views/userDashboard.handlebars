@@ -6,34 +6,42 @@
   <div class="wishlist-container">
     <div class="wishlist-card card">
       <!-- <span class="border border-success"> -->
-      <div class="card-header">
-        Your Wishlist
-      </div>
-      <div class="card-body">
-        <!-- Button trigger modal -->
-        <button
-          type="button"
-          class="btn btn-primary"
+      {{! <div class="card-header"> }}
+      <div class="wishlist-header">
+        <h2 class="cursive">
+          Your Wishlist
+        </h2>
+        <img
+          class="icon-button"
           data-bs-toggle="modal"
           data-bs-target="#giftModal"
-        >
-          Add Gift
-        </button>
+          src="assets/plus-icon.png"
+        />
+      </div>
+      {{! </div> }}
+      <div class="card-body">
+
+        <!-- Icon button triggers modal -->
+
         <div class="card-body">
           <ul class="gifts">
             {{#each gifts as |gift|}}
               <div class="gift-item" data-gift-id="{{gift.id}}">
                 <li class="gift">{{gift.gift_name}}</li>
                 <div class="gift-button-container">
-                  <button
+                  <!-- Icon button triggers modal -->
+                  <img
+                    class="gift-item-icon icon-button"
                     id="edit-button"
                     data-bs-toggle="modal"
                     data-bs-target="#editGiftModal"
-                    class="edit-button gift-button btn btn-success btn-lg"
-                  >Edit</button>
-                  <button
-                    class="gift-button delete-button btn btn-success btn-lg"
-                  >Delete</button>
+                    src="/assets/edit-icon.png"
+                  />
+                  <img
+                    class="gift-item-icon delete-button icon-button"
+                    id="delete-button"
+                    src="/assets/delete-icon.png"
+                  />
                 </div>
               </div>
             {{/each}}
