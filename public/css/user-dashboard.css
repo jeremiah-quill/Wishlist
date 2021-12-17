@@ -299,6 +299,8 @@ i {
   position: fixed;
   top: 0;
   left: 0;
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
 }
 .gift,
 .group {

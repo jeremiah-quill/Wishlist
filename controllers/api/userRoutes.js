@@ -104,7 +104,7 @@ userRoutes.put("/profile", async (req, res) => {
       },
       {
         where: {
-          user_id: req.session.user_id,
+          id: req.session.user_id,
         },
       }
     );
