@@ -121,3 +121,12 @@ canvas {
 .intro-container > * {
   margin: 0.5em;
 }
+
+.sign-up {
+  padding-right: 2em;
+}
+
+.btn.btn-success.btn-lg {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+}

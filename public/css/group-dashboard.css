@@ -65,6 +65,7 @@ h1 {
   -webkit-text-stroke: 1px black;
   color: whitesmoke;
   font-size: 60px;
+  text-decoration: underline 3px #198754;
 }
 
 .container-xl {
@@ -120,4 +121,19 @@ h4 {
   display: flex;
   flex-direction: row;
   width: auto;
+}
+
+.btn.btn-success {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+}
+
+.btn.btn-primary.btn-md {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+}
+
+.btn {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
 }
