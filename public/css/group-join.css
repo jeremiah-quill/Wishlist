@@ -27,7 +27,7 @@ h1 {
 
 .sign-up {
   text-align: center;
-  padding-top: 100px;
+  padding-top: 50px;
 }
 
 .mb-3 {
@@ -43,4 +43,9 @@ h1 {
 .sign-up-btn {
   text-align: center;
   padding-top: 10px;
+}
+
+.btn.btn-success.btn-lg {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
 }

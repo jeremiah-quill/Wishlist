@@ -1,120 +1,109 @@
 <a class="btn btn-success" href="/dashboard/profile">Edit Profile</a>
 <button id="logout" type="button" class="btn btn-primary btn-md">Log Out</button>
 <h1>Welcome!</h1>
+<div id="countdown"></div>
 
 <div class="user-dashboard-container">
   <div class="wishlist-container">
     <div class="wishlist-card card">
-      <!-- <span class="border border-success"> -->
-      <div class="card-header">
-        Your Wishlist
-      </div>
-      <div class="card-body">
-        {{! DO WE NEED THE BELOW? }}
-        {{! <blockquote class="blockquote mb-0">
-        <p>Add an item to your wishlist!</p> 
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Add an item"
-            aria-label="Recipient's username"
-            aria-describedby="button-addon2"
-          />
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            id="button-addon2"
-          >Save</button>
-        </div>
-      </blockquote> }}
-        <!-- Button trigger modal -->
-        <button
-          type="button"
-          class="btn btn-primary"
+      <div class="wishlist-header">
+        <h2 class="cursive">
+          Wishlist
+        </h2>
+        <!-- Icon button triggers modal -->
+        <div class="icon-label-container">
+        <img
+          alt="Create new gift button"
+          class="icon-button"
           data-bs-toggle="modal"
           data-bs-target="#giftModal"
-        >
-          Add Gift
-        </button>
+          src="assets/plus-icon.png"
+        />
+        <div class="icon-label">Add</div>
+        </div>
+      </div>
+      <div class="card-body">
         <div class="card-body">
           <ul class="gifts">
             {{#each gifts as |gift|}}
               <div class="gift-item" data-gift-id="{{gift.id}}">
                 <li class="gift">{{gift.gift_name}}</li>
                 <div class="gift-button-container">
-                  <button
+                  <!-- Icon button triggers modal -->
+                  <img
+                    alt="Edit gift button"
+                    class="gift-item-icon icon-button"
                     id="edit-button"
                     data-bs-toggle="modal"
                     data-bs-target="#editGiftModal"
-                    class="edit-button gift-button btn btn-success btn-lg"
-                  >Edit</button>
-                  <button
-                    class="gift-button delete-button btn btn-success btn-lg"
-                  >Delete</button>
+                    src="/assets/edit-icon.png"
+                  />
+                  <img
+                    alt="Delete gift button"
+                    class="gift-item-icon delete-button icon-button"
+                    id="delete-button"
+                    src="/assets/delete-icon.png"
+                  />
                 </div>
               </div>
             {{/each}}
           </ul>
-
         </div>
       </div>
     </div>
   </div>
 
-  <div class="group-list-container col-6 col-sm-12">
-    <div class="card text-center">
-      <div class="card-header">
-        Your Groups
+  <div class="grouplist-container">
+    <div class="grouplist-card card">
+      <!-- <span class="border border-success"> -->
+      {{! <div class="card-header"> }}
+      <div class="grouplist-header">
+        <h2 class="cursive">
+          Groups
+        </h2>
+        <div class="group-buttons">
+          <div class="icon-label-container">
+          <a href="/create-group">
+            <img
+              alt="Create group button"
+              class="icon-button"
+              src="assets/add-folder-icon.png"
+            />
+            </a>
+            <div class="icon-label">New</div>
+            </div>
+          </a>
+          <div class="icon-label-container">
+          <a href="/join-group">
+            <img
+              alt="Join group button"
+              class="icon-button"
+              src="assets/party-icon.png"
+            />
+          </a>
+          <div class="icon-label">Join</div>
+          </div>
+        </div>
       </div>
       <div class="card-body">
-
-        <div class="group-buttons">
-          <a href="/create-group" class="btn btn-primary">Create a Group</a>
-          <a href="/join-group" class="btn btn-primary">Join a Group</a>
-        </div>
-
         <div class="card-body">
           <ul class="group-list">
             {{#each groups as |group|}}
-              <li class="group-item"><a
-                  href="/group/{{group.id}}"
-                >{{group.event_name}}</a></li>
+              
+                <div class="group-item">
+                  <a href="/group/{{group.id}}">
+                  <li class="group">{{group.event_name}}</li>
+                    </a>
+                </div>
+            
             {{/each}}
           </ul>
         </div>
-
       </div>
-
-      {{! TODO: add this later? }}
-      {{! <div class="card w-75">
-          <h5 class="card-title">Shopping List</h5>
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Add an person you're shopping for"
-              aria-label="Recipient's username"
-              aria-describedby="button-addon2"
-            />
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              id="button-addon2"
-            >Save</button>
-          </div>
-          <div class="list-of-names">
-
-          </div>
-        </div> }}
-
     </div>
-
   </div>
-
 </div>
 
-{{! ************************************************* }}
 <!-- Add gift modal -->
 <div
   class="modal fade"
@@ -143,15 +132,26 @@
               class="form-control"
               id="add-gift-name"
               aria-describedby="emailHelp"
+              placeholder="Required"
             />
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Gift Price</label>
-            <input type="number" class="form-control" id="add-gift-price" />
+            <input
+              type="number"
+              class="form-control"
+              id="add-gift-price"
+              placeholder="Optional"
+            />
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Gift Link</label>
-            <input type="text" class="form-control" id="add-gift-link" />
+            <input
+              type="text"
+              class="form-control"
+              id="add-gift-link"
+              placeholder="Optional"
+            />
           </div>
           <button
             id="add-gift-button"
@@ -192,15 +192,26 @@
               class="form-control"
               id="edit-gift-name"
               aria-describedby="emailHelp"
+              placeholder="Required"
             />
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Gift Price</label>
-            <input type="number" class="form-control" id="edit-gift-price" />
+            <input
+              type="number"
+              class="form-control"
+              id="edit-gift-price"
+              placeholder="Optional"
+            />
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Gift Link</label>
-            <input type="text" class="form-control" id="edit-gift-link" />
+            <input
+              type="text"
+              class="form-control"
+              id="edit-gift-link"
+              placeholder="Optional"
+            />
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>

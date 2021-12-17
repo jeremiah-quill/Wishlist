@@ -1,5 +1,5 @@
 body {
-  background-color: #CC231E;
+  background-color: #cc231e;
   background-image: url(../assets/AdobeStock_180305094.jpeg);
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -14,22 +14,18 @@ body {
   background-size: cover; */
 }
 
-
 @font-face {
   font-family: christmas;
   src: url(../assets/santafont.ttf);
 }
 
-
 .container-1 {
   text-align: center;
   margin: auto;
-
 }
 
 a {
   padding: 16px;
-  
 }
 
 #title {
@@ -37,67 +33,67 @@ a {
   font-family: christmas;
   color: rgb(219, 217, 217);
   -webkit-text-stroke: 4px black;
- float: left;
- margin-left: 75px;
- text-decoration: underline 3px rgb(219, 217, 217);
+  float: left;
+  margin-left: 75px;
+  text-decoration: underline 3px rgb(219, 217, 217);
 }
 
-#nav-bar-item-login, #nav-bar-item-group, 
-#nav-bar-item-list, #nav-bar-item-contact {
+#nav-bar-item-login,
+#nav-bar-item-group,
+#nav-bar-item-list,
+#nav-bar-item-contact {
   font-size: 25px;
-  font-family:Georgia, 'Times New Roman', Times, serif;
-  -webkit-text-stroke: .2px whitesmoke;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  -webkit-text-stroke: 0.2px whitesmoke;
   opacity: 80%;
   font-weight: bold;
 }
 
 #nav-bar-overlay {
   display: inline;
-  
 }
 
 .display-4 {
   margin: auto;
   text-align: center;
-  margin-right: 130px;
-  padding-top: 20%;
+  /* margin-right: 130px; */
+  /* padding-top: 20%; */
   font-size: 35px;
-  font-family: 'Libre Baskerville', serif;
+  font-family: "Libre Baskerville", serif;
   font-style: italic;
   color: whitesmoke;
-  -webkit-text-stroke: .6px black;
+  -webkit-text-stroke: 0.6px black;
 }
 
 ul {
   text-align: center;
   color: whitesmoke;
-  font-family: 'Libre Baskerville', serif;
+  font-family: "Libre Baskerville", serif;
   font-style: italic;
-  margin-right: 215px;
+  /* margin-right: 215px; */
   margin-top: 20px;
   font-size: 20px;
   list-style-type: none;
 }
 
 ul li:before {
-  content: '✓';
+  content: "✓";
 }
 
 .canvas-holder {
-
 }
 
 canvas {
   position: fixed;
-display: block;
+  display: block;
   margin: auto;
   width: 100%;
 }
 
 .sign-up {
   text-align: center;
-  margin-right: 25px;
-  padding-top: 19px;
+  /* margin-right: 25px; */
+  /* padding-top: 19px; */
 }
 
 /* #background-image {
@@ -107,7 +103,30 @@ display: block;
   background-position: center;
 } */
 
-.container {
+.button-container {
   display: flex;
-  margin-left: 500px
+  /* margin-left: 500px; */
+}
+
+.intro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 4em;
+  padding-right: 10em;
+}
+
+.intro-container > * {
+  margin: 0.5em;
+}
+
+.sign-up {
+  padding-right: 2em;
+}
+
+.btn.btn-success.btn-lg {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
 }

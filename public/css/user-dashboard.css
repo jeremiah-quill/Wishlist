@@ -43,6 +43,15 @@ h1 {
   /* width: 750px; */
   margin: auto;
   /* height: 70px; */
+  text-decoration: underline 3px #198754;
+}
+
+#countdown {
+  text-align: center;
+  color: aliceblue;
+  font-size: 28px;
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
 }
 
 .btn.btn-success {
@@ -88,6 +97,7 @@ h1 {
   /* margin-right: 15px !important; */
   /* height: 465px; */
   opacity: 80%;
+  /* background-color: tan; */
 }
 
 .form-control {
@@ -176,17 +186,19 @@ h5 {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  width: 90%;
+  width: 70%;
   margin: 0 auto;
   margin-top: 2em;
 }
 
 .wishlist-container {
   width: 100%;
+  height: 350px;
 }
 
-.group-list-container {
+.grouplist-container {
   width: 100%;
+  height: 350px;
 }
 
 .card-body {
@@ -211,16 +223,17 @@ h5 {
   margin-top: 1em;
 }
 
-.group-item a {
+.group-list a {
   text-decoration: none;
+  color: green;
 }
 
 @media only screen and (min-width: 768px) {
   .wishlist-container,
-  .group-list-container {
+  .grouplist-container {
     width: 45%;
   }
-  .group-list-container {
+  .grouplist-container {
     margin-top: 0px;
   }
 }
@@ -287,3 +300,60 @@ i {
   top: 0;
   left: 0;
 }
+.gift,
+.group {
+  font-family: "Satisfy", cursive;
+  text-decoration: none;
+}
+
+.group a {
+  text-decoration: none;
+  color: green;
+}
+
+.wishlist-header,
+.grouplist-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.wishlist-header h2,
+.grouplist-header h2 {
+  margin: 0px;
+  /* margin-top: 10px; */
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.gift-item-icon {
+  margin: 0px 3px;
+}
+
+.wishlist-card,
+.grouplist-card {
+  color: green;
+}
+
+
+.card-body {
+  overflow: scroll;
+}
+
+.grouplist-card .card-body {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.group-item {
+  padding: 3px 0px;
+}
+
+.btn.btn-primary {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+}
+

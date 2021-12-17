@@ -34,9 +34,13 @@ groupRoutes.post("/", (req, res) => {
       is_get_reminder: req.body.is_get_reminder,
     })
       .then(() => {
+        req.flash("success_messages", "Group created");
+
         res.status(200).json({ group_id: group.id });
       })
       .catch((err) => {
+        req.flash("error_messages", "Failed to create group");
+
         res.status(500).json(err);
       });
   });
@@ -52,12 +56,16 @@ groupRoutes.post("/join", async (req, res) => {
       include: [{ model: User }],
     });
     if (!groupData) {
+      req.flash("error_messages", "Cannot find group with this ID");
+
       res.status(400).json({ message: "Cannot find group with this ID" });
       return;
     }
     // Check if user is already a member of the group
     const userIds = groupData.users.map((user) => user.id);
     if (userIds.indexOf(req.session.user_id) !== -1) {
+      req.flash("error_messages", "You are already a member of this group");
+
       res
         .status(500)
         .json({ message: "You are already a member of this group" });
@@ -67,6 +75,8 @@ groupRoutes.post("/join", async (req, res) => {
     // Check if user gave the correct group password
     const validPassword = groupData.checkPassword(req.body.group_password);
     if (!validPassword) {
+      req.flash("error_messages", "Incorrect group password");
+
       res.status(500).json({ message: "Incorrect group password" });
       return;
     }
@@ -81,10 +91,14 @@ groupRoutes.post("/join", async (req, res) => {
       // assigned_user: 1,
     }).then(() => {
       // redirect to the newly joined group page.  Eventually rendered in groupDashboard.handlebars
+      req.flash("success_messages", "Joined group");
+
       res.status(200).json("successfully joined group");
       // redirect(`/group/${req.body.group_id}`);
     });
   } catch (err) {
+    req.flash("error_messages", "Failed to join group");
+
     res.status(500).json(err);
   }
 });
@@ -117,8 +131,6 @@ groupRoutes.put("/:group_id/assign-santas", async (req, res) => {
 
     return array;
   };
-
-  /* console.log(shuffle(arr)) */
 
   const assignSantas = (array) => {
     let santas = [];
@@ -158,6 +170,7 @@ groupRoutes.put("/:group_id/assign-santas", async (req, res) => {
   });
 
   // const updatedSantaData = UserGroup.update()
+  req.flash("success_messages", "Secret santas have been assigned");
 
   res.json(santas);
 
@@ -200,10 +213,13 @@ groupRoutes.put("/:id", (req, res) => {
     }
   )
     .then(() => {
+      req.flash("success_messages", "Group details updated");
+
       res.status(200).json("group updated");
     })
     .catch((err) => {
-      console.log(err);
+      req.flash("error_messages", "Failed to update group");
+      res.status(500).json("Failed to update group");
     });
 });
 

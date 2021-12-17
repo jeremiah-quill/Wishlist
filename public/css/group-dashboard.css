@@ -65,11 +65,14 @@ h1 {
   -webkit-text-stroke: 1px black;
   color: whitesmoke;
   font-size: 60px;
+  text-decoration: underline 3px #198754;
 }
 
 .container-xl {
   /* height: 550px;
   width: 850px; */
+  width: 75%;
+  margin: 0 auto;
   margin-top: 15px;
 }
 
@@ -112,4 +115,25 @@ h4 {
 .card.text-center {
   margin-top: 5px;
   /* height: 175px; */
+}
+
+.form-control {
+  display: flex;
+  flex-direction: row;
+  width: auto;
+}
+
+.btn.btn-success {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+}
+
+.btn.btn-primary.btn-md {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+}
+
+.btn {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
 }

@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const session = require("express-session");
+const flash = require("express-flash");
 const exphbs = require("express-handlebars");
 const routes = require("./controllers");
 const helpers = require("./utils/helpers");
@@ -37,6 +38,13 @@ app.set("view engine", "handlebars");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(flash());
+
+app.use(function (req, res, next) {
+  res.locals.success_messages = req.flash("success_messages");
+  res.locals.error_messages = req.flash("error_messages");
+  next();
+});
 
 app.use(routes);
 

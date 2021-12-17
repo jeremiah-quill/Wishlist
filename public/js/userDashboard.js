@@ -5,7 +5,8 @@ const addItemEventHandler = async (event) => {
   const price = document.querySelector("#add-gift-price").value;
   const gift_link = document.querySelector("#add-gift-link").value.trim();
 
-  if (gift_name && price && gift_link) {
+  if (gift_name) {
+    console.log(gift_link);
     const response = await fetch("/api/gifts", {
       method: "POST",
       body: JSON.stringify({ gift_name, price, gift_link }),
@@ -15,16 +16,17 @@ const addItemEventHandler = async (event) => {
     if (response.ok) {
       document.location.reload(`/dashboard`);
     } else {
-      alert("Failed to add new item.");
+      // alert("Failed to add new item.");
+      // req.flash("error_messages", "Failed to add gift 3.");
+      document.location.reload(`/dashboard`);
     }
   }
   if (!gift_name) {
-    alert("Please enter a gift name");
-  } else if (!price) {
-    alert("Please enter a price");
-  } else if (!gift_link) {
-    alter("please enter a link for this gift");
+    showMessage("error_messages", "Please enter a gift name");
   }
+  // else if (!gift_link) {
+  //   showMessage("error_messages", "Please enter a link for this gift");
+  // }
 };
 
 // Delete gift from wishlist
@@ -41,7 +43,7 @@ const deleteItemEventHandler = async (event) => {
   if (response.ok) {
     document.location.reload(`/dashboard`);
   } else {
-    alert("Failed to delete item.");
+    // alert("Failed to delete item.");
   }
 };
 
@@ -75,16 +77,23 @@ const getEditItemDetails = async (event) => {
 
       // const item = document.querySelector("#edit-gift-form");
 
-      const response = await fetch(`/api/gifts/${itemId}`, {
-        method: "PUT",
-        body: JSON.stringify({ gift_name, price, gift_link }),
-        headers: { "Content-type": "application/json" },
-      });
+      if (gift_name) {
+        const response = await fetch(`/api/gifts/${itemId}`, {
+          method: "PUT",
+          body: JSON.stringify({ gift_name, price, gift_link }),
+          headers: { "Content-type": "application/json" },
+        });
 
-      if (response.ok) {
-        document.location.reload(`/dashboard`);
-      } else {
-        alert("Failed to update item.");
+        if (response.ok) {
+          document.location.reload(`/dashboard`);
+        } else {
+          // alert("Failed to update item.");
+        }
+      } else if (!gift_name) {
+        showMessage(
+          "error_message",
+          "Please provide a gift name to finish updating"
+        );
       }
     };
 
@@ -114,3 +123,37 @@ document.querySelector("body").addEventListener("click", (e) => {
     getEditItemDetails(e);
   }
 });
+
+
+// COUNTDOWN TIMER //
+var end = new Date('12/25/2021 12:00 AM');
+
+    var _second = 1000;
+    var _minute = _second * 60;
+    var _hour = _minute * 60;
+    var _day = _hour * 24;
+    var timer;
+
+    function showRemaining() {
+        var now = new Date();
+        var distance = end - now;
+        if (distance < 0) {
+
+            clearInterval(timer);
+            document.getElementById('countdown').innerHTML = 'MERRY CHRISTMAS!';
+
+            return;
+        }
+        var days = Math.floor(distance / _day);
+        var hours = Math.floor((distance % _day) / _hour);
+        var minutes = Math.floor((distance % _hour) / _minute);
+        var seconds = Math.floor((distance % _minute) / _second);
+
+        document.getElementById('countdown').innerHTML = days + ' days,  ';
+        document.getElementById('countdown').innerHTML += hours + ' hrs,  ';
+        document.getElementById('countdown').innerHTML += minutes + ' mins,  ';
+        document.getElementById('countdown').innerHTML += seconds + ' secs, ';
+		    document.getElementById('countdown').innerHTML += ' until Christmas!';
+    }
+
+    timer = setInterval(showRemaining, 1000);
