@@ -52,7 +52,6 @@ const groupDate = document
   .querySelector(".group-date-holder")
   .getAttribute("data-group-date");
 const groupName = document.querySelector(".group-page-title").innerHTML;
-console.log(groupName);
 
 var end = new Date(groupDate);
 
