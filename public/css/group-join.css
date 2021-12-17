@@ -44,3 +44,8 @@ h1 {
   text-align: center;
   padding-top: 10px;
 }
+
+.btn.btn-success.btn-lg {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+}
