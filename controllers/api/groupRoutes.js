@@ -19,6 +19,9 @@ groupRoutes.get("/:group_id", async (req, res) => {
 // Posts form data from ".....".  FE logic in "....."
 // req.body includes event_name, price_limit, event_date, group password, and is_get_reminder
 groupRoutes.post("/", (req, res) => {
+  console.log(req.body.event_date);
+  console.log(new Date(req.body.event_date));
+
   Group.create({
     event_name: req.body.event_name,
     price_limit: req.body.price_limit,
