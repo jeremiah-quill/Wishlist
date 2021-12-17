@@ -77,65 +77,76 @@
     </div>
   </div>
   <div class="card text-center details-card">
-    {{! <div class="card-body"> }}
     <div class="dashboard-header">
       <h2 class="card-title cursive">Group Details</h2>
     </div>
-    {{! <p class="card-text"> }}
-    {{#if isCreator}}
-      <form id="update-group-form" data-group-id="{{id}}">
-        <section class="sign-up">
-          <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Name:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="event-name"
-              value="{{event_name}}"
-              placeholder="Required"
-            />
+    {{! <div class="card-body"> }}
+    <div class="group-details group-details-flex-items">
+
+      {{! <p class="card-text"> }}
+      {{#if isCreator}}
+        <form id="update-group-form" data-group-id="{{id}}">
+          <section class="sign-up">
+            <div class="mb-3">
+              <label
+                for="formGroupExampleInput"
+                class="form-label"
+              >Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="event-name"
+                value="{{event_name}}"
+                placeholder="Required"
+              />
+            </div>
+
+            <div class="calendar">
+              <label for="event-date">Party Date:</label>
+
+              <input
+                type="date"
+                id="event-date"
+                name="event-date"
+                value="{{format_date_for_input event_date}}"
+                min="2021-12-13"
+                max="2030-12-31"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="formGroupExampleInput2" class="form-label">Price
+                Limit:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="price-limit"
+                value="{{price_limit}}"
+                placeholder="Required"
+              />
+            </div>
+
+          </section>
+
+          <div class="sign-up-btn">
+            <button type="submit" class="btn btn-success">Update</button>
           </div>
 
-          <div class="calendar">
-            <label for="event-date">Party Date:</label>
+        </form>
 
-            <input
-              type="date"
-              id="event-date"
-              name="event-date"
-              value="{{format_date_for_input event_date}}"
-              min="2021-12-13"
-              max="2030-12-31"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="formGroupExampleInput2" class="form-label">Price Limit:</label>
-            <input
-              type="number"
-              class="form-control"
-              id="price-limit"
-              value="{{price_limit}}"
-              placeholder="Required"
-            />
-          </div>
+      {{else}}
 
-        </section>
+        <div>Name: {{event_name}}</div>
+        <div>Price Limit: {{price_limit}}</div>
+        <div>Event Date: {{format_date event_date}}</div>
 
-        <div class="sign-up-btn">
-          <button type="submit" class="btn btn-success">Update</button>
-        </div>
-
-      </form>
-
-    {{else}}
-
-      <div>Name: {{event_name}}</div>
-      <div>Price Limit: {{price_limit}}</div>
-      <div>Event Date: {{format_date event_date}}</div>
-
-    {{/if}}
-    {{! </p> }}
-    {{! </div> }}
+      {{/if}}
+    </div>
+    <div class="share-details group-details-flex-items">
+      <h3>Share group ID and password with others so they can join the fun!</h3>
+      <div>Group ID: <span>{{id}}</span></div>
+      <div>Group Password:
+        <span class="group-details-pw">{{group_password}}</span></div>
+    </div>
   </div>
 </div>
 
