@@ -19,13 +19,15 @@ groupRoutes.get("/:group_id", async (req, res) => {
 // Posts form data from ".....".  FE logic in "....."
 // req.body includes event_name, price_limit, event_date, group password, and is_get_reminder
 groupRoutes.post("/", (req, res) => {
-  console.log(req.body.event_date);
-  console.log(new Date(req.body.event_date));
+  // HACK: ADD 5 HOURS SINCE SEQUELIZE STORES IS UTC/GMT
+  let newDate = new Date(
+    new Date(req.body.event_date).getTime() + 5 * (60 * 60 * 1000)
+  );
 
   Group.create({
     event_name: req.body.event_name,
     price_limit: req.body.price_limit,
-    event_date: req.body.event_date,
+    event_date: newDate,
     creator_id: req.session.user_id,
     group_password: req.body.group_password,
   }).then((group) => {

@@ -103,7 +103,7 @@
               type="date"
               id="event-date"
               name="event-date"
-              value="{{format_date event_date}}"
+              value="{{format_date_for_input event_date}}"
               min="2021-12-13"
               max="2030-12-31"
             />
@@ -131,7 +131,7 @@
 
       <div>Name: {{event_name}}</div>
       <div>Price Limit: {{price_limit}}</div>
-      <div>Event Date: {{event_date}}</div>
+      <div>Event Date: {{format_date event_date}}</div>
 
     {{/if}}
     {{! </p> }}

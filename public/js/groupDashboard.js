@@ -75,8 +75,7 @@ function showRemaining() {
     return;
   }
   var days = Math.floor(distance / _day);
-  // ADDED 5 HOURS TO TIME BECAUSE CAN'T FIGURE OUT HOW TO CONFIGURE SEQUELIZE TO NOT BE IN UTC/GMT
-  var hours = Math.floor((distance % _day) / _hour) + 5;
+  var hours = Math.floor((distance % _day) / _hour);
   var minutes = Math.floor((distance % _hour) / _minute);
   var seconds = Math.floor((distance % _minute) / _second);
 
