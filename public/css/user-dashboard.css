@@ -230,6 +230,9 @@ h5 {
     margin-top: 0px;
     margin-bottom: 0px;
   }
+  .edit-profile-container{
+    width: 100%;
+  }
 }
 
 /* user-profile styling */
@@ -241,6 +244,7 @@ h5 {
   text-align: center;
 }
 .page-container h1 {
+  margin-top: 15px;
   width: 100%;
 }
 
