@@ -43,6 +43,15 @@ h1 {
   /* width: 750px; */
   margin: auto;
   /* height: 70px; */
+  text-decoration: underline 3px #198754;
+}
+
+#countdown {
+  text-align: center;
+  color: aliceblue;
+  font-size: 28px;
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
 }
 
 .btn.btn-success {
@@ -249,4 +258,9 @@ h5 {
 
 .wishlist-card {
   color: green;
+}
+
+.btn.btn-primary {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
 }

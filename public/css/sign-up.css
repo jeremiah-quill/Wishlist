@@ -50,3 +50,8 @@ h1 {
   margin: auto;
   padding-top: 10px;
 }
+
+.btn.btn-success.btn-lg {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+}
