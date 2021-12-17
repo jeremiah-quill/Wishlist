@@ -10,9 +10,9 @@ const updateProfileEventHandler = async (event) => {
       body: JSON.stringify({ username, email }),
       headers: { "Content-type": "application/json" },
     });
-
+    console.log(response)
     if (response.ok) {
-      document.location.reload(`/dashboard`);
+      document.location.replace("dashboard/profile");
     } else {
       alert("Failed to update profile.");
     }
@@ -35,7 +35,7 @@ const updatePasswordEventHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.reload(`/dashboard`);
+      document.location.replace("dashboard/profile");
     } else {
       alert("Failed to update password.");
     }
@@ -50,8 +50,6 @@ document
 const passwordForm = document.querySelector("#password-form");
 
 passwordForm.addEventListener("click", function (event) {
-  console.log(event.target)
-  console.log(event.target.previousElementSibling)
   // if the type is set as password, changes to text, if it's text, changes to password
   if(event.target.classList.contains("bi-eye-slash")){
   const type = event.target.previousElementSibling.getAttribute("type") === "password" ? "text" : "password";

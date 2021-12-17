@@ -47,7 +47,10 @@ h1 {
 
 .btn.btn-success {
   margin-top: 10px;
+  float: left;
   margin-left: 20px;
+  background-color: #198754;
+  border: #198754 !important;
 }
 
 .btn.btn-primary.btn-md {
@@ -220,4 +223,67 @@ h5 {
   .group-list-container {
     margin-top: 0px;
   }
+}
+
+/* user-profile styling */
+.page-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  text-align: center;
+}
+.page-container h1 {
+  width: 100%;
+}
+
+#h2-style {
+  text-decoration: underline #198754;
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+}
+
+.edit-profile-container {
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  width: 33%;
+  margin: 25px 10px;
+  padding-top: 25px;
+  padding-left: 20px;
+  border-radius: 0.25rem;
+  opacity: 80%;
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+}
+
+.input-position {
+  margin: 25px 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.input-position input {
+  width: 50%;
+  margin: auto;
+}
+
+.btn-positioning {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  right: 10px
+}
+
+/* .input-position input,
+label,
+i {
+  text-align: center;
+} */
+
+#btn-position {
+  position: fixed;
+  top: 0;
+  left: 0;
 }
