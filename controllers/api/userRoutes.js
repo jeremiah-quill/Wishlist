@@ -111,7 +111,7 @@ userRoutes.put("/profile", async (req, res) => {
     console.log(userData);
     res.status(200).json(userData);
   } catch (err) {
-    console.log(err);
+    req.flash("error_messages", "Failed to Update username or email");
     res.status(500).json(err);
   }
 });
@@ -140,7 +140,7 @@ userRoutes.put("/password", async (req, res) => {
     );
     res.status(200).json(updatedUserData);
   } catch (err) {
-    console.log(err);
+    req.flash("error_messages", "Failed to Password");
     res.status(500).json(err);
   }
 });
