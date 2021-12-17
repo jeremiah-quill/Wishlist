@@ -22,6 +22,8 @@ const addItemEventHandler = async (event) => {
     }
   }
   if (!gift_name) {
+    // document.location.reload("/dashboard");
+
     showMessage("error_messages", "Please enter a gift name");
   }
   // else if (!gift_link) {
@@ -49,9 +51,10 @@ const deleteItemEventHandler = async (event) => {
 
 // when you click edit gift button, it gets all details for that gift based on the data id and sets a data gift id on the edit gift form in the modal
 const getEditItemDetails = async (event) => {
-  const item = event.target.parentElement.parentElement;
+  const itemId = event.target.getAttribute("data-gift-id");
 
-  const itemId = item.getAttribute("data-gift-id");
+  console.log(itemId);
+  // const itemId = item.getAttribute("data-gift-id");
 
   const response = await fetch(`/api/gifts/${itemId}`, {
     method: "GET",
@@ -124,36 +127,34 @@ document.querySelector("body").addEventListener("click", (e) => {
   }
 });
 
-
 // COUNTDOWN TIMER //
-var end = new Date('12/25/2021 12:00 AM');
+var end = new Date("12/25/2021 12:00 AM");
 
-    var _second = 1000;
-    var _minute = _second * 60;
-    var _hour = _minute * 60;
-    var _day = _hour * 24;
-    var timer;
+var _second = 1000;
+var _minute = _second * 60;
+var _hour = _minute * 60;
+var _day = _hour * 24;
+var timer;
 
-    function showRemaining() {
-        var now = new Date();
-        var distance = end - now;
-        if (distance < 0) {
+function showRemaining() {
+  var now = new Date();
+  var distance = end - now;
+  if (distance < 0) {
+    clearInterval(timer);
+    document.getElementById("countdown").innerHTML = "MERRY CHRISTMAS!";
 
-            clearInterval(timer);
-            document.getElementById('countdown').innerHTML = 'MERRY CHRISTMAS!';
+    return;
+  }
+  var days = Math.floor(distance / _day);
+  var hours = Math.floor((distance % _day) / _hour);
+  var minutes = Math.floor((distance % _hour) / _minute);
+  var seconds = Math.floor((distance % _minute) / _second);
 
-            return;
-        }
-        var days = Math.floor(distance / _day);
-        var hours = Math.floor((distance % _day) / _hour);
-        var minutes = Math.floor((distance % _hour) / _minute);
-        var seconds = Math.floor((distance % _minute) / _second);
+  document.getElementById("countdown").innerHTML = days + " days,  ";
+  document.getElementById("countdown").innerHTML += hours + " hrs,  ";
+  document.getElementById("countdown").innerHTML += minutes + " mins,  ";
+  document.getElementById("countdown").innerHTML += seconds + " secs, ";
+  document.getElementById("countdown").innerHTML += " until Christmas!";
+}
 
-        document.getElementById('countdown').innerHTML = days + ' days,  ';
-        document.getElementById('countdown').innerHTML += hours + ' hrs,  ';
-        document.getElementById('countdown').innerHTML += minutes + ' mins,  ';
-        document.getElementById('countdown').innerHTML += seconds + ' secs, ';
-		    document.getElementById('countdown').innerHTML += ' until Christmas!';
-    }
-
-    timer = setInterval(showRemaining, 1000);
+timer = setInterval(showRemaining, 1000);

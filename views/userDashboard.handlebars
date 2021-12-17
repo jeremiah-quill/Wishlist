@@ -26,13 +26,13 @@
         <div class="card-body">
           <ul class="gifts">
             {{#each gifts as |gift|}}
-              <div class="gift-item" data-gift-id="{{gift.id}}">
+              <div class="gift-item" >
                 <li class="gift">{{gift.gift_name}}</li>
                 <div class="gift-button-container">
                   <!-- Icon button triggers modal -->
-                  <img
+                  <img data-gift-id="{{gift.id}}"
                     alt="Edit gift button"
-                    class="gift-item-icon icon-button"
+                    class="gift-item-icon edit-button icon-button"
                     id="edit-button"
                     data-bs-toggle="modal"
                     data-bs-target="#editGiftModal"

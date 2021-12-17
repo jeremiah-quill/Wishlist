@@ -157,12 +157,7 @@ li {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  /* width: 300px;
-  padding: 10px; */
   opacity: 0;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   border-radius: 0px 0px 3px 3px;
 }
 
