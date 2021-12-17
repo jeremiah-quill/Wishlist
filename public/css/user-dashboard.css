@@ -46,14 +46,6 @@ h1 {
   text-decoration: underline 3px #198754;
 }
 
-#countdown {
-  text-align: center;
-  color: aliceblue;
-  font-size: 28px;
-  font-family: "Libre Baskerville", serif;
-  font-style: italic;
-}
-
 .btn.btn-success {
   margin-top: 10px;
   float: left;
@@ -186,7 +178,7 @@ h5 {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  width: 70%;
+  width: 75%;
   margin: 0 auto;
   margin-top: 2em;
 }
@@ -219,8 +211,9 @@ h5 {
   align-items: center;
 }
 
-.group-list-container {
+.grouplist-container {
   margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .group-list a {
@@ -235,6 +228,7 @@ h5 {
   }
   .grouplist-container {
     margin-top: 0px;
+    margin-bottom: 0px;
   }
 }
 
@@ -286,7 +280,7 @@ h5 {
   display: flex;
   justify-content: center;
   position: relative;
-  right: 10px
+  right: 10px;
 }
 
 /* .input-position input,
@@ -302,33 +296,10 @@ i {
   font-family: "Libre Baskerville", serif;
   font-style: italic;
 }
-.gift,
-.group {
-  font-family: "Satisfy", cursive;
-  text-decoration: none;
-}
 
 .group a {
   text-decoration: none;
   color: green;
-}
-
-.wishlist-header,
-.grouplist-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 10px;
-}
-
-.wishlist-header h2,
-.grouplist-header h2 {
-  margin: 0px;
-  /* margin-top: 10px; */
-  font-weight: bold;
-  margin-bottom: 10px;
 }
 
 .gift-item-icon {
@@ -339,7 +310,6 @@ i {
 .grouplist-card {
   color: green;
 }
-
 
 .card-body {
   overflow: scroll;
@@ -358,4 +328,3 @@ i {
   font-family: "Libre Baskerville", serif;
   font-style: italic;
 }
-

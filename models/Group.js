@@ -4,14 +4,13 @@ const bcrypt = require("bcrypt");
 
 class Group extends Model {
   checkPassword(userPw) {
-    // ADDED THIS TO TEST ROUTE
-    // if (userPw === this.group_password) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
-    // COMMENTED THIS OUT TO TEST ROUTE
-    return bcrypt.compareSync(userPw, this.group_password);
+    if (userPw === this.group_password) {
+      return true;
+    } else {
+      return false;
+    }
+    // Using above instead of below.  Group passwords are already shared.  I think we should present the user with their group password so they don't forget it, and if we want to present it to them, we can't hash it before putting it in DB.
+    // return bcrypt.compareSync(userPw, this.group_password);
   }
 }
 
@@ -46,15 +45,15 @@ Group.init(
     },
   },
   {
-    hooks: {
-      beforeCreate: async (newGroupData) => {
-        newGroupData.group_password = await bcrypt.hash(
-          newGroupData.group_password,
-          15
-        );
-        return newGroupData;
-      },
-    },
+    // hooks: {
+    //   beforeCreate: async (newGroupData) => {
+    //     newGroupData.group_password = await bcrypt.hash(
+    //       newGroupData.group_password,
+    //       15
+    //     );
+    //     return newGroupData;
+    //   },
+    // },
     sequelize,
     timestamps: false,
     freezeTableName: true,

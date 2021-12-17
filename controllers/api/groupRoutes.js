@@ -16,14 +16,18 @@ groupRoutes.get("/:group_id", async (req, res) => {
 });
 
 // Create a new group.  Pass in the creating user as user_id, and they will be added as the first group member
-// TODO: TEST
 // Posts form data from ".....".  FE logic in "....."
 // req.body includes event_name, price_limit, event_date, group password, and is_get_reminder
 groupRoutes.post("/", (req, res) => {
+  // HACK: ADD 5 HOURS SINCE SEQUELIZE STORES IS UTC/GMT
+  let newDate = new Date(
+    new Date(req.body.event_date).getTime() + 5 * (60 * 60 * 1000)
+  );
+
   Group.create({
     event_name: req.body.event_name,
     price_limit: req.body.price_limit,
-    event_date: req.body.event_date,
+    event_date: newDate,
     creator_id: req.session.user_id,
     group_password: req.body.group_password,
   }).then((group) => {

@@ -14,16 +14,10 @@ body {
       #770d0d
     ); */
 
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  /* background-color: #D71516;
-  background-image:
-    radial-gradient(
-      #e61818,
-      #770d0d
-    );
-  height: 100vh;
-  width: 100%; */
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 @font-face {
@@ -87,6 +81,7 @@ h4 {
 .card {
   opacity: 80%;
   flex-direction: row;
+  margin-bottom: 1em;
 }
 
 .wishlist-card {
@@ -96,7 +91,7 @@ h4 {
 .card-body {
   text-align: center;
   font-family: "Libre Baskerville", serif;
-  font-style: italic;
+  /* font-style: italic; */
 }
 
 .card-text {
@@ -105,11 +100,11 @@ h4 {
 
 .card-title {
   text-align: center;
-  font-size: 20px;
+  /* font-size: 20px; */
   font-family: "Libre Baskerville", serif;
-  font-style: italic;
+  /* font-style: italic; */
   margin-bottom: 10px;
-  text-decoration: underline green;
+  /* text-decoration: underline green; */
 }
 
 .card.text-center {
@@ -136,4 +131,76 @@ h4 {
 .btn {
   font-family: "Libre Baskerville", serif;
   font-style: italic;
+}
+
+.group-members-card,
+.wishlist-card {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.details-card {
+  /* height: 250px; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 1em;
+}
+
+.group-details {
+  width: 100%;
+}
+
+.share-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* text-align: left !important; */
+}
+
+.card-body {
+  padding: 0px 2em;
+  margin: 1em 0px;
+  width: 100%;
+  overflow: scroll;
+}
+
+.gift-item-wishlist {
+  justify-content: center;
+}
+
+.sign-up > * {
+  display: flex;
+  margin: 0px !important;
+  align-items: center;
+}
+
+.share-details h3 {
+  font-size: 1em;
+}
+
+@media only screen and (min-width: 768px) {
+  .group-details-flex-items {
+    width: 50%;
+  }
+  .group-details {
+    padding-left: 2em;
+  }
+}
+
+.group-details-pw {
+  background-color: black;
+  color: black;
+}
+
+.group-details-pw:hover {
+  background-color: white;
+  color: black;
 }
