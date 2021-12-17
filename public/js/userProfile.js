@@ -5,14 +5,14 @@ const updateProfileEventHandler = async (event) => {
   const email = document.querySelector("#input-email").value.trim();
 
   if (username && email) {
-    const response = await fetch("api/users/profile", {
+    const response = await fetch("/api/users/profile", {
       method: "PUT",
       body: JSON.stringify({ username, email }),
       headers: { "Content-type": "application/json" },
     });
     console.log(response)
     if (response.ok) {
-      document.location.replace("dashboard/profile");
+      document.location.replace("/dashboard/profile");
     } else {
       alert("Failed to update profile.");
     }
@@ -24,18 +24,19 @@ document.querySelector("#email-username-form").addEventListener("submit", update
 const updatePasswordEventHandler = async (event) => {
   event.preventDefault();
 
+  const currentPassword = document.querySelector("#input-current-password").value.trim();
   const newPassword = document.querySelector("#input-new-password-1").value.trim();
   const confirmNewPassword = document.querySelector("#input-new-password-2").value.trim();
 
   if (newPassword === confirmNewPassword) {
-    const response = await fetch("api/users/password", {
+    const response = await fetch("/api/users/password", {
       method: "PUT",
-      body: JSON.stringify({ new_password: confirmNewPassword }),
+      body: JSON.stringify({ new_password: confirmNewPassword, password: currentPassword }),
       headers: { "Content-type": "application/json" },
     });
 
     if (response.ok) {
-      document.location.replace("dashboard/profile");
+      document.location.replace("/dashboard/profile");
     } else {
       alert("Failed to update password.");
     }
