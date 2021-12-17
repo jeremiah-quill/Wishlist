@@ -37,15 +37,19 @@ const drawNamesEventHandler = async () => {
   }
 };
 
-document
-  .querySelector("#update-group-form")
-  .addEventListener("submit", updateGroupEventHandler);
+// test if there is a group form rendered on the page, if there is, add the form submit event listener
+if (document.querySelector("#update-group-form")) {
+  document
+    .querySelector("#update-group-form")
+    .addEventListener("submit", updateGroupEventHandler);
+}
 
-document.querySelector("body").addEventListener("click", (e) => {
-  if (e.target.id === "draw-names-button") {
+// test if there is a draw names button rendered on the page, if there is, add the event listener for drawing names
+if (document.querySelector("#draw-names-button")) {
+  document.querySelector("#draw-names-button").addEventListener("click", () => {
     drawNamesEventHandler();
-  }
-});
+  });
+}
 
 // COUNTDOWN TIMER //
 const groupDate = document
