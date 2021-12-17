@@ -101,8 +101,26 @@ li {
   list-style-type: none;
 }
 
+.dashboard-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.dashboard-header h2 {
+  margin: 0px;
+  /* margin-top: 10px; */
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: green;
+}
+
 .gifts,
-.group-list {
+.group-list,
+.member-list {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -110,14 +128,16 @@ li {
 }
 
 .gift-item,
-.group-item {
+.group-item,
+.member-item {
   /* padding: 0px 5px; */
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.group-item {
+.group-item,
+.member-item {
   justify-content: center;
 }
 
@@ -185,6 +205,14 @@ li {
   font-family: cursive;
 }
 
+.gift,
+.group,
+.member {
+  font-family: "Satisfy", cursive;
+  text-decoration: none;
+  color: green;
+}
+
 .icon-label-container {
   display: flex;
   flex-direction: column;
@@ -198,4 +226,12 @@ li {
 
 .icon-label-container:first-child {
   margin-right: 20px;
+}
+
+#countdown {
+  text-align: center;
+  color: aliceblue;
+  font-size: 28px;
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
 }

@@ -33,9 +33,9 @@ const addItemEventHandler = async (event) => {
 
 // Delete gift from wishlist
 const deleteItemEventHandler = async (event) => {
-  const item = event.target.parentElement.parentElement;
+  // const item = event.target.parentElement.parentElement;
 
-  const itemId = item.getAttribute("data-gift-id");
+  const itemId = event.target.getAttribute("data-gift-id");
 
   const response = await fetch(`/api/gifts/${itemId}`, {
     method: "DELETE",
@@ -53,9 +53,6 @@ const deleteItemEventHandler = async (event) => {
 const getEditItemDetails = async (event) => {
   const itemId = event.target.getAttribute("data-gift-id");
 
-  console.log(itemId);
-  // const itemId = item.getAttribute("data-gift-id");
-
   const response = await fetch(`/api/gifts/${itemId}`, {
     method: "GET",
     headers: { "Content-type": "application/json" },
@@ -67,18 +64,12 @@ const getEditItemDetails = async (event) => {
     document.querySelector("#edit-gift-name").value = res.gift_name;
     document.querySelector("#edit-gift-price").value = res.price;
     document.querySelector("#edit-gift-link").value = res.gift_link;
-    // document
-    //   .querySelector("#edit-gift-form")
-    //   .setAttribute("data-gift-id", res.id);
 
     const updateItemEventHandler = async (event) => {
       event.preventDefault();
-      // TODO: add input id/class to querySelector
       const gift_name = document.querySelector("#edit-gift-name").value.trim();
       const price = document.querySelector("#edit-gift-price").value.trim();
       const gift_link = document.querySelector("#edit-gift-link").value.trim();
-
-      // const item = document.querySelector("#edit-gift-form");
 
       if (gift_name) {
         const response = await fetch(`/api/gifts/${itemId}`, {
@@ -89,8 +80,6 @@ const getEditItemDetails = async (event) => {
 
         if (response.ok) {
           document.location.reload(`/dashboard`);
-        } else {
-          // alert("Failed to update item.");
         }
       } else if (!gift_name) {
         showMessage(

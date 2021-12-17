@@ -1,12 +1,18 @@
-<a class="btn btn-success" href="/dashboard/profile">Edit Profile</a>
-<button id="logout" type="button" class="btn btn-primary btn-md">Log Out</button>
+<div class="container">
+  <a class="btn btn-success" href="/dashboard/profile">Edit Profile</a>
+
+  <button id="logout" type="button" class="btn btn-primary btn-md">Log Out</button>
 <h1>Welcome!</h1>
 <div id="countdown"></div>
+
+</div>
+
+
 
 <div class="user-dashboard-container">
   <div class="wishlist-container">
     <div class="wishlist-card card">
-      <div class="wishlist-header">
+      <div class="dashboard-header">
         <h2 class="cursive">
           Wishlist
         </h2>
@@ -39,6 +45,7 @@
                     src="/assets/edit-icon.png"
                   />
                   <img
+                  data-gift-id="{{gift.id}}"
                     alt="Delete gift button"
                     class="gift-item-icon delete-button icon-button"
                     id="delete-button"
@@ -55,9 +62,7 @@
 
   <div class="grouplist-container">
     <div class="grouplist-card card">
-      <!-- <span class="border border-success"> -->
-      {{! <div class="card-header"> }}
-      <div class="grouplist-header">
+      <div class="dashboard-header">
         <h2 class="cursive">
           Groups
         </h2>

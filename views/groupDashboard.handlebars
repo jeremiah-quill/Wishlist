@@ -1,32 +1,30 @@
-{{! <div class="canvas-holder">
-  <canvas id="canvas" class="canvas"></canvas>
-</div> }}
 <div class="container">
-  <button type="button" class="btn btn-success">User Dashboard</button>
+  <a class="btn btn-success" href="/dashboard">User Dashboard</a>
   <button
     id="logout"
     type="button"
     class="btn btn-primary btn-md"
   >Logout</button>
-  <h1>{{event_name}}</h1>
+  <h1
+    class="group-page-title group-date-holder"
+    data-group-date="{{event_date}}"
+  >{{event_name}}</h1>
+  <div id="countdown"></div>
+
 </div>
 <div class="container-xl">
-  {{!-- <div class="card">
-    <div class="card-body">
-      <h4>Group Name: {{event_name}}</h4>
-    </div> --}}
-  {{#if isCreator}}
-    <button id="draw-names-button" data-group-id="{{id}}" class="btn">Draw Names</button>
-  {{/if}}
-  {{! </div> }}
+
   <div class="row">
     <div class="col-sm-6">
-      <div class="card">
+      <div class="card group-members-card">
+
+        <div class="dashboard-header">
+          <h2 class="card-title cursive">Members</h2>
+        </div>
         <div class="card-body">
-          <h5 class="card-title">Group Members</h5>
           <ul class="member-list">
             {{#each users as |member|}}
-              <li class="member-item">{{member.username}}</li>
+              <li class="member-item member">{{member.username}}</li>
             {{/each}}
           </ul>
         </div>
@@ -34,24 +32,36 @@
     </div>
     <div class="col-sm-6">
       <div class="card wishlist-card">
+
+        {{#if assigned_user}}
+          <div class="dashboard-header">
+            <h2 class="card-title cursive">
+              {{assigned_user.username}}'s wishlist:</h2>
+          </div>
+
+        {{else}}
+          <div class="dashboard-header">
+            <h2 class="card-title cursive">This group has not assigned secret
+              santas yet
+            </h2>
+            {{#if isCreator}}
+              <button
+                id="draw-names-button"
+                data-group-id="{{id}}"
+                class="btn"
+              >Draw Names</button>
+            {{/if}}
+          </div>
+
+        {{/if}}
         <div class="card-body">
-
-          {{#if assigned_user}}
-            <h5 class="card-title">
-              {{assigned_user.username}}'s wishlist:</h5>
-
-          {{else}}
-            <h5 class="card-title">This group has not assigned secret santas yet
-            </h5>
-
-          {{/if}}
-
-          <ul>
+          <ul class="wishlist">
             {{#each assigned_user.gifts as |gift|}}
-              <div class="gift-item" data-gift-id="{{gift.id}}">
+              <div class="gift-item-wishlist" data-gift-id="{{gift.id}}">
                 {{#if gift.gift_link}}
 
                   <a
+                    class="gift"
                     href="{{gift.gift_link}}"
                     target="_blank"
                   >{{gift.gift_name}}</a>
@@ -66,69 +76,66 @@
       </div>
     </div>
   </div>
-  <div class="card text-center">
-    <div class="card-body">
-      <h5 class="card-title">About The Party</h5>
-      <p class="card-text">
-        {{#if isCreator}}
-          <form id="update-group-form" data-group-id="{{id}}">
-            <section class="sign-up">
-              <div class="mb-3">
-                <label for="formGroupExampleInput" class="form-label">Name of
-                  Group:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="event-name"
-                  value="{{event_name}}"
-                  placeholder="Required"
-                />
-              </div>
-
-              <div class="calendar">
-                <label for="event-date">Party Date:</label>
-
-                <input
-                  type="date"
-                  id="event-date"
-                  name="event-date"
-                  value="{{format_date event_date}}"
-                  min="2021-12-13"
-                  max="2030-12-31"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="formGroupExampleInput2" class="form-label">Price
-                  Limit:</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="price-limit"
-                  value="{{price_limit}}"
-                  placeholder="Required"
-                />
-              </div>
-
-            </section>
-
-            <div class="sign-up-btn">
-              <button
-                type="submit"
-                class="btn btn-success btn-lg"
-              >Update</button>
-            </div>
-
-          </form>
-
-        {{else}}
-
-          <div>Group Name: {{event_name}}</div>
-          <div>Price Limit: {{price_limit}}</div>
-          <div>Event Date: {{event_date}}</div>
-
-        {{/if}}
-      </p>
+  <div class="card text-center details-card">
+    {{! <div class="card-body"> }}
+    <div class="dashboard-header">
+      <h2 class="card-title cursive">Group Details</h2>
     </div>
+    {{! <p class="card-text"> }}
+    {{#if isCreator}}
+      <form id="update-group-form" data-group-id="{{id}}">
+        <section class="sign-up">
+          <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="event-name"
+              value="{{event_name}}"
+              placeholder="Required"
+            />
+          </div>
+
+          <div class="calendar">
+            <label for="event-date">Party Date:</label>
+
+            <input
+              type="date"
+              id="event-date"
+              name="event-date"
+              value="{{format_date event_date}}"
+              min="2021-12-13"
+              max="2030-12-31"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Price Limit:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="price-limit"
+              value="{{price_limit}}"
+              placeholder="Required"
+            />
+          </div>
+
+        </section>
+
+        <div class="sign-up-btn">
+          <button type="submit" class="btn btn-success">Update</button>
+        </div>
+
+      </form>
+
+    {{else}}
+
+      <div>Name: {{event_name}}</div>
+      <div>Price Limit: {{price_limit}}</div>
+      <div>Event Date: {{event_date}}</div>
+
+    {{/if}}
+    {{! </p> }}
+    {{! </div> }}
   </div>
 </div>
 
