@@ -20,8 +20,8 @@ h1 {
   color: black;
   border-radius: 22px;
   margin: auto;
-  width: 700px;
-  height: 400px;
+  width: 57%;
+  height: 60%;
   margin-top: 70px;
 }
 
@@ -31,7 +31,7 @@ h1 {
 }
 
 .mb-3 {
-  width: 500px;
+  width: 80%;
   margin: auto;
 }
 
