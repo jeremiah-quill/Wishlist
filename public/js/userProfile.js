@@ -14,8 +14,7 @@ const updateProfileEventHandler = async (event) => {
     if (response.ok) {
       document.location.replace("/dashboard/profile");
     } else {
-      // this alread runs on back-end
-      // showMessage("error_messages", "Email input is not valid.");
+      document.location.replace("/dashboard/profile");
     }
   } else {
     showMessage("error_messages", "Please provide both a username and email!");
@@ -57,7 +56,7 @@ const updatePasswordEventHandler = async (event) => {
     } else {
       // already runs on back-end
       // showMessage("error_messages", "Current Password input incorrect.");
-      hideLoader();
+      document.location.replace("/dashboard/profile");
     }
   } else {
     hideLoader();

@@ -84,6 +84,7 @@ groupRoutes.post("/join", async (req, res) => {
       res.status(500).json({ message: "Incorrect group password" });
       return;
     }
+    console.log(validPassword);
 
     const group = groupData.get({ plain: true });
     // Create association between user and group.  is_get_reminder is a boolean telling us if this user chose to receive a reminder email for this group
