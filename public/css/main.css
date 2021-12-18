@@ -9,6 +9,7 @@ canvas {
   width: 100%;
   /* Added z-index so we can click on signup button */
   z-index: -1;
+  height: 100vh;
 }
 
 .btn {

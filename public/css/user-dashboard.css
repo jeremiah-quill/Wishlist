@@ -52,6 +52,8 @@ h1 {
   margin-left: 20px;
   background-color: #198754;
   border: #198754 !important;
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
 }
 
 .btn.btn-primary.btn-md {
@@ -242,6 +244,7 @@ h5 {
   flex-wrap: wrap;
   justify-content: space-evenly;
   text-align: center;
+  width: 100%;
 }
 .page-container h1 {
   margin-top: 15px;
@@ -258,7 +261,7 @@ h5 {
   display: flex;
   background-color: white;
   flex-direction: column;
-  width: 33%;
+  width: 40%;
   margin: 25px 10px;
   padding-top: 25px;
   padding-left: 20px;
