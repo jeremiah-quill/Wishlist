@@ -14,7 +14,8 @@ const updateProfileEventHandler = async (event) => {
     if (response.ok) {
       document.location.replace("/dashboard/profile");
     } else {
-      showMessage("error_messages", "Email input is not valid.");
+      // this alread runs on back-end
+      // showMessage("error_messages", "Email input is not valid.");
     }
   } else {
     showMessage("error_messages", "Please provide both a username and email!");
@@ -39,6 +40,8 @@ const updatePasswordEventHandler = async (event) => {
     .value.trim();
 
   if (newPassword === confirmNewPassword) {
+    showLoader();
+
     const response = await fetch("/api/users/password", {
       method: "PUT",
       body: JSON.stringify({
@@ -50,18 +53,20 @@ const updatePasswordEventHandler = async (event) => {
 
     if (response.ok) {
       document.location.replace("/dashboard/profile");
+      hideLoader();
     } else {
-      showMessage("error_messages", "Current Password input incorrect.");
+      // already runs on back-end
+      // showMessage("error_messages", "Current Password input incorrect.");
+      hideLoader();
     }
   } else {
+    hideLoader();
     showMessage("error_messages", "New passwords did not match!");
   }
 };
 document
   .querySelector("#password-form")
   .addEventListener("submit", updatePasswordEventHandler);
-
-
 
 const passwordForm = document.querySelector("#password-form");
 

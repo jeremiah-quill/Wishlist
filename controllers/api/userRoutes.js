@@ -109,6 +109,8 @@ userRoutes.put("/profile", async (req, res) => {
       }
     );
     console.log(userData);
+    // JQ: added success message
+    req.flash("success_messages", "Successfully updated account info");
     res.status(200).json(userData);
   } catch (err) {
     req.flash("error_messages", "Failed to Update username or email");
@@ -123,6 +125,8 @@ userRoutes.put("/password", async (req, res) => {
     const userData = await User.findByPk(req.session.user_id);
     const validPassword = await userData.checkPassword(req.body.password);
     if (!validPassword) {
+      // JQ: remember need flash message here (or send message via json and send with showMessage on front end)
+      req.flash("error_messages", "Wrong current password, please try again");
       res
         .status(400)
         .json({ message: "Wrong current password, please try again" });
@@ -138,6 +142,8 @@ userRoutes.put("/password", async (req, res) => {
         // bulk create runs all the hooks, with puts it will look at this specific user before the update
       }
     );
+    // JQ: added below success message
+    req.flash("success_messages", "Successfully updated password");
     res.status(200).json(updatedUserData);
   } catch (err) {
     req.flash("error_messages", "Failed to Password");
