@@ -252,14 +252,16 @@ h5 {
   display: flex;
   background-color: white;
   flex-direction: column;
+  /* JQ: use this to set large boxes on all screen sizes */
   width: 70%;
   margin: 25px 10px;
   padding-top: 25px;
-  padding-left: 20px;
   border-radius: 0.25rem;
   opacity: 80%;
   font-family: "Libre Baskerville", serif;
   font-style: italic;
+  /*  */
+  /* width: 40%; */
 }
 
 .input-position {
@@ -336,4 +338,8 @@ i {
     margin-top: 0px;
     margin-bottom: 0px;
   }
+  /* JQ: use this if you want boxes side by side on large screens (I'm defining large as 768px on line 332) */
+  /* .edit-profile-container {
+    width: 40%;
+  } */
 }
