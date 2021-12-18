@@ -12,6 +12,8 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover; */
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 @font-face {
@@ -29,7 +31,6 @@ a {
 }
 
 #title {
-  font-size: 110px;
   font-family: christmas;
   color: rgb(219, 217, 217);
   -webkit-text-stroke: 4px black;
@@ -114,12 +115,12 @@ canvas {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  padding-top: 4em;
-  padding-right: 10em;
+  /* padding-top: 4em;
+  padding-right: 10em; */
 }
 
 .intro-container > * {
-  margin: 0.5em;
+  margin: 0.75em;
 }
 
 .sign-up {
@@ -129,4 +130,11 @@ canvas {
 .btn.btn-success.btn-lg {
   font-family: "Libre Baskerville", serif;
   font-style: italic;
+}
+
+.intro-container {
+  margin: 0px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }

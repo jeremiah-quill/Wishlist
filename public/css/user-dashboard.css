@@ -6,6 +6,8 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  /* background-position: center; */
+
   height: 100vh;
   /* height: 100px;
     background-color: #D71516;
@@ -14,9 +16,11 @@ body {
       #e61818,
       #770d0d
     ); */
-
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   height: 100vh;
   width: 100%;
+  overflow: scroll;
 }
 
 @font-face {
@@ -221,22 +225,9 @@ h5 {
   color: green;
 }
 
-@media only screen and (min-width: 768px) {
-  .wishlist-container,
-  .grouplist-container {
-    width: 45%;
-  }
-  .grouplist-container {
-    margin-top: 0px;
-    margin-bottom: 0px;
-  }
-  .edit-profile-container{
-    width: 100%;
-  }
-}
-
 /* user-profile styling */
 .page-container {
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -258,7 +249,7 @@ h5 {
   display: flex;
   background-color: white;
   flex-direction: column;
-  width: 33%;
+  width: 70%;
   margin: 25px 10px;
   padding-top: 25px;
   padding-left: 20px;
@@ -295,8 +286,8 @@ i {
 
 #btn-position {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 10px;
+  left: 10px;
   font-family: "Libre Baskerville", serif;
   font-style: italic;
 }
@@ -331,4 +322,15 @@ i {
 .btn.btn-primary {
   font-family: "Libre Baskerville", serif;
   font-style: italic;
+}
+
+@media only screen and (min-width: 768px) {
+  .wishlist-container,
+  .grouplist-container {
+    width: 45%;
+  }
+  .grouplist-container {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 }
