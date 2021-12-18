@@ -253,7 +253,7 @@ h5 {
   background-color: white;
   flex-direction: column;
   /* JQ: use this to set large boxes on all screen sizes */
-  width: 70%;
+  width: 51%;
   margin: 25px 10px;
   padding-top: 25px;
   border-radius: 0.25rem;
