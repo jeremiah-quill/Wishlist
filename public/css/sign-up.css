@@ -20,8 +20,8 @@ h1 {
   color: black;
   border-radius: 22px;
   margin: auto;
-  width: 700px;
-  height: 430px;
+  width: 50%;
+  height: 65%;
   margin-top: 70px;
 }
 
@@ -31,14 +31,16 @@ h1 {
 }
 
 .mb-3 {
-  width: 500px;
+  width: 80%;
   margin: auto;
 }
 
 .form-label {
   color: black(240, 240, 240, 0.993);
   font-size: 24px;
+  width: 75% !important;
 }
+
 
 .sign-up-btn {
   text-align: center;
