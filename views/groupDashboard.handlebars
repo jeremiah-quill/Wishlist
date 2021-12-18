@@ -1,9 +1,10 @@
 <div class="container">
-  <a class="btn btn-success" href="/dashboard">User Dashboard</a>
+  <a class="btn btn-success button-left green-button" href="/dashboard">User
+    Dashboard</a>
   <button
     id="logout"
     type="button"
-    class="btn btn-primary btn-md"
+    class="btn btn-primary btn-md logout-right"
   >Logout</button>
   <h1
     class="group-page-title group-date-holder"
@@ -57,19 +58,25 @@
         <div class="card-body">
           <ul class="wishlist">
             {{#each assigned_user.gifts as |gift|}}
-              <div class="gift-item-wishlist" data-gift-id="{{gift.id}}">
-                {{#if gift.gift_link}}
+              {{!-- <div class="gift-item-wishlist" data-gift-id="{{gift.id}}"> --}}
+              {{!-- {{#if gift.gift_link}}
 
                   <a
+                    data-gift-id="{{gift.id}}"
                     class="gift"
                     href="{{gift.gift_link}}"
                     target="_blank"
                   >{{gift.gift_name}}</a>
 
-                {{else}}
-                  <li class="gift">{{gift.gift_name}}</li>
-                {{/if}}
-              </div>
+                {{else}} --}}
+              <li
+                data-bs-toggle="modal"
+                data-bs-target="#viewGiftModal"
+                data-gift-id="{{gift.id}}"
+                class="gift viewable-gift view-button"
+              >{{gift.gift_name}}</li>
+              {{!-- {{/if}} --}}
+              {{! </div> }}
             {{/each}}
           </ul>
         </div>
@@ -128,7 +135,10 @@
           </section>
 
           <div class="sign-up-btn">
-            <button type="submit" class="btn btn-success">Update</button>
+            <button
+              type="submit"
+              class="btn btn-success green-button"
+            >Update</button>
           </div>
 
         </form>
@@ -149,5 +159,38 @@
     </div>
   </div>
 </div>
+
+<!-- View gift modal -->
+<div
+  class="modal fade"
+  id="viewGiftModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Gift details</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body gift-details-view">
+
+        <div>Gift Name:&nbsp; <div id="gift-name"></div></div>
+
+        <div>Gift Price:&nbsp; <div id="gift-price"></div></div>
+
+        <div>Gift Link:&nbsp; <div id="gift-link"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!  }}
 
 <script src="../js/groupDashboard.js"></script>

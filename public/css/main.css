@@ -203,7 +203,8 @@ li {
 }
 
 .cursive {
-  font-family: cursive;
+  /* font-family: cursive; */
+  font-family: "Libre Baskerville", serif;
 }
 
 .gift,
@@ -235,4 +236,82 @@ li {
   font-size: 28px;
   font-family: "Libre Baskerville", serif;
   font-style: italic;
+}
+
+.logout-right {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  margin: 0px;
+  z-index: 100;
+}
+
+.button-left {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  margin-left: 0px;
+  z-index: 100;
+}
+
+.green-button {
+  background-color: #198754;
+  border: #198754 !important;
+}
+
+#countdown {
+  font-size: 1.25em;
+}
+
+.italic-button {
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
+}
+
+#title {
+  width: 100%;
+  margin: 0px;
+  text-align: center;
+  font-size: 3.5em;
+  -webkit-text-stroke: 2px black;
+  padding: 0px;
+}
+
+.mb-3 {
+  width: 80%;
+}
+.white-box {
+  width: 85%;
+}
+
+.viewable-gift {
+  cursor: pointer;
+}
+
+.viewable-gift:hover {
+  color: red;
+}
+
+.gift-details-view > div {
+  display: flex;
+  margin: 20px;
+}
+
+@media only screen and (min-width: 550px) {
+  #title {
+    font-size: 110px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  #title {
+    margin: 0px;
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    text-align: start;
+  }
+  .white-box {
+    width: 60%;
+  }
 }

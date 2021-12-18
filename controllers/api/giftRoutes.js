@@ -29,6 +29,7 @@ giftRoutes.get("/:id", async (req, res) => {
     const { gift_name, price, gift_link, id } = giftData;
     res.status(200).json({ gift_name, price, gift_link, id });
   } catch (err) {
+    req.flash("error_messages", "Failed to get item details");
     res.status(500).json(err);
   }
 });
