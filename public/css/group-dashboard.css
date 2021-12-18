@@ -18,6 +18,7 @@ body {
   width: 100%;
   background-repeat: no-repeat;
   background-position: center;
+  background-attachment: fixed;
 }
 
 @font-face {
@@ -168,7 +169,7 @@ h4 {
 .card-body {
   padding: 0px 2em;
   margin: 1em 0px;
-  width: 100%;
+  /* width: 100%; */
   overflow: scroll;
 }
 

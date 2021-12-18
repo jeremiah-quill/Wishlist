@@ -19,9 +19,7 @@ const joinGroupFormHandler = async (event) => {
       // fires get /group/:id route in homeRoutes
       document.location.replace(`/group/${group_id}`);
     } else {
-      // TODO: Configure error message
-      // errorMessage(res.message);
-      hideLoader();
+      document.location.reload(`/join-group`);
     }
   }
 

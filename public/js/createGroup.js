@@ -32,7 +32,8 @@ const createGroupFormHandler = async (event) => {
     } else {
       // TODO: configure errorMessage
       // errorMessage(res.message);
-      hideLoader();
+      // hideLoader();
+      document.location.replace("/create-group");
     }
   } else if (!event_name) {
     // TODO: configure errorMessage

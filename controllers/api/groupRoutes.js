@@ -84,6 +84,7 @@ groupRoutes.post("/join", async (req, res) => {
       res.status(500).json({ message: "Incorrect group password" });
       return;
     }
+    console.log(validPassword);
 
     const group = groupData.get({ plain: true });
     // Create association between user and group.  is_get_reminder is a boolean telling us if this user chose to receive a reminder email for this group
@@ -202,11 +203,16 @@ groupRoutes.put("/:group_id/assign-santas", async (req, res) => {
 // update group details
 // TODO: add auth middleware, test
 groupRoutes.put("/:id", (req, res) => {
+  // HACK: ADD 5 HOURS SINCE SEQUELIZE STORES IS UTC/GMT
+  let newDate = new Date(
+    new Date(req.body.event_date).getTime() + 5 * (60 * 60 * 1000)
+  );
+
   Group.update(
     {
       event_name: req.body.event_name,
       price_limit: req.body.price_limit,
-      event_date: req.body.event_date,
+      event_date: newDate,
     },
     {
       where: {

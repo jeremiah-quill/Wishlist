@@ -6,6 +6,8 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  /* background-position: center; */
+
   height: 100vh;
   /* height: 100px;
     background-color: #D71516;
@@ -14,9 +16,11 @@ body {
       #e61818,
       #770d0d
     ); */
-
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   height: 100vh;
   width: 100%;
+  overflow: scroll;
 }
 
 @font-face {
@@ -52,6 +56,8 @@ h1 {
   margin-left: 20px;
   background-color: #198754;
   border: #198754 !important;
+  font-family: "Libre Baskerville", serif;
+  font-style: italic;
 }
 
 .btn.btn-primary.btn-md {
@@ -221,27 +227,15 @@ h5 {
   color: green;
 }
 
-@media only screen and (min-width: 768px) {
-  .wishlist-container,
-  .grouplist-container {
-    width: 45%;
-  }
-  .grouplist-container {
-    margin-top: 0px;
-    margin-bottom: 0px;
-  }
-  .edit-profile-container{
-    width: 100%;
-  }
-}
-
 /* user-profile styling */
 .page-container {
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
   text-align: center;
+  width: 100%;
 }
 .page-container h1 {
   margin-top: 15px;
@@ -258,14 +252,16 @@ h5 {
   display: flex;
   background-color: white;
   flex-direction: column;
-  width: 33%;
+  /* JQ: use this to set large boxes on all screen sizes */
+  width: 70%;
   margin: 25px 10px;
   padding-top: 25px;
-  padding-left: 20px;
   border-radius: 0.25rem;
   opacity: 80%;
   font-family: "Libre Baskerville", serif;
   font-style: italic;
+  /*  */
+  /* width: 40%; */
 }
 
 .input-position {
@@ -295,8 +291,8 @@ i {
 
 #btn-position {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 10px;
+  left: 10px;
   font-family: "Libre Baskerville", serif;
   font-style: italic;
 }
@@ -331,4 +327,19 @@ i {
 .btn.btn-primary {
   font-family: "Libre Baskerville", serif;
   font-style: italic;
+}
+
+@media only screen and (min-width: 768px) {
+  .wishlist-container,
+  .grouplist-container {
+    width: 45%;
+  }
+  .grouplist-container {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  /* JQ: use this if you want boxes side by side on large screens (I'm defining large as 768px on line 332) */
+  /* .edit-profile-container {
+    width: 40%;
+  } */
 }

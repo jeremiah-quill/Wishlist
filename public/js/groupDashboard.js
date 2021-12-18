@@ -16,7 +16,7 @@ const updateGroupEventHandler = async (event) => {
   if (response.ok) {
     document.location.reload(`/group/${group_id}`);
   } else {
-    // alert("Failed to update group.");
+    document.location.reload(`/group/${group_id}`);
   }
 };
 
@@ -33,9 +33,43 @@ const drawNamesEventHandler = async () => {
   if (response.ok) {
     document.location.reload(`/group/${group_id}`);
   } else {
-    // alert("Failed to update group.");
+    document.location.reload(`/group/${group_id}`);
   }
 };
+
+const getItemDetails = async (event) => {
+  const itemId = event.target.getAttribute("data-gift-id");
+
+  const response = await fetch(`/api/gifts/${itemId}`, {
+    method: "GET",
+    headers: { "Content-type": "application/json" },
+  });
+
+  if (response.ok) {
+    let res = await response.json();
+    console.log(res.gift_link);
+
+    let price = res.gift_price;
+    if (!res.gift_price) {
+      price = "Sorry, a price was not provided for this gift";
+    }
+
+    let link = res.gift_link;
+    if (!res.gift_link) {
+      link = "Sorry, a link was not provided for this gift";
+    }
+
+    document.querySelector("#gift-name").innerHTML = res.gift_name;
+    document.querySelector("#gift-price").innerHTML = price;
+    document.querySelector("#gift-link").innerHTML = link;
+  }
+};
+
+document.querySelector("body").addEventListener("click", (e) => {
+  if (e.target.classList.contains("view-button")) {
+    getItemDetails(e);
+  }
+});
 
 // test if there is a group form rendered on the page, if there is, add the form submit event listener
 if (document.querySelector("#update-group-form")) {
