@@ -51,12 +51,12 @@ const getItemDetails = async (event) => {
 
     let price = res.gift_price;
     if (!res.gift_price) {
-      price = "Sorry, a price was not provided for this gift";
+      price = "not provided by user";
     }
 
     let link = res.gift_link;
     if (!res.gift_link) {
-      link = "Sorry, a link was not provided for this gift";
+      link = "not provided by user";
     }
 
     document.querySelector("#gift-name").innerHTML = res.gift_name;
