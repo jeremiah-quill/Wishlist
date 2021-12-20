@@ -22,6 +22,7 @@
 const assignSantas = (array) => {
   let santas = [];
 
+  // loop through the array of members in the group.  for each member, create a pairing with the member in the next index.  If the current member is the last indexed member, create a pairing with index 0
   for (let i = 0; i < array.length; i++) {
 
     let newSanta = {};
