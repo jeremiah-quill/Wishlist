@@ -85,6 +85,7 @@ if (document.querySelector("#draw-names-button")) {
   });
 }
 
+// TODO: bring this into it's own function since we are using in both userDashboard.js and groupDashboard.js
 // COUNTDOWN TIMER //
 const groupDate = document
   .querySelector(".group-date-holder")

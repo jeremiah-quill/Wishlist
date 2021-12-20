@@ -1,3 +1,4 @@
+
 // Add gift to wishlist
 const addItemEventHandler = async (event) => {
   event.preventDefault();
@@ -12,28 +13,15 @@ const addItemEventHandler = async (event) => {
       body: JSON.stringify({ gift_name, price, gift_link }),
       headers: { "Content-type": "application/json" },
     });
-
-    if (response.ok) {
       document.location.reload(`/dashboard`);
-    } else {
-      // alert("Failed to add new item.");
-      // req.flash("error_messages", "Failed to add gift 3.");
-      document.location.reload(`/dashboard`);
-    }
   }
-  if (!gift_name) {
-    // document.location.reload("/dashboard");
-
+  else {
     showMessage("error_messages", "Please enter a gift name");
   }
-  // else if (!gift_link) {
-  //   showMessage("error_messages", "Please enter a link for this gift");
-  // }
 };
 
 // Delete gift from wishlist
 const deleteItemEventHandler = async (event) => {
-  // const item = event.target.parentElement.parentElement;
 
   const itemId = event.target.getAttribute("data-gift-id");
 
@@ -41,12 +29,7 @@ const deleteItemEventHandler = async (event) => {
     method: "DELETE",
     headers: { "Content-type": "application/json" },
   });
-
-  if (response.ok) {
     document.location.reload(`/dashboard`);
-  } else {
-    // alert("Failed to delete item.");
-  }
 };
 
 // when you click edit gift button, it gets all details for that gift based on the data id and sets a data gift id on the edit gift form in the modal
@@ -58,9 +41,9 @@ const getEditItemDetails = async (event) => {
     headers: { "Content-type": "application/json" },
   });
 
+  // if our call to DB to get item details is successful, we add these item details into the input forms and add an event handler for an update item form submit
   if (response.ok) {
     let res = await response.json();
-
     document.querySelector("#edit-gift-name").value = res.gift_name;
     document.querySelector("#edit-gift-price").value = res.price;
     document.querySelector("#edit-gift-link").value = res.gift_link;
@@ -76,14 +59,11 @@ const getEditItemDetails = async (event) => {
           method: "PUT",
           body: JSON.stringify({ gift_name, price, gift_link }),
           headers: { "Content-type": "application/json" },
-        });
-
-        if (response.ok) {
+        });          
           document.location.reload(`/dashboard`);
-        }
-      } else if (!gift_name) {
+      } else {
         showMessage(
-          "error_message",
+          "error_messages",
           "Please provide a gift name to finish updating"
         );
       }
@@ -92,12 +72,9 @@ const getEditItemDetails = async (event) => {
     document
       .querySelector("#edit-gift-form")
       .addEventListener("submit", updateItemEventHandler);
-  } else {
-    alert("Failed to delete item.");
-  }
+  } 
 };
 
-// uses data gift id property in edit gift form in model to edit the corresponding gift on submit
 
 // Event listeners
 document
@@ -116,6 +93,7 @@ document.querySelector("body").addEventListener("click", (e) => {
   }
 });
 
+// TODO: bring this into it's own function since we are using in both userDashboard.js and groupDashboard.js
 // COUNTDOWN TIMER //
 var end = new Date("12/25/2021 12:00 AM");
 

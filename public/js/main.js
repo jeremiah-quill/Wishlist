@@ -1,3 +1,4 @@
+// hide loader whenever the page refreshes
 window.onload = function WindowLoad(event) {
   hideLoader();
 };

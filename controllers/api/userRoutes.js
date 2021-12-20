@@ -1,8 +1,6 @@
 const userRoutes = require("express").Router();
 const { Group, User, UserGroup, Gift } = require("../../models");
 
-// url at this point is: /api/users
-
 // Get all users (for testing)
 userRoutes.get("/", async (req, res) => {
   const usersData = await User.findAll();
@@ -10,8 +8,6 @@ userRoutes.get("/", async (req, res) => {
 });
 
 // Create a new user
-// Posts form data from views/signUp.handlebars.  FE logic in public/js/signUp.js
-// req.body includes email, username, and password
 userRoutes.post("/", async (req, res) => {
   try {
     // Check if email is already in use.  If it is, warn user and don't create anything in the DB
@@ -20,7 +16,7 @@ userRoutes.post("/", async (req, res) => {
     });
     if (emailData) {
       req.flash("error_messages", "Email already in use");
-      res.status(500).json({ message: "Email already in use" });
+      res.status(500).json();
       return;
     }
 
@@ -30,13 +26,17 @@ userRoutes.post("/", async (req, res) => {
     });
     if (usernameData) {
       req.flash("error_messages", "Username already in use");
-
-      res.status(500).json({ message: "Username already in use" });
+      res.status(500).json();
       return;
     }
 
     // Create new user in DB
     const userData = await User.create(req.body);
+
+    if(!userData) {
+      req.flash("error_messages", "Failed to create user");
+      res.status(500).json();
+    }
 
     req.flash("success_messages", "Account created");
 
@@ -44,19 +44,15 @@ userRoutes.post("/", async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-      res.status(200).json(userData);
+      res.status(200).json();
     });
   } catch (err) {
     req.flash("error_messages", "Failed to create account");
-
-    res.status(500).json({ message: "Failed to create user" });
-    return;
+    res.status(500).json();
   }
 });
 
 // login existing user
-// Posts form data from views/login.handlebars.  FE logic in public/js/login.js
-// req.body includes username and password
 userRoutes.post("/login", async (req, res) => {
   try {
     // Check if username is in DB.  If it isn't, warn user and keep them at login screen
@@ -73,7 +69,6 @@ userRoutes.post("/login", async (req, res) => {
     const validPassword = await userData.checkPassword(req.body.password);
     if (!validPassword) {
       req.flash("error_messages", "Incorrect password");
-
       res.status(500).json();
       return;
     }
@@ -83,12 +78,10 @@ userRoutes.post("/login", async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-
       res.status(200).json();
     });
   } catch (err) {
     req.flash("error_messages", "Failed to login");
-
     res.status(500).json();
   }
 });

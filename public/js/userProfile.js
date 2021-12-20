@@ -69,6 +69,7 @@ document
 
 const passwordForm = document.querySelector("#password-form");
 
+// duplicate code.  create a util function that does this and call it here and in signUp.js
 passwordForm.addEventListener("click", function (event) {
   // if the type is set as password, changes to text, if it's text, changes to password
   if (event.target.classList.contains("bi-eye-slash")) {

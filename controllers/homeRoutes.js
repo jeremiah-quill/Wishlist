@@ -12,7 +12,7 @@ router.get("/dashboard", async (req, res) => {
       ],
     });
     if (!userData) {
-      res.status(500).json({ message: "Could not find user" });
+      res.status(500).json();
       return;
     }
 
@@ -24,10 +24,11 @@ router.get("/dashboard", async (req, res) => {
       style: "user-dashboard.css",
     });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(400).json();
   }
 });
 
+// renders user profile details page
 router.get("/dashboard/profile", async (req, res) => {
   try {
     const userData = await User.findByPk(req.session.user_id, {
@@ -67,36 +68,37 @@ router.get("/group/:group_id", async (req, res) => {
 
     // Check if any data came back from DB
     if (!groupData) {
-      res.status(500).json({ message: "Group does not exist" });
+      req.flash("error_messages", "cannot find group")
+      res.status(500).json();
       return;
     }
-
-    const group = groupData.get({ plain: true });
-
+    
     // Check if logged in user is a member of group
+    const group = groupData.get({ plain: true });
     const userIds = group.users.map((user) => user.id);
     if (userIds.indexOf(req.session.user_id) === -1) {
-      res.status(500).json({ message: "You are not a member of this group" });
+      req.flash("error_messages", "You are not a member of this group")
+      res.status(500).json();
       return;
     }
 
     // find the current user in the current group
     const user = group.users.find((user) => user.id === req.session.user_id);
 
-    // find the assigned user data for current user in current group
+    // find the secret santa this user has to buy a gift for, and also include their gifts (somehow we can access .usergroup.assigned_user...how can we access without using .usergroup?)
     const assignedUserData = await User.findByPk(user.usergroup.assigned_user, {
       include: [{ model: Gift }],
     });
 
+    // if user has no secret santa (group creator hasn't drawn names yet), that property will be set to null.  Otherwise we want the secret santa data
     let assignedUser;
-
     if (assignedUserData) {
       assignedUser = assignedUserData.get({ plain: true });
     } else {
       assignedUser = null;
     }
 
-    // pass in a boolean telling our view whether or not the logged in user is the creator of the group
+    // check to see if current user is group creator
     let isCreator = false;
     if (group.creator_id === req.session.user_id) {
       isCreator = true;
@@ -110,27 +112,28 @@ router.get("/group/:group_id", async (req, res) => {
       style: "group-dashboard.css",
     });
   } catch (err) {
+    req.flash("error_messages", "something went wrong")
     res.status(500).json(err);
   }
 });
 
 // render signup page
 router.get("/signup", (req, res) => {
-  // If the user is already logged in, redirect the request to their dashboard.  Turn this off for testing, on for final version
-  // if (req.session.logged_in) {
-  //   res.redirect("/dashboard");
-  //   return;
-  // }
+  // If the user is already logged in, redirect the request to their dashboard.
+  if (req.session.logged_in) {
+    res.redirect("/dashboard");
+    return;
+  }
   res.render("signUp", { style: "sign-up.css" });
 });
 
 // render login page
 router.get("/login", (req, res) => {
-  // If the user is already logged in, redirect the request to their dashboard.  Turn this off for testing, on for final version
-  // if (req.session.logged_in) {
-  //   res.redirect("/dashboard");
-  //   return;
-  // }
+  // If the user is already logged in, redirect the request to their dashboard.
+  if (req.session.logged_in) {
+    res.redirect("/dashboard");
+    return;
+  }
   res.render("login", { style: "login.css" });
 });
 
@@ -141,11 +144,11 @@ router.get("/join-group", (req, res) => {
 
 // render homepage
 router.get("/", (req, res) => {
-  // If the user is already logged in, redirect the request to their dashboard. Turn this off for testing, on for final version
-  // if (req.session.logged_in) {
-  //   res.redirect("/dashboard");
-  //   return;
-  // }
+  // If the user is already logged in, redirect the request to their dashboard.
+  if (req.session.logged_in) {
+    res.redirect("/dashboard");
+    return;
+  }
   res.render("homePage", { style: "landing-page.css" });
 });
 

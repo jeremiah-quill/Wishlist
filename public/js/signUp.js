@@ -14,21 +14,23 @@ const signupFormHandler = async (event) => {
     });
 
     if (response.ok) {
-      // fires get /dashboard route in homeRoutes
       document.location.replace("/dashboard");
     } else {
       hideLoader();
       document.location.replace("/signup");
     }
+    // user did not enter an email
   } else if (!email) {
     hideLoader();
     showMessage("error_messages", "Please enter an email to complete sign up");
+    // user did not enter a username
   } else if (!username) {
     hideLoader();
     showMessage(
       "error_messages",
       "Please enter a username to complete sign up"
     );
+    // user did not enter a password
   } else if (!password) {
     hideLoader();
     showMessage(
@@ -42,6 +44,8 @@ document
   .querySelector(".signup-form")
   .addEventListener("submit", signupFormHandler);
 
+
+  // duplicate code.  create a util function that does this and call it here and in signUp.js
 const passwordInput = document.querySelector("#togglePassword");
 const password = document.querySelector("#password-signup");
 passwordInput.addEventListener("click", function (event) {

@@ -1,6 +1,6 @@
 const groupRoutes = require("express").Router();
 const { Group, User, UserGroup } = require("../../models");
-const sendReminderEmail = require("../../utils/sendReminderEmail.js");
+const {shuffle, assignSantas} = require('../../utils/drawRandom')
 
 // Get all groups (for testing)
 groupRoutes.get("/", async (req, res) => {
@@ -8,52 +8,51 @@ groupRoutes.get("/", async (req, res) => {
   res.json(groupData);
 });
 
-groupRoutes.get("/:group_id", async (req, res) => {
-  const groupData = await Group.findByPk(req.params.group_id, {
-    include: [{ model: User, attributes: { exclude: ["password"] } }],
-  });
-  res.json(groupData);
-});
-
-// Create a new group.  Pass in the creating user as user_id, and they will be added as the first group member
-// Posts form data from ".....".  FE logic in "....."
-// req.body includes event_name, price_limit, event_date, group password, and is_get_reminder
-groupRoutes.post("/", (req, res) => {
+// TODO: add auth middleware
+// Create a new group and add current user as group member.  Set creator_id property in group to be current user
+groupRoutes.post("/", async (req, res) => {
   // HACK: ADD 5 HOURS SINCE SEQUELIZE STORES IS UTC/GMT
   let newDate = new Date(
     new Date(req.body.event_date).getTime() + 5 * (60 * 60 * 1000)
   );
 
-  Group.create({
+try {
+  const newGroup = await Group.create({
     event_name: req.body.event_name,
     price_limit: req.body.price_limit,
     event_date: newDate,
     creator_id: req.session.user_id,
     group_password: req.body.group_password,
-  }).then((group) => {
-    // Create association between user and group.  We set is_get_reminder based on checkbox in form
-    UserGroup.create({
-      group_id: group.id,
-      user_id: req.session.user_id,
-      is_get_reminder: req.body.is_get_reminder,
-    })
-      .then(() => {
-        req.flash("success_messages", "Group created");
+  })
+  if(!newGroup) {
+    req.flash('error_messages', "************ Something went wrong in groupRoutes *****")
+    res.status(500).json();
+    return
+  }
+  
+  // add current user as group member
+  const newGroupAssociation = await UserGroup.create({
+    group_id: newGroup.id,
+    user_id: req.session.user_id,
+    is_get_reminder: req.body.is_get_reminder,
+  })
+  if(!newGroupAssociation) {
+    req.flash('error_messages', "************ Something went wrong in groupRoutes *****")
+    res.status(500).json(err);
+    return
+  }
 
-        res.status(200).json({ group_id: group.id });
-      })
-      .catch((err) => {
-        req.flash("error_messages", "Failed to create group");
+  req.flash('success_messages', "You have successfully created a group.")
+  res.status(200).json({group_id: newGroup.id})
 
-        res.status(500).json(err);
-      });
-  });
+} catch(err) {
+req.flash('error_messages', "************ Something went wrong in groupRoutes")
+res.status(500).json(err);
+}
 });
 
-// TODO: add auth middleware, create a uuid to use instead of the group_id
-// Add a user to a group
-// Posts form data from views/joinGroup.handlebars.  FE logic in public/js/joinGroup.js
-// req.body includes group_id, group_password, and is_get_reminder
+// TODO: add auth middleware
+// Add an existing user to a group
 groupRoutes.post("/join", async (req, res) => {
   try {
     const groupData = await Group.findByPk(req.body.group_id, {
@@ -61,7 +60,6 @@ groupRoutes.post("/join", async (req, res) => {
     });
     if (!groupData) {
       req.flash("error_messages", "Cannot find group with this ID");
-
       res.status(400).json({ message: "Cannot find group with this ID" });
       return;
     }
@@ -69,7 +67,6 @@ groupRoutes.post("/join", async (req, res) => {
     const userIds = groupData.users.map((user) => user.id);
     if (userIds.indexOf(req.session.user_id) !== -1) {
       req.flash("error_messages", "You are already a member of this group");
-
       res
         .status(500)
         .json({ message: "You are already a member of this group" });
@@ -80,85 +77,39 @@ groupRoutes.post("/join", async (req, res) => {
     const validPassword = groupData.checkPassword(req.body.group_password);
     if (!validPassword) {
       req.flash("error_messages", "Incorrect group password");
-
       res.status(500).json({ message: "Incorrect group password" });
       return;
     }
-    console.log(validPassword);
 
-    const group = groupData.get({ plain: true });
-    // Create association between user and group.  is_get_reminder is a boolean telling us if this user chose to receive a reminder email for this group
-    UserGroup.create({
+    const newGroupAssociation = await UserGroup.create({
       user_id: req.session.user_id,
       group_id: groupData.id,
       is_get_reminder: req.body.is_get_reminder,
-      // TODO: remove this, and add it to logic for when we draw names
-      // assigned_user: 1,
-    }).then(() => {
-      // redirect to the newly joined group page.  Eventually rendered in groupDashboard.handlebars
-      req.flash("success_messages", "Joined group");
+    })
+    if(!newGroupAssociation) {
+      req.flash("error_messages", "Something went wrong");
+      res.status(500).json("something went wrong");
+      return
+    }
+    // handle success
+    req.flash("success_messages", "Joined group");
+    res.status(200).json("successfully joined group");
 
-      res.status(200).json("successfully joined group");
-      // redirect(`/group/${req.body.group_id}`);
-    });
   } catch (err) {
     req.flash("error_messages", "Failed to join group");
-
-    res.status(500).json(err);
+    res.status(500).json();
   }
 });
 
+// randomnly draw secret santas
 groupRoutes.put("/:group_id/assign-santas", async (req, res) => {
   const groupMembersData = await Group.findByPk(req.params.group_id, {
     include: [{ model: User }],
-    // exclude passwords
   });
 
   const memberIds = groupMembersData.users.map((user) => user.id);
 
-  // Fisher-Yates shuffle algorithm
-  const shuffle = (array) => {
-    let currentIndex = array.length,
-      randomIndex;
-
-    // While there remain elements to shuffle...
-    while (currentIndex != 0) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
-      ];
-    }
-
-    return array;
-  };
-
-  const assignSantas = (array) => {
-    let santas = [];
-
-    for (let i = 0; i < array.length; i++) {
-      let newSanta = {};
-
-      if (i !== array.length - 1) {
-        newSanta.user_id = array[i];
-        newSanta.assignment_id = array[i + 1];
-        /*   newSanta[array[i]] = array[i+1]
-         */ santas.push(newSanta);
-      } else {
-        newSanta.user_id = array[i];
-        newSanta.assignment_id = array[0];
-
-        /* newSanta[array[i]] = array[0] */
-        santas.push(newSanta);
-      }
-    }
-    return santas;
-  };
-
+// shuffle is a function that shuffles an array, assignSantas then uses that shuffled array to assign secret santas
   let santas = assignSantas(shuffle(memberIds));
 
   santas.forEach((santa) => {
@@ -174,63 +125,40 @@ groupRoutes.put("/:group_id/assign-santas", async (req, res) => {
     );
   });
 
-  // const updatedSantaData = UserGroup.update()
   req.flash("success_messages", "Secret santas have been assigned");
-
   res.json(santas);
-
-  // res.json(members);
 });
 
-// WARNING: this is not ready
-// add a user to a group given they are not logged in, they just need a link with /api/groups/:id/join
-// TODO: add auth middleware, implement link sharer api instead of using /:id/join as url for route
-// groupRoutes.post("/:id/join", (req, res) => {
-//   User.create({
-//     email: req.body.email,
-//     username: req.body.username,
-//     password: req.body.password,
-//   }).then((user) => {
-//     UserGroup.create({
-//       user_id: user.id,
-//       group_id: req.params.id,
-//     }).then(() => {
-//       res.json("user created and added to group");
-//     });
-//   });
-// });
-
-// update group details
-// TODO: add auth middleware, test
-groupRoutes.put("/:id", (req, res) => {
+// TODO: add auth middleware
+// update group details (only renders on group dashboard for the creator)
+groupRoutes.put("/:id", async (req, res) => {
   // HACK: ADD 5 HOURS SINCE SEQUELIZE STORES IS UTC/GMT
   let newDate = new Date(
     new Date(req.body.event_date).getTime() + 5 * (60 * 60 * 1000)
   );
 
-  Group.update(
-    {
+  try {
+    const updatedGroup = await Group.update({
       event_name: req.body.event_name,
       price_limit: req.body.price_limit,
-      event_date: newDate,
-    },
-    {
-      where: {
-        id: req.params.id,
-        // TODO: change below to come from session user_id variable rather than body
-        creator_id: req.session.user_id,
-      },
-    }
-  )
-    .then(() => {
-      req.flash("success_messages", "Group details updated");
+      event_date: newDate,}, {
+        where: {
+          id: req.params.id,
+          // TODO: change below to come from session user_id variable rather than body
+          creator_id: req.session.user_id,
+        },
+      });
 
+      if(!updatedGroup) {
+        req.flash("error_messages", "Failed to update group");
+        res.status(500).json("Failed to update group");
+      }
+      req.flash("success_messages", "Group details updated");
       res.status(200).json("group updated");
-    })
-    .catch((err) => {
-      req.flash("error_messages", "Failed to update group");
-      res.status(500).json("Failed to update group");
-    });
+  } catch(err) {
+    req.flash("error_messages", "Failed to update group");
+    res.status(500).json("Failed to update group");
+  }
 });
 
 module.exports = groupRoutes;

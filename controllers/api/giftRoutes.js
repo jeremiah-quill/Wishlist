@@ -20,29 +20,29 @@ giftRoutes.get("/", (req, res) => {
 giftRoutes.get("/:id", async (req, res) => {
   try {
     const giftData = await Gift.findByPk(req.params.id);
-
     if (!giftData) {
-      res.status(500).json("Can't find gift with that id");
-      return;
+      req.flash("error_messages", "Failed to get item details");
+      res.status(500).json();
     }
 
     const { gift_name, price, gift_link, id } = giftData;
     res.status(200).json({ gift_name, price, gift_link, id });
   } catch (err) {
     req.flash("error_messages", "Failed to get item details");
-    res.status(500).json(err);
+    res.status(500).json();
   }
 });
 
 // update a gift by id
-giftRoutes.put("/:id", (req, res) => {
+giftRoutes.put("/:id", async (req, res) => {
   try {
+    // TODO: test if I need this
     let price = req.body.price;
     if (price === "") {
       price = null;
     }
 
-    const updatedGifts = Gift.update(
+    const updatedGifts = await Gift.update(
       {
         gift_name: req.body.gift_name,
         price,
@@ -57,23 +57,21 @@ giftRoutes.put("/:id", (req, res) => {
     );
     if (!updatedGifts) {
       req.flash("error_messages", "Failed to update gift in wishlist.");
-
-      res.status(500).json("Failed to update gifts");
+      res.status(500).json();
+      return
     }
-    // TODO: redirect to user dashboard which will now show an updated wishlist
     req.flash("success_messages", "Updated gift in wishlist");
-
     res.status(200).json(updatedGifts);
   } catch (err) {
     req.flash("error_messages", "Failed to update gift in wishlist.");
-
-    res.status(500).json(err);
+    res.status(500).json();
   }
 });
 
 // add a gift
 giftRoutes.post("/", async (req, res) => {
   try {
+    // TODO: test if I need this
     let price = req.body.price;
     if (price === "") {
       price = null;
@@ -88,13 +86,13 @@ giftRoutes.post("/", async (req, res) => {
 
     if (!newGift) {
       req.flash("error_messages", "Failed to add gift to wishlist.");
-      res.status(500).json("Failed to add gift");
+      res.status(500).json();
     }
     req.flash("success_messages", "Added gift to wishlist");
-    res.status(200).json(newGift);
+    res.status(200).json();
   } catch (err) {
     req.flash("error_messages", "Failed to add gift to wishlist");
-    res.status(500).json(err);
+    res.status(500).json();
   }
 });
 
@@ -109,14 +107,15 @@ giftRoutes.delete("/:id", async (req, res) => {
     });
 
     if (!giftData) {
-      res.status(404).json({ message: "No gift found with this id" });
+      req.flash('error_messages', "Could not delete gift")
+      res.status(500).json();
       return;
     }
     req.flash("success_messages", "Gift deleted from your wishlist");
-
-    res.status(200).json(giftData);
+    res.status(200).json();
   } catch (err) {
-    res.status(500).json(err);
+    req.flash('error_messages', "Could not delete gift")
+    res.status(500).json();
   }
 });
 

@@ -48,11 +48,7 @@ app.use(function (req, res, next) {
 
 app.use(routes);
 
-app.get("*", function (req, res) {
-  res.status(404).render("404", {
-    page_title: "Sorry!",
-  });
-});
+
 
 // every day at noon check to see if any group event date is 7 days out.  If it is, send a reminder to anyone in those groups who has reminders turned on
 cron.schedule("0 12 * * *", async () => {
@@ -93,6 +89,13 @@ cron.schedule("0 12 * * *", async () => {
     });
   });
 });
+
+app.get("*", function (req, res) {
+  res.status(404).render("404", {
+    page_title: "Sorry!",
+  });
+});
+
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
