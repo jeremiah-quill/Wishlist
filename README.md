@@ -57,14 +57,15 @@ Then they are logged out and taken to homepage
 ## Contributors
 - Checkout our github for further information on the application as well as our other work!
 - Feel free to reach out with questions, concerns, or just to chat at our respective emails
+
 Sam Kennedy: 
-- [Sam's here](https://github.com/kennedysam168)
-- Email me: kennedysam168@gmail.com
+- [Sam's Github](https://github.com/kennedysam168)
+- Email Sam at: kennedysam168@gmail.com
 
 Jeremiah Quill: 
-- [Jeremiah's here](https://github.com/jeremiah-quill)
-- Email me jcq5010@gmail.com
+- [Jeremiah's Github](https://github.com/jeremiah-quill)
+- Email Jeremiah at: jcq5010@gmail.com
 
 Phalen:
-- [Phalen's here](https://github.com/PhalenH)
-- Email me pchaze@yahoo.com
+- [Phalen's Github](https://github.com/PhalenH)
+- Email Phalen at: pchaze@yahoo.com

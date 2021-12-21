@@ -3,6 +3,7 @@ const Sequelize = require("sequelize");
 
 let sequelize;
 
+// uses JAWSDB as a centralized cloud database so information is not lost if a server crashes
 if (process.env.JAWSDB_URL) {
   sequelize = new Sequelize(process.env.JAWSDB_URL);
 } else {
