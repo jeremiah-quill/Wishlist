@@ -28,12 +28,13 @@ router.get("/dashboard", async (req, res) => {
   }
 });
 
-// renders user profile details page
+// Renders user profile details page of logged in user
 router.get("/dashboard/profile", async (req, res) => {
   try {
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ["password"] },
     });
+    // checks if any data came back from DB 
     if (!userData) {
       res.status(500).json({ message: "Could not find user" });
       return;

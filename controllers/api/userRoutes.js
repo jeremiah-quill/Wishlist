@@ -33,7 +33,7 @@ userRoutes.post("/", async (req, res) => {
     // Create new user in DB
     const userData = await User.create(req.body);
 
-    if(!userData) {
+    if (!userData) {
       req.flash("error_messages", "Failed to create user");
       res.status(500).json();
     }
@@ -87,7 +87,6 @@ userRoutes.post("/login", async (req, res) => {
 });
 
 // Update a user's email or username
-// TODO: test
 userRoutes.put("/profile", async (req, res) => {
   try {
     const userData = await User.update(
@@ -102,7 +101,6 @@ userRoutes.put("/profile", async (req, res) => {
       }
     );
     console.log(userData);
-    // JQ: added success message
     req.flash("success_messages", "Successfully updated account info");
     res.status(200).json(userData);
   } catch (err) {
@@ -112,30 +110,29 @@ userRoutes.put("/profile", async (req, res) => {
 });
 
 // Update a user's password
-// TODO: test
 userRoutes.put("/password", async (req, res) => {
   try {
+    // checks user's hashed password again current password input
     const userData = await User.findByPk(req.session.user_id);
     const validPassword = await userData.checkPassword(req.body.password);
     if (!validPassword) {
-      // JQ: remember need flash message here (or send message via json and send with showMessage on front end)
       req.flash("error_messages", "Wrong current password, please try again");
       res
         .status(400)
         .json({ message: "Wrong current password, please try again" });
       return;
     }
+    // if current password is correct will update a user's password to new input
     const updatedUserData = await User.update(
       { password: req.body.new_password },
       {
         where: {
           id: req.session.user_id,
         },
+        // allows use of beforeUpdate hook for user model
         individualHooks: true,
-        // bulk create runs all the hooks, with puts it will look at this specific user before the update
       }
     );
-    // JQ: added below success message
     req.flash("success_messages", "Successfully updated password");
     res.status(200).json(updatedUserData);
   } catch (err) {

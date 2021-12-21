@@ -1,3 +1,4 @@
+// updates user's username and/or password 
 const updateProfileEventHandler = async (event) => {
   event.preventDefault();
 
@@ -5,6 +6,7 @@ const updateProfileEventHandler = async (event) => {
   const email = document.querySelector("#input-email").value.trim();
 
   if (username && email) {
+    // Sends a PUT request to api endpoint to update username/email of user and redirects user to their profile page
     const response = await fetch("/api/users/profile", {
       method: "PUT",
       body: JSON.stringify({ username, email }),
@@ -54,8 +56,7 @@ const updatePasswordEventHandler = async (event) => {
       document.location.replace("/dashboard/profile");
       hideLoader();
     } else {
-      // already runs on back-end
-      // showMessage("error_messages", "Current Password input incorrect.");
+      // redirects to profile when response fails
       document.location.replace("/dashboard/profile");
     }
   } else {
