@@ -7,6 +7,7 @@ https://wishlistmanager.herokuapp.com/
 
 - [Description](#Description)
 - [User Story](#User-Story)
+- [Landing Page](#Landing-Page)
 - [Resources](#Resources)
 - [Contributors](#Contributors)
 
@@ -43,6 +44,9 @@ When the user clicks logout on any screen
 Then they are logged out and taken to homepage
 
 ```
+## Landing-Page:
+
+![Screenshot of Landing Page](/assets/finished-homepage.png)
 
 ## Resources:
 - CSS Framework
